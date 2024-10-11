@@ -1,6 +1,6 @@
 package com.lessonlink.web.member;
 
-import com.lessonlink.common.Address;
+import com.lessonlink.domain.common.Address;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.service.MemberService;
 import jakarta.validation.Valid;
