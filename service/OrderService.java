@@ -1,6 +1,11 @@
 package com.lessonlink.service;
 
-import com.lessonlink.domain.*;
+import com.lessonlink.domain.delivery.Delivery;
+import com.lessonlink.domain.delivery.DeliveryStatus;
+import com.lessonlink.domain.item.Item;
+import com.lessonlink.domain.member.Member;
+import com.lessonlink.domain.order.Order;
+import com.lessonlink.domain.order.OrderItem;
 import com.lessonlink.repository.ItemRepository;
 import com.lessonlink.repository.MemberRepository;
 import com.lessonlink.repository.OrderRepository;

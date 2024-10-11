@@ -1,4 +1,4 @@
-package com.lessonlink.domain;
+package com.lessonlink.domain.item;
 
 import com.lessonlink.exception.NotEnoughStockException;
 import jakarta.persistence.*;

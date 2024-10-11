@@ -1,6 +1,6 @@
 package com.lessonlink.service;
 
-import com.lessonlink.domain.Item;
+import com.lessonlink.domain.item.Item;
 import com.lessonlink.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

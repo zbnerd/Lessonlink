@@ -1,14 +1,13 @@
-package com.lessonlink.domain;
+package com.lessonlink.domain.item;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
-
 @Entity
-@DiscriminatorValue("B")
+@DiscriminatorValue("M")
 @Getter @Setter
-public class Book extends Item {
-    private String author;
-    private String isbn;
+public class Movie extends Item {
+    private String director;
+    private String actor;
 }

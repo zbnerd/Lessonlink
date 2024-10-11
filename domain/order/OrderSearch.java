@@ -1,4 +1,4 @@
-package com.lessonlink.domain;
+package com.lessonlink.domain.order;
 
 import lombok.Getter;
 import lombok.Setter;

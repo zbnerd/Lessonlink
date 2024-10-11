@@ -1,5 +1,7 @@
-package com.lessonlink.domain;
+package com.lessonlink.domain.delivery;
 
+import com.lessonlink.common.Address;
+import com.lessonlink.domain.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

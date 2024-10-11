@@ -1,6 +1,6 @@
 package com.lessonlink.repository;
 
-import com.lessonlink.domain.Member;
+import com.lessonlink.domain.member.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;

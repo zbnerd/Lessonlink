@@ -1,5 +1,6 @@
-package com.lessonlink.domain;
+package com.lessonlink.domain.order;
 
+import com.lessonlink.domain.item.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,9 +1,8 @@
 package com.lessonlink.service;
 
-import com.lessonlink.domain.Member;
+import com.lessonlink.domain.member.Member;
 import com.lessonlink.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

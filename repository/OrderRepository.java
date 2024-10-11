@@ -1,8 +1,8 @@
 package com.lessonlink.repository;
 
-import com.lessonlink.domain.Member;
-import com.lessonlink.domain.Order;
-import com.lessonlink.domain.OrderSearch;
+import com.lessonlink.domain.member.Member;
+import com.lessonlink.domain.order.Order;
+import com.lessonlink.domain.order.OrderSearch;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;

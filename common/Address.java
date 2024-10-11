@@ -1,4 +1,4 @@
-package com.lessonlink.domain;
+package com.lessonlink.common;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

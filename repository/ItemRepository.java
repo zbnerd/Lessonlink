@@ -1,6 +1,6 @@
 package com.lessonlink.repository;
 
-import com.lessonlink.domain.Item;
+import com.lessonlink.domain.item.Item;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
