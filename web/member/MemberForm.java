@@ -1,4 +1,4 @@
-package com.lessonlink.web;
+package com.lessonlink.web.member;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

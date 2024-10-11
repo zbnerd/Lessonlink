@@ -1,4 +1,4 @@
-package com.lessonlink.web;
+package com.lessonlink.web.member;
 
 import com.lessonlink.domain.Address;
 import com.lessonlink.domain.Member;
