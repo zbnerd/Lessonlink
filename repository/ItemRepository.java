@@ -21,6 +21,13 @@ public class ItemRepository {
         }
     }
 
+    public void change(Long itemId, String name, int price, int stockQuentity) {
+        Item findItem = findOne(itemId);
+        findItem.setName(name);
+        findItem.setPrice(price);
+        findItem.setStockQuantity(stockQuentity);
+    }
+
     public Item findOne(Long id) {
         return em.find(Item.class, id);
     }
