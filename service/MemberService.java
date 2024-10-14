@@ -19,28 +19,25 @@ public class MemberService {
      * 회원가입
      */
     @Transactional
-    public Long join(Member member) {
+    public String signUp(Member member) {
 
-        validateDuplicateMember(member);
-
+        validateDuplicateMember(member); // 중복회원 검증
         memberRepository.save(member);
         return member.getId();
     }
 
-    /**
-     * 회원수정
-     */
-    @Transactional
-    public void update(Long id, String name) {
-        Member member = memberRepository.findOne(id);
-        member.setName(name);
-    }
-
     private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findByName(member.getName());
-        if(!findMembers.isEmpty()) {
+        List<Member> foundMembers = memberRepository.findByMemberId(member.getMemberId());
+        if (!foundMembers.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
+    }
+
+    @Transactional
+    public void updatePasswordAndEmail(String id, String password, String email) {
+        Member member = memberRepository.findOne(id);
+        member.updatePassword(password);
+        member.updateEmail(email);
     }
 
     /**
@@ -50,8 +47,8 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
+    public Member findOne(String id) {
+        return memberRepository.findOne(id);
     }
 
 }

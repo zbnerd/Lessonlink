@@ -1,6 +1,8 @@
 package com.lessonlink.api.member;
 
 import com.lessonlink.domain.member.Member;
+import com.lessonlink.domain.member.Role;
+import com.lessonlink.dto.MemberDto;
 import com.lessonlink.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -8,103 +10,148 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 public class MemberApiController {
+
     private final MemberService memberService;
 
     /**
-     * 등록 V1: 요청 값으로 Member 엔티티를 직접 받는다.
-     * 문제점
-     * - 엔티티에 프레젠테이션 계층을 위한 로직이 추가된다.
-     * - 엔티티에 API 검증을 위한 로직이 들어간다. (@NotEmpty 등등)
-     * - 실무에서는 회원 엔티티를 위한 API가 다양하게 만들어지는데, 한 엔티티에 각각의 API를 위한
-     모든 요청 요구사항을 담기는 어렵다.
-     * - 엔티티가 변경되면 API 스펙이 변한다.
-     * 결론
-     * - API 요청 스펙에 맞추어 별도의 DTO를 파라미터로 받는다.
+     * 새로운 회원을 생성하는 HTTP POST 요청을 처리합니다. 이 메서드는
+     * 회원 정보를 포함하는 JSON 페이로드를 받아 `Member` 객체를 생성하고,
+     * 입력값을 검증한 후 회원 가입을 시도합니다.
+     * 회원 가입이 성공하면 생성된 회원의 ID를 응답으로 반환합니다.
+     *
+     * @param request 회원의 세부 정보를 포함하는 `CreateMemberRequest` 객체:
+     *                - memberId: 회원의 고유 ID - 유니크
+     *                - password: 회원의 비밀번호
+     *                - name: 회원의 이름
+     *                - birthDate: 회원의 생년월일
+     *                - phoneNumber: 회원의 휴대폰 번호 - 유니크
+     *                - email: 회원의 이메일 주소 - 유니크
+     *                - role: 회원의 역할 (ADMIN, TEACHER, STUDENT)
+     *
+     * @return 생성된 회원의 고유 ID를 포함하는 `CreateMemberResponse` 객체
      */
 
     @PostMapping("/api/v1/members")
-    public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member) {
-        Long id = memberService.join(member);
-        return new CreateMemberResponse(id);
-    }
-
-    /**
-     * 등록 V2: 요청 값으로 Member 엔티티 대신에 별도의 DTO를 받는다.
-     */
-
-    @PostMapping("/api/v2/members")
-    public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest requset) {
+    public CreateMemberResponse signUpMember(
+            @RequestBody @Valid CreateMemberRequest request
+    ) {
         Member member = new Member();
-        member.setName(requset.getName());
-
-        Long id = memberService.join(member);
+        member.setMemberInfo(
+                new MemberDto.Builder()
+                        .memberId(request.getMemberId())
+                        .password(request.getPassword())
+                        .name(request.getName())
+                        .birthDate(request.getBirthDate())
+                        .phoneNumber(request.getPhoneNumber())
+                        .email(request.getEmail())
+                        .role(request.getRole())
+                        .build()
+        );
+        String id = memberService.signUp(member);
         return new CreateMemberResponse(id);
     }
 
-    @PutMapping("/api/v2/members/{id}")
-    public UpdateMemberResponse updateMemberV2(@PathVariable("id") Long id, @RequestBody @Valid UpdateMemberRequest request) {
-        memberService.update(id, request.getName());
-        Member findMember = memberService.findOne(id);
-        return new UpdateMemberResponse(findMember.getId(), findMember.getName());
+    /**
+     * 특정 회원의 비밀번호와 이메일을 업데이트하는 HTTP PUT 요청을 처리합니다.
+     * 이 메서드는 요청으로 받은 식별자 ID와 새로운 비밀번호, 이메일을 통해
+     * 회원 정보를 업데이트합니다. 업데이트가 완료되면, 수정된 회원 정보를
+     * 응답으로 반환합니다.
+     *
+     * @param id 회원의 고유 식별자 (PathVariable로 전달)
+     * @param request 비밀번호와 이메일 정보를 담고 있는 `UpdateMemberRequest` 객체
+     *
+     * @return 수정된 회원의 ID, 비밀번호, 이메일을 포함한 `UpdateMemberResponse` 객체
+     */
+    @PutMapping("/api/v1/members/{id}")
+    public UpdateMemberResponse updateMember(
+            @PathVariable String id,
+            @RequestBody @Valid UpdateMemberRequest request
+    ) {
+        memberService.updatePasswordAndEmail(id, request.getPassword(), request.getEmail());
+
+        Member foundMember = memberService.findOne(id);
+        return new UpdateMemberResponse(foundMember.getId(), foundMember.getPassword(), foundMember.getEmail());
     }
 
     /**
-     * 조회 V1: 응답 값으로 엔티티를 직접 외부에 노출한다.
-     * 문제점
-     * - 엔티티에 프레젠테이션 계층을 위한 로직이 추가된다.
-     * - 기본적으로 엔티티의 모든 값이 노출된다.
-     * - 응답 스펙을 맞추기 위해 로직이 추가된다. (@JsonIgnore, 별도의 뷰 로직 등등)
-     * - 실무에서는 같은 엔티티에 대해 API가 용도에 따라 다양하게 만들어지는데, 한 엔티티에 각각의
-     API를 위한 프레젠테이션 응답 로직을 담기는 어렵다.
-     * - 엔티티가 변경되면 API 스펙이 변한다.
-     * - 추가로 컬렉션을 직접 반환하면 항후 API 스펙을 변경하기 어렵다.(별도의 Result 클래스 생성으
-     로 해결)
-     * 결론
-     * - API 응답 스펙에 맞추어 별도의 DTO를 반환한다.
+     * 모든 회원 정보를 조회하는 HTTP GET 요청을 처리합니다.
+     * 이 메서드는 회원 서비스로부터 전체 회원 목록을 조회한 후,
+     * 각 회원의 ID, 이름, 생년월일, 휴대폰 번호, 이메일, 역할 정보를 담은
+     * `MemberInfo` 객체 리스트로 변환하여 반환합니다.
+     * 추후에 로그인 기능이 추가될 경우, 해당 기능은 관리자 권한 전용으로 설정될 수 있습니다.
+     *
+     * @return 전체 회원의 정보를 담은 `MemberInfo` 리스트를 포함한 `Result` 객체
      */
-//조회 V1: 안 좋은 버전, 모든 엔티티가 노출, @JsonIgnore -> 이건 정말 최악, api가 이거 하나인가! 화면에 종속적이지 마라!
     @GetMapping("/api/v1/members")
-    public List<Member> membersV1() {
-        return memberService.findMembers();
+    public Result allMembers() {
+        List<Member> findMembers = memberService.findMembers();
+
+        List<MemberInfo> collect = findMembers.stream()
+                .map(m -> new MemberInfo(
+                        m.getMemberId(),
+                        m.getName(),
+                        m.getBirthDate(),
+                        m.getPhoneNumber(),
+                        m.getEmail(),
+                        m.getRole()
+                )).toList();
+        return new Result(collect);
     }
 
-    @GetMapping("/api/v2/members")
-    public Result membersV2() {
-        List<Member> findMembers = memberService.findMembers();
-        //엔티티 -> DTO 변환
-        List<MemberDto> collect = findMembers.stream()
-                .map(m -> new MemberDto(m.getName()))
-                .collect(Collectors.toList());
-        return new Result(collect);
+    /**
+     * 특정 회원의 ID로 회원 정보를 조회하는 HTTP GET 요청을 처리합니다.
+     * 이 메서드는 요청으로 전달된 회원 ID를 통해 해당 회원의 정보를 조회하고,
+     * 조회된 회원 정보를 `Result` 객체로 반환합니다.
+     * 추후에 로그인 기능이 구현될 경우, 자기 자신의 정보만 조회 가능하도록 변경될 수 있습니다.
+     *
+     * @param id 조회할 회원의 고유 식별자 (PathVariable로 전달)
+     *
+     * @return 조회된 회원의 정보를 담은 `Result` 객체
+     */
+    @GetMapping("/api/v1/members/{id}")
+    public Result findMemberById(@PathVariable String id) {
+        Member foundMember = memberService.findOne(id);
+        return new Result(foundMember);
     }
 
     @Data
     static class CreateMemberRequest {
-         private String name;
+        private String memberId; // 실제 사용되는 멤버 id
+        private String password; // 비밀번호
+        private String name; // 이름
+        private LocalDate birthDate; // 생일
+        private String phoneNumber; // 휴대폰 번호
+        private String email; // 이메일
+        private Role role; // ADMIN : 관리자, TEACHER : 선생님, STUDENT : 학생
     }
 
     @Data
-    @AllArgsConstructor
     static class CreateMemberResponse {
-         private Long id;
+        private String id;
+
+        public CreateMemberResponse(String id) {
+            this.id = id;
+        }
     }
 
     @Data
     static class UpdateMemberRequest {
-        private String name;
+        private String password;
+        private String email;
     }
-
     @Data
     @AllArgsConstructor
     static class UpdateMemberResponse {
-        private Long id;
-        private String name;
+        private String id;
+        private String password;
+        private String email;
     }
 
     @Data
@@ -112,9 +159,16 @@ public class MemberApiController {
     static class Result<T> {
         private T data;
     }
+
     @Data
     @AllArgsConstructor
-    static class MemberDto {
-        private String name;
+    static class MemberInfo {
+        private String memberId; // 실제 사용되는 멤버 id
+        private String name; // 이름
+        private LocalDate birthDate; // 생일
+        private String phoneNumber; // 휴대폰 번호
+        private String email; // 이메일
+        private Role role; // ADMIN : 관리자, TEACHER : 선생님, STUDENT : 학생
     }
+
 }
