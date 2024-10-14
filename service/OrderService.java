@@ -6,12 +6,15 @@ import com.lessonlink.domain.item.Item;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
+import com.lessonlink.domain.order.OrderSearch;
 import com.lessonlink.repository.ItemRepository;
 import com.lessonlink.repository.MemberRepository;
 import com.lessonlink.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -58,9 +61,7 @@ public class OrderService {
     }
 
     /** 주문 검색 */
-/*
     public List<Order> findOrders(OrderSearch orderSearch) {
-        return orderRepository.findAll(orderSearch);
+        return orderRepository.findAllByCriteria(orderSearch);
     }
-*/
 }
