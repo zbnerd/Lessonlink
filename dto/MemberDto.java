@@ -6,6 +6,16 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 
+
+/**
+ * 회원 정보를 담고 있는 `MemberDto` 클래스.
+ * 빌더 패턴을 사용하여 회원 객체를 생성하며, 회원의 ID, 비밀번호, 이름, 생년월일,
+ * 휴대폰 번호, 이메일, 역할을 설정할 수 있습니다.
+ * 클래스 내부에는 `Builder` 클래스가 있어 각 필드를 설정한 후
+ * `build()` 메서드를 통해 `MemberDto` 객체를 생성할 수 있습니다.
+ *
+ */
+
 @Getter
 @Slf4j
 public class MemberDto {
@@ -17,6 +27,8 @@ public class MemberDto {
     private String email;
     private Role role;
 
+    // `Builder` 클래스에서 전달된 값을 통해 `MemberDto` 객체를 생성하는 생성자
+
     private MemberDto(Builder builder) {
         this.memberId = builder.memberId;
         this.password = builder.password;
@@ -27,6 +39,11 @@ public class MemberDto {
         this.role = builder.role;
     }
 
+    /**
+     * 회원 정보를 설정하는 빌더 클래스.
+     * 빌더 패턴을 통해 각 필드를 설정하고, `build()` 메서드를 통해
+     * `MemberDto` 객체를 생성합니다.
+     */
     public static class Builder {
         private String memberId;
         private String password;
