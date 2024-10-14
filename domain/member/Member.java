@@ -1,7 +1,6 @@
 package com.lessonlink.domain.member;
 
 import com.lessonlink.domain.common.Address;
-import com.lessonlink.domain.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +13,6 @@ import java.util.List;
 public class Member {
 
     @Id
-    @Column(name = "member_id")
-    @GeneratedValue
     private Long id;
 
     private String name;
@@ -23,6 +20,4 @@ public class Member {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
 }
