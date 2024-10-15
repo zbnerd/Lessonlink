@@ -43,19 +43,21 @@ public class MemberApiController {
             @RequestBody @Valid CreateMemberRequest request
     ) {
         Member member = new Member();
-        member.setMemberInfo(
-                new MemberDto.Builder()
-                        .memberId(request.getMemberId())
-                        .password(request.getPassword())
-                        .name(request.getName())
-                        .birthDate(request.getBirthDate())
-                        .phoneNumber(request.getPhoneNumber())
-                        .email(request.getEmail())
-                        .role(request.getRole())
-                        .build()
-        );
+        member.setMemberInfo(buildMemberInfo(request));
         String id = memberService.signUp(member);
         return new CreateMemberResponse(id);
+    }
+
+    private static MemberDto buildMemberInfo(CreateMemberRequest request) {
+        return new MemberDto.Builder()
+                .memberId(request.getMemberId())
+                .password(request.getPassword())
+                .name(request.getName())
+                .birthDate(request.getBirthDate())
+                .phoneNumber(request.getPhoneNumber())
+                .email(request.getEmail())
+                .role(request.getRole())
+                .build();
     }
 
     /**
