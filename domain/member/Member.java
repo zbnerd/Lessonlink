@@ -28,7 +28,6 @@ public class Member {
     @Column(nullable = false)
     private String name; // 이름
 
-    @Temporal(TemporalType.DATE)
     private LocalDate birthDate; // 생일
 
     @Column(unique = true)
