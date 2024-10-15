@@ -1,6 +1,9 @@
 package com.lessonlink.service;
 
+import com.lessonlink.domain.item.Book;
+import com.lessonlink.domain.item.Course;
 import com.lessonlink.domain.item.Item;
+import com.lessonlink.dto.ItemDto;
 import com.lessonlink.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,5 +30,19 @@ public class ItemService {
 
     public Item findOne(Long itemId) {
         return itemRepository.findOne(itemId);
+    }
+
+
+
+    @Transactional
+    public void updateBook(Long id, ItemDto itemDto) {
+        Book foundItem = (Book) itemRepository.findOne(id);
+        foundItem.setBookInfo(itemDto);
+    }
+
+    @Transactional
+    public void updateCourse(Long id, ItemDto itemDto) {
+        Course foundItem = (Course) itemRepository.findOne(id);
+        foundItem.setCourseInfo(itemDto);
     }
 }
