@@ -133,12 +133,9 @@ public class MemberApiController {
     }
 
     @Data
+    @AllArgsConstructor
     static class CreateMemberResponse {
         private String id;
-
-        public CreateMemberResponse(String id) {
-            this.id = id;
-        }
     }
 
     @Data
