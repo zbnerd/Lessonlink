@@ -18,11 +18,19 @@ public class Member {
 
     @Id
     private String id; // secret key 식별코드
+
+    @Column(unique = true, nullable = false)
     private String memberId; // 실제 사용되는 멤버 id, Unique
+
+    @Column(nullable = false)
     private String password; // 비밀번호
     private String name; // 이름
     private LocalDate birthDate; // 생일
+
+    @Column(unique = true)
     private String phoneNumber; // 휴대폰 번호, Unique
+
+    @Column(unique = true)
     private String email; // 이메일, Unique
 
     @Enumerated(EnumType.STRING)
