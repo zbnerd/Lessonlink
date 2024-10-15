@@ -24,6 +24,8 @@ public class Member {
 
     @Column(nullable = false)
     private String password; // 비밀번호
+
+    @Column(nullable = false)
     private String name; // 이름
 
     @Temporal(TemporalType.DATE)
