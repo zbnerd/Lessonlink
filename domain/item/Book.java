@@ -8,7 +8,6 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 @Entity
-@DiscriminatorValue("B")
 @Getter
 public class Book extends Item {
 
