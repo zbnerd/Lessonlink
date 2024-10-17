@@ -16,11 +16,11 @@ import java.util.Random;
 @Slf4j
 public class Member {
 
-    @Id
+    @Id @Column(name = "member_id_secret_key")
     private String id; // secret key 식별코드
 
     @Column(unique = true, nullable = false)
-    private String memberId; // 실제 사용되는 멤버 id, Unique
+    private String memberId; // 실제 사용되는 멤버 id
 
     @Column(nullable = false)
     private String password; // 비밀번호
@@ -30,11 +30,9 @@ public class Member {
 
     private LocalDate birthDate; // 생일
 
-    @Column(unique = true)
-    private String phoneNumber; // 휴대폰 번호, Unique
+    private String phoneNumber; // 휴대폰 번호
 
-    @Column(unique = true)
-    private String email; // 이메일, Unique
+    private String email; // 이메일
 
     @Enumerated(EnumType.STRING)
     private Role role; // ADMIN : 관리자, TEACHER : 선생님, STUDENT : 학생
