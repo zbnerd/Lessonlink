@@ -76,7 +76,7 @@ public class ItemApiController {
      *                 - materialUrl: 강의 자료 URL
      *                 - name: 강의 이름
      *                 - price: 강의 가격
-     *                 - stockQuantity: 재고 수량
+     *                 - stockQuantity: 재고 수량(Course의 경우 남은 강의 자릿수)
      *
      * @return `CreateItemResponse` 객체로 생성된 강의의 ID를 포함하여 반환
      */
