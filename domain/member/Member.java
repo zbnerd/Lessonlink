@@ -5,6 +5,7 @@ import com.lessonlink.domain.order.Order;
 import com.lessonlink.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.KeyGenerator;
@@ -41,8 +42,9 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role; // ADMIN : 관리자, TEACHER : 선생님, STUDENT : 학생
 
-    @OneToMany(mappedBy = "member")
-    private List<Address> addresses = new ArrayList<>();
+    @Setter
+    @Embedded
+    private Address address;
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
@@ -96,8 +98,5 @@ public class Member {
         this.password = password;
     }
 
-    public void addAddress(Address address) {
-        addresses.add(address);
-    }
 
 }

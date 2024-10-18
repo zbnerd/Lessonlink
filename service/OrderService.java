@@ -1,14 +1,11 @@
 package com.lessonlink.service;
 
-import com.lessonlink.domain.common.Address;
 import com.lessonlink.domain.delivery.Delivery;
 import com.lessonlink.domain.delivery.DeliveryStatus;
 import com.lessonlink.domain.item.Item;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
-import com.lessonlink.dto.DeliveryDto;
-import com.lessonlink.repository.AddressRepository;
 import com.lessonlink.repository.ItemRepository;
 import com.lessonlink.repository.MemberRepository;
 import com.lessonlink.repository.OrderRepository;
@@ -24,7 +21,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
-    private final AddressRepository addressRepository;
 
     /** 주문 */
     @Transactional
@@ -33,13 +29,13 @@ public class OrderService {
         //엔티티 조회
         Member member = memberRepository.findOne(memberIdSecretKey);
         Item item = itemRepository.findOne(itemId);
-        Address address = addressRepository.findAddressesByMember(member).getFirst();
+//        Address address = addressRepository.findAddressesByMember(member).getFirst();
 //        Address address = addressRepository.findAddressesByMemberIdSecretKey(member.getId()).get();
 
         //배송정보 생성
         Delivery delivery = new Delivery();
         delivery.setDeliveryInfo(
-                address,
+                member.getAddress(),
                 DeliveryStatus.READY
         );
 
