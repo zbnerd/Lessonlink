@@ -51,20 +51,19 @@ public class InitDb {
                             .role(Role.STUDENT)
                             .build()
             );
-            em.persist(member);
-
-            Address address = createAddress(
-                    member, new AddressDto.Builder()
-                            .member(member)
-                            .metropolitanCityProvince("서울특별시")
-                            .cityDistrict("강남구")
-                            .village("삼성동")
-                            .roadName("테헤란로")
-                            .roadNumber(427)
-                            .zipCode("06168")
-                            .build()
+            member.setAddress(
+                    createAddress(
+                            member, new AddressDto.Builder()
+                                    .metropolitanCityProvince("서울특별시")
+                                    .cityDistrict("강남구")
+                                    .village("삼성동")
+                                    .roadName("테헤란로")
+                                    .roadNumber(427)
+                                    .zipCode("06168")
+                                    .build()
+                    )
             );
-            em.persist(address);
+            em.persist(member);
 
             Book book = createBook(
                     new ItemDto.BookBuilder()
@@ -121,20 +120,21 @@ public class InitDb {
                             .role(Role.TEACHER)
                             .build()
             );
-            em.persist(member);
 
-            Address address = createAddress(
-                    member, new AddressDto.Builder()
-                            .member(member)
-                            .metropolitanCityProvince("부산광역시")
-                            .cityDistrict("해운대구")
-                            .village("우동")
-                            .roadName("센텀중앙로")
-                            .roadNumber(90)
-                            .zipCode("48058")
-                            .build()
+            member.setAddress(
+                    createAddress(
+                            member, new AddressDto.Builder()
+                                    .metropolitanCityProvince("부산광역시")
+                                    .cityDistrict("해운대구")
+                                    .village("우동")
+                                    .roadName("센텀중앙로")
+                                    .roadNumber(90)
+                                    .zipCode("48058")
+                                    .build()
+                    )
             );
-            em.persist(address);
+
+            em.persist(member);
 
             Book book = createBook(
                     new ItemDto.BookBuilder()
@@ -200,13 +200,12 @@ public class InitDb {
         private Address createAddress(Member member, AddressDto addressDto){
             Address address = new Address();
             address.setAddressInfo(addressDto);
-            member.addAddress(address);
             return address;
         }
 
         private Delivery createDelivery(Member member){
             Delivery delivery = new Delivery();
-            delivery.setDeliveryInfo(member.getAddresses().getFirst(), DeliveryStatus.READY);
+            delivery.setDeliveryInfo(member.getAddress(), DeliveryStatus.READY);
             return delivery;
         }
     }
