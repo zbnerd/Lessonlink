@@ -1,8 +1,9 @@
 package com.lessonlink.domain.item;
 
 import com.lessonlink.dto.ItemDto;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -16,7 +17,11 @@ public class Book extends Item {
     private String publisher;     // 출판사
     private LocalDate publishedDate; // 출판일
     private int pageCount;        // 페이지 수
+
+    @Enumerated(EnumType.STRING)
     private BookFormat format;        // 책 형식 (HARDCOVER, PAPERBACK, EBOOK)
+
+    @Enumerated(EnumType.STRING)
     private BookLanguage language;      // 책의 언어
     private String summary;       // 책의 요약/설명
 
