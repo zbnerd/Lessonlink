@@ -47,7 +47,7 @@ public class ItemApiController {
 
     @PostMapping("/api/v1/items/book")
     public ItemResponse createBook(
-            @RequestBody @Valid ItemApiController.BookRequest request
+            @RequestBody @Valid BookRequest request
     ) {
         Book book = new Book();
         book.setBookInfo(buildBookInfo(request));
@@ -83,7 +83,7 @@ public class ItemApiController {
 
     @PostMapping("/api/v1/items/course")
     public ItemResponse createCourse(
-            @RequestBody @Valid ItemApiController.CourseRequest request
+            @RequestBody @Valid CourseRequest request
     ) {
         Course course = new Course();
         course.setCourseInfo(buildCourseInfo(request));
