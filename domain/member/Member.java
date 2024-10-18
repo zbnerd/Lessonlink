@@ -1,5 +1,7 @@
 package com.lessonlink.domain.member;
 
+import com.lessonlink.domain.common.Address;
+import com.lessonlink.domain.order.Order;
 import com.lessonlink.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,6 +11,8 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Entity
@@ -36,6 +40,12 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private Role role; // ADMIN : 관리자, TEACHER : 선생님, STUDENT : 학생
+
+    @OneToMany(mappedBy = "member")
+    private List<Address> addresses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
 
     public void setMemberInfo(MemberDto memberDto) {
 
