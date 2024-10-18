@@ -1,6 +1,7 @@
 package com.lessonlink.service;
 
 import com.lessonlink.domain.common.Address;
+import com.lessonlink.domain.member.Member;
 import com.lessonlink.repository.AddressRepository;
 import com.lessonlink.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,10 @@ public class AddressService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long saveAddress(Address address) {
+    public Long saveAddress(Member member, Address address) {
+        member.addAddress(address);
         addressRepository.save(address);
+
         return address.getId();
     }
 
@@ -26,7 +29,7 @@ public class AddressService {
         return addressRepository.findAll();
     }
 
-    public List<Address> findByMemberIdSecretKey(String memberIdSecretKey) {
-        return addressRepository.findAddressesByMemberIdSecretKey(memberIdSecretKey);
+    public List<Address> findAddressByMember(Member member) {
+        return addressRepository.findAddressesByMember(member);
     }
 }

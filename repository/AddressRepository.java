@@ -1,6 +1,7 @@
 package com.lessonlink.repository;
 
 import com.lessonlink.domain.common.Address;
+import com.lessonlink.domain.member.Member;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -25,9 +26,10 @@ public class AddressRepository {
         return em.createQuery("select a from Address a", Address.class).getResultList();
     }
 
-    public List<Address> findAddressesByMemberIdSecretKey(String memberIdSecretKey) {
-        return em.createQuery("select a from Address a join a.member m where m.id = :memberIdSecretKey", Address.class)
-                .setParameter("memberIdSecretKey", memberIdSecretKey)
+    public List<Address> findAddressesByMember(Member member) {
+        return em.createQuery(
+                        "SELECT a FROM Address a WHERE a.member = :member", Address.class)
+                .setParameter("member", member)
                 .getResultList();
     }
 }

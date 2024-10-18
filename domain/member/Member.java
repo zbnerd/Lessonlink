@@ -96,4 +96,8 @@ public class Member {
         this.password = password;
     }
 
+    public void addAddress(Address address) {
+        addresses.add(address);
+    }
+
 }
