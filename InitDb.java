@@ -198,8 +198,7 @@ public class InitDb {
         }
 
         private Address createAddress(Member member, AddressDto addressDto){
-            Address address = new Address();
-            address.setAddressInfo(addressDto);
+            Address address = new Address(addressDto);
             return address;
         }
 
