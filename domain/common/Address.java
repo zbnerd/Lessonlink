@@ -2,10 +2,12 @@ package com.lessonlink.domain.common;
 
 import com.lessonlink.dto.AddressDto;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Embeddable
 @Getter
+@EqualsAndHashCode
 public class Address {
 
 
