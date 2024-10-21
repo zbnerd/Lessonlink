@@ -1,6 +1,8 @@
 package com.lessonlink.service;
 
+import com.lessonlink.domain.common.Address;
 import com.lessonlink.domain.member.Member;
+import com.lessonlink.dto.AddressDto;
 import com.lessonlink.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,8 +36,8 @@ public class MemberService {
     }
 
     @Transactional
-    public void updatePasswordAndEmail(String id, String password, String email) {
-        Member member = memberRepository.findOne(id);
+    public void updatePasswordAndEmail(String memberIdSecretKey, String password, String email) {
+        Member member = memberRepository.findOne(memberIdSecretKey);
         member.updatePassword(password);
         member.updateEmail(email);
     }
@@ -51,4 +53,13 @@ public class MemberService {
         return memberRepository.findOne(id);
     }
 
+    /**
+     * 멤버 주소 수정
+     */
+
+    @Transactional
+    public void updateAddress(String memberIdSecretKey, AddressDto addressDto) {
+        Member member = memberRepository.findOne(memberIdSecretKey);
+        member.setAddress(new Address(addressDto));
+    }
 }

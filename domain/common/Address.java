@@ -16,7 +16,11 @@ public class Address {
     private int roadNumber; // 도로명 숫자
     private String zipCode; // 우편번호
 
-    public void setAddressInfo(AddressDto addressDto) {
+    public Address() {
+    }
+
+
+    public Address(AddressDto addressDto) {
         this.metropolitanCityProvince = addressDto.getMetropolitanCityProvince();
         this.cityDistrict = addressDto.getCityDistrict();
         this.village = addressDto.getVillage();
