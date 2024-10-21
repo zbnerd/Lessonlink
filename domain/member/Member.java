@@ -1,5 +1,6 @@
 package com.lessonlink.domain.member;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.domain.order.Order;
@@ -48,6 +49,7 @@ public class Member {
     private Address address;
 
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
 
     public void setMemberInfo(MemberDto memberDto) {

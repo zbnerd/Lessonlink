@@ -1,5 +1,6 @@
 package com.lessonlink.domain.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lessonlink.domain.item.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,6 +14,7 @@ public class OrderItem {
     @Column(name = "order_item_id")
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;

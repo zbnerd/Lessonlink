@@ -1,5 +1,6 @@
 package com.lessonlink.domain.delivery;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.order.Order;
@@ -14,6 +15,7 @@ public class Delivery {
     @Id @GeneratedValue
     private Long id;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
     private Order order;
 
