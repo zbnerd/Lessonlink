@@ -221,7 +221,7 @@ public class ItemApiController {
 
     private static ItemDto buildCourseInfo(CourseRequest request) {
         return new ItemDto.CourseBuilder()
-                .teacher(request.getTeacher())
+                .teacherId(request.getTeacher())
                 .description(request.getDescription())
                 .period(new Period(request.getStartDate(), request.getEndDate()))
                 .timeRange(new TimeRange(request.getStartTime(), request.getEndTime()))
