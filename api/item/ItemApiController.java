@@ -1,6 +1,9 @@
 package com.lessonlink.api.item;
 
 import com.lessonlink.domain.item.*;
+import com.lessonlink.domain.item.embedded.Duration;
+import com.lessonlink.domain.item.embedded.Period;
+import com.lessonlink.domain.item.embedded.TimeRange;
 import com.lessonlink.domain.item.enums.BookFormat;
 import com.lessonlink.domain.item.enums.BookLanguage;
 import com.lessonlink.domain.item.enums.CourseLevel;
@@ -220,12 +223,9 @@ public class ItemApiController {
         return new ItemDto.CourseBuilder()
                 .teacher(request.getTeacher())
                 .description(request.getDescription())
-                .startDate(request.getStartDate())
-                .endDate(request.getEndDate())
-                .startTime(request.getStartTime())
-                .endTime(request.getEndTime())
-                .durationHour(request.getDurationHour())
-                .durationMinute(request.getDurationMinute())
+                .period(new Period(request.getStartDate(), request.getEndDate()))
+                .timeRange(new TimeRange(request.getStartTime(), request.getEndTime()))
+                .duration(new Duration(request.getDurationHour(), request.getDurationMinute()))
                 .level(request.getLevel())
                 .courseType(request.getCourseType())
                 .materialUrl(request.getMaterialUrl())

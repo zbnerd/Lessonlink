@@ -1,5 +1,8 @@
 package com.lessonlink.dto;
 
+import com.lessonlink.domain.item.embedded.Duration;
+import com.lessonlink.domain.item.embedded.Period;
+import com.lessonlink.domain.item.embedded.TimeRange;
 import com.lessonlink.domain.item.enums.BookFormat;
 import com.lessonlink.domain.item.enums.BookLanguage;
 import com.lessonlink.domain.item.enums.CourseLevel;
@@ -32,12 +35,9 @@ public class ItemDto {
     // Course 관련 필드
     private String teacher;
     private String description;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private LocalTime startTime;
-    private LocalTime endTime;
-    private int durationHour;
-    private int durationMinute;
+    private Period period;
+    private TimeRange timeRange;
+    private Duration duration;
     private CourseLevel level;
     private CourseType courseType;
     private String materialUrl;
@@ -67,12 +67,9 @@ public class ItemDto {
             CourseBuilder courseBuilder = (CourseBuilder) builder;
             this.teacher = courseBuilder.teacher;
             this.description = courseBuilder.description;
-            this.startDate = courseBuilder.startDate;
-            this.endDate = courseBuilder.endDate;
-            this.startTime = courseBuilder.startTime;
-            this.endTime = courseBuilder.endTime;
-            this.durationHour = courseBuilder.durationHour;
-            this.durationMinute = courseBuilder.durationMinute;
+            this.period = courseBuilder.period;
+            this.timeRange = courseBuilder.timeRange;
+            this.duration = courseBuilder.duration;
             this.level = courseBuilder.level;
             this.courseType = courseBuilder.courseType;
             this.materialUrl = courseBuilder.materialUrl;
@@ -167,12 +164,9 @@ public class ItemDto {
     public static class CourseBuilder extends ItemBuilder {
         private String teacher;
         private String description;
-        private LocalDate startDate;
-        private LocalDate endDate;
-        private LocalTime startTime;
-        private LocalTime endTime;
-        private int durationHour;
-        private int durationMinute;
+        private Period period;
+        private TimeRange timeRange;
+        private Duration duration;
         private CourseLevel level;
         private CourseType courseType;
         private String materialUrl;
@@ -187,33 +181,18 @@ public class ItemDto {
             return this;
         }
 
-        public CourseBuilder startDate(LocalDate startDate) {
-            this.startDate = startDate;
+        public CourseBuilder period(Period period) {
+            this.period = period;
             return this;
         }
 
-        public CourseBuilder endDate(LocalDate endDate) {
-            this.endDate = endDate;
+        public CourseBuilder timeRange(TimeRange timeRange) {
+            this.timeRange = timeRange;
             return this;
         }
 
-        public CourseBuilder startTime(LocalTime startTime) {
-            this.startTime = startTime;
-            return this;
-        }
-
-        public CourseBuilder endTime(LocalTime endTime) {
-            this.endTime = endTime;
-            return this;
-        }
-
-        public CourseBuilder durationHour(int durationHour) {
-            this.durationHour = durationHour;
-            return this;
-        }
-
-        public CourseBuilder durationMinute(int durationMinute) {
-            this.durationMinute = durationMinute;
+        public CourseBuilder duration(Duration duration) {
+            this.duration = duration;
             return this;
         }
 

@@ -1,13 +1,14 @@
 package com.lessonlink.domain.item;
 
+import com.lessonlink.domain.item.embedded.Duration;
+import com.lessonlink.domain.item.embedded.Period;
+import com.lessonlink.domain.item.embedded.TimeRange;
 import com.lessonlink.domain.item.enums.CourseLevel;
 import com.lessonlink.domain.item.enums.CourseType;
 import com.lessonlink.dto.ItemDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -17,14 +18,14 @@ public class Course extends Item {
 
     private String description;  // 강의 설명
 
-    private LocalDate startDate;  // 시작일
-    private LocalDate endDate;  // 종료일
-    private LocalTime startTime;  // 시작 시간
-    private LocalTime endTime;  // 종료 시간
+    @Embedded
+    private Period period;
 
-    private int durationHour;  // 강의 시간 (예: 총 10시간)
+    @Embedded
+    private TimeRange timeRange;
 
-    private int durationMinute;
+    @Embedded
+    private Duration duration;
 
     @Enumerated(EnumType.STRING)
     private CourseLevel level;  // 강의 레벨 (BEGINNER, INTERMEDIATE, ADVANCED)
@@ -39,16 +40,12 @@ public class Course extends Item {
 
         this.teacher = itemDto.getTeacher();
         this.description = itemDto.getDescription();
-        this.startDate = itemDto.getStartDate();
-        this.endDate = itemDto.getEndDate();
-        this.startTime = itemDto.getStartTime();
-        this.endTime = itemDto.getEndTime();
-        this.durationHour = itemDto.getDurationHour();
-        this.durationMinute = itemDto.getDurationMinute();
+        this.period = itemDto.getPeriod();
+        this.timeRange = itemDto.getTimeRange();
+        this.duration = itemDto.getDuration();
         this.level = itemDto.getLevel();
         this.courseType = itemDto.getCourseType();
         this.materialUrl = itemDto.getMaterialUrl();
-
     }
 
 }

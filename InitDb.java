@@ -4,6 +4,9 @@ import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.delivery.Delivery;
 import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.item.*;
+import com.lessonlink.domain.item.embedded.Duration;
+import com.lessonlink.domain.item.embedded.Period;
+import com.lessonlink.domain.item.embedded.TimeRange;
 import com.lessonlink.domain.item.enums.BookFormat;
 import com.lessonlink.domain.item.enums.BookLanguage;
 import com.lessonlink.domain.item.enums.CourseLevel;
@@ -90,12 +93,9 @@ public class InitDb {
                     new ItemDto.CourseBuilder()
                             .teacher("김자바")
                             .description("자바 프로그래밍의 기초를 배울 수 있는 강의로, 변수, 제어문, 객체 지향 개념을 다룹니다.")
-                            .startDate(LocalDate.of(2024, 11, 1))
-                            .endDate(LocalDate.of(2025, 1, 31))
-                            .startTime(LocalTime.of(10, 0))
-                            .endTime(LocalTime.of(12, 0))
-                            .durationHour(2)
-                            .durationMinute(0)
+                            .period(new Period(LocalDate.of(2024, 11, 1), LocalDate.of(2025, 1, 31)))
+                            .timeRange(new TimeRange(LocalTime.of(10, 0), LocalTime.of(12, 0)))
+                            .duration(new Duration(2, 0))
                             .level(CourseLevel.BEGINNER)
                             .courseType(CourseType.ONLINE)
                             .materialUrl("https://example.com/java-course")
@@ -161,12 +161,9 @@ public class InitDb {
                     new ItemDto.CourseBuilder()
                             .teacher("박스프링")
                             .description("스프링 프레임워크의 고급 기능을 깊이 있게 다루는 강의로, AOP, 트랜잭션 관리, 스프링 시큐리티 등을 포함합니다.")
-                            .startDate(LocalDate.of(2024, 12, 1))
-                            .endDate(LocalDate.of(2025, 2, 28))
-                            .startTime(LocalTime.of(14, 0))
-                            .endTime(LocalTime.of(17, 0))
-                            .durationHour(3)
-                            .durationMinute(0)
+                            .period(new Period(LocalDate.of(2024, 12, 1), LocalDate.of(2025, 2, 28)))
+                            .timeRange(new TimeRange(LocalTime.of(14, 0), LocalTime.of(17, 0)))
+                            .duration(new Duration(3, 0))
                             .level(CourseLevel.ADVANCED)
                             .courseType(CourseType.OFFLINE)
                             .materialUrl("https://example.com/advanced-spring-course")
