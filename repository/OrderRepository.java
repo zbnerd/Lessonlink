@@ -1,7 +1,7 @@
 package com.lessonlink.repository;
 
 import com.lessonlink.domain.order.Order;
-import com.lessonlink.domain.order.OrderSearch;
+import com.lessonlink.domain.order.enums.OrderSearch;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;

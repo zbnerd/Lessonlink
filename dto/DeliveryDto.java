@@ -1,7 +1,7 @@
 package com.lessonlink.dto;
 
 import com.lessonlink.domain.common.embedded.Address;
-import com.lessonlink.domain.delivery.DeliveryStatus;
+import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

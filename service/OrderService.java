@@ -1,7 +1,7 @@
 package com.lessonlink.service;
 
 import com.lessonlink.domain.delivery.Delivery;
-import com.lessonlink.domain.delivery.DeliveryStatus;
+import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.item.Item;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.order.Order;

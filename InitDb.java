@@ -2,14 +2,14 @@ package com.lessonlink;
 
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.delivery.Delivery;
-import com.lessonlink.domain.delivery.DeliveryStatus;
+import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.item.*;
 import com.lessonlink.domain.item.enums.BookFormat;
 import com.lessonlink.domain.item.enums.BookLanguage;
 import com.lessonlink.domain.item.enums.CourseLevel;
 import com.lessonlink.domain.item.enums.CourseType;
 import com.lessonlink.domain.member.Member;
-import com.lessonlink.domain.member.Role;
+import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
 import com.lessonlink.dto.AddressDto;

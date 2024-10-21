@@ -1,6 +1,6 @@
 package com.lessonlink.dto;
 
-import com.lessonlink.domain.member.Role;
+import com.lessonlink.domain.member.enums.Role;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

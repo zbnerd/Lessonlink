@@ -1,4 +1,4 @@
-package com.lessonlink.domain.member;
+package com.lessonlink.domain.member.enums;
 
 
 public enum Role {

@@ -1,6 +1,7 @@
 package com.lessonlink.domain.delivery;
 
 import com.lessonlink.domain.common.embedded.Address;
+import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;

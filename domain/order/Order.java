@@ -1,8 +1,9 @@
 package com.lessonlink.domain.order;
 
 import com.lessonlink.domain.delivery.Delivery;
-import com.lessonlink.domain.delivery.DeliveryStatus;
+import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.member.Member;
+import com.lessonlink.domain.order.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

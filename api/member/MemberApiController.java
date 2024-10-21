@@ -1,7 +1,7 @@
 package com.lessonlink.api.member;
 
 import com.lessonlink.domain.member.Member;
-import com.lessonlink.domain.member.Role;
+import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.dto.MemberDto;
 import com.lessonlink.service.MemberService;
 import jakarta.validation.Valid;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
