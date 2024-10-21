@@ -47,7 +47,7 @@ public class InitDb {
         private final EntityManager em;
 
         public void dbInit1() {
-            Member member = createMember(
+            Member student = createMember(
                     new MemberDto.Builder()
                             .memberId("test1")
                             .password("test1")
@@ -58,9 +58,9 @@ public class InitDb {
                             .role(Role.STUDENT)
                             .build()
             );
-            member.setAddress(
+            student.setAddress(
                     createAddress(
-                            member, new AddressDto.Builder()
+                            new AddressDto.Builder()
                                     .metropolitanCityProvince("서울특별시")
                                     .cityDistrict("강남구")
                                     .village("삼성동")
@@ -70,7 +70,34 @@ public class InitDb {
                                     .build()
                     )
             );
-            em.persist(member);
+            em.persist(student);
+
+            Member teacher = createMember(
+                    new MemberDto.Builder()
+                            .memberId("teacher1")
+                            .password("teachPass1")
+                            .name("teacherName")
+                            .birthDate(LocalDate.of(1985, 5, 20))
+                            .phoneNumber("010-3333-1111")
+                            .email("teacher@example.com")
+                            .role(Role.TEACHER)
+                            .build()
+            );
+
+            teacher.setAddress(
+                    createAddress(
+                            new AddressDto.Builder()
+                                    .metropolitanCityProvince("경기도")
+                                    .cityDistrict("성남시 분당구")
+                                    .village("정자동")
+                                    .roadName("분당내곡로")
+                                    .roadNumber(151)
+                                    .zipCode("13529")
+                                    .build()
+                    )
+            );
+
+            em.persist(teacher);
 
             Book book = createBook(
                     new ItemDto.BookBuilder()
@@ -91,7 +118,7 @@ public class InitDb {
 
             Course course = createCourse(
                     new ItemDto.CourseBuilder()
-                            .teacher("김자바")
+                            .teacherId(teacher.getId())
                             .description("자바 프로그래밍의 기초를 배울 수 있는 강의로, 변수, 제어문, 객체 지향 개념을 다룹니다.")
                             .period(new Period(LocalDate.of(2024, 11, 1), LocalDate.of(2025, 1, 31)))
                             .timeRange(new TimeRange(LocalTime.of(10, 0), LocalTime.of(12, 0)))
@@ -108,7 +135,7 @@ public class InitDb {
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book, book.getPrice(), 10);
             OrderItem orderItem2 = OrderItem.createOrderItem(course, course.getPrice(), 5);
-            Order order = Order.createOrder(member, createDelivery(member), orderItem1, orderItem2);
+            Order order = Order.createOrder(student, createDelivery(student), orderItem1, orderItem2);
             em.persist(order);
         }
 
@@ -127,13 +154,38 @@ public class InitDb {
 
             member.setAddress(
                     createAddress(
-                            member, new AddressDto.Builder()
+                            new AddressDto.Builder()
                                     .metropolitanCityProvince("부산광역시")
                                     .cityDistrict("해운대구")
                                     .village("우동")
                                     .roadName("센텀중앙로")
                                     .roadNumber(90)
                                     .zipCode("48058")
+                                    .build()
+                    )
+            );
+
+            Member teacher = createMember(
+                    new MemberDto.Builder()
+                            .memberId("teacher3")
+                            .password("teachPass3")
+                            .name("teacherThree")
+                            .birthDate(LocalDate.of(1982, 3, 10))
+                            .phoneNumber("010-5555-3333")
+                            .email("teacher3@example.com")
+                            .role(Role.TEACHER)
+                            .build()
+            );
+
+            teacher.setAddress(
+                    createAddress(
+                            new AddressDto.Builder()
+                                    .metropolitanCityProvince("대구광역시")
+                                    .cityDistrict("수성구")
+                                    .village("범어동")
+                                    .roadName("동대구로")
+                                    .roadNumber(123)
+                                    .zipCode("42180")
                                     .build()
                     )
             );
@@ -159,7 +211,7 @@ public class InitDb {
 
             Course course = createCourse(
                     new ItemDto.CourseBuilder()
-                            .teacher("박스프링")
+                            .teacherId(teacher.getId())
                             .description("스프링 프레임워크의 고급 기능을 깊이 있게 다루는 강의로, AOP, 트랜잭션 관리, 스프링 시큐리티 등을 포함합니다.")
                             .period(new Period(LocalDate.of(2024, 12, 1), LocalDate.of(2025, 2, 28)))
                             .timeRange(new TimeRange(LocalTime.of(14, 0), LocalTime.of(17, 0)))
@@ -198,7 +250,7 @@ public class InitDb {
             return course;
         }
 
-        private Address createAddress(Member member, AddressDto addressDto){
+        private Address createAddress(AddressDto addressDto){
             Address address = new Address(addressDto);
             return address;
         }

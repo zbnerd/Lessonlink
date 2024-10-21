@@ -32,8 +32,6 @@ public class ItemService {
         return itemRepository.findOne(itemId);
     }
 
-
-
     @Transactional
     public void updateBook(Long id, ItemDto itemDto) {
         Book foundItem = (Book) itemRepository.findOne(id);

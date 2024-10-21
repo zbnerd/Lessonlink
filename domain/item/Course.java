@@ -14,7 +14,7 @@ import lombok.Getter;
 @Getter
 public class Course extends Item {
 
-    private String teacher;  // 강의자
+    private String teacher_member_id;  // 강의자, 추후에 서브쿼리로 선생님 정보 조회하게하기.
 
     private String description;  // 강의 설명
 
@@ -38,7 +38,7 @@ public class Course extends Item {
 
         super.setItemInfo(itemDto);
 
-        this.teacher = itemDto.getTeacher();
+        this.teacher_member_id = itemDto.getTeacher_id();
         this.description = itemDto.getDescription();
         this.period = itemDto.getPeriod();
         this.timeRange = itemDto.getTimeRange();
@@ -47,5 +47,6 @@ public class Course extends Item {
         this.courseType = itemDto.getCourseType();
         this.materialUrl = itemDto.getMaterialUrl();
     }
+
 
 }

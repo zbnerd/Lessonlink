@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Getter
 @Slf4j
@@ -33,7 +32,7 @@ public class ItemDto {
     private String summary;
 
     // Course 관련 필드
-    private String teacher;
+    private String teacher_id;
     private String description;
     private Period period;
     private TimeRange timeRange;
@@ -65,7 +64,7 @@ public class ItemDto {
         // Course 관련 필드
         if (builder instanceof CourseBuilder) {
             CourseBuilder courseBuilder = (CourseBuilder) builder;
-            this.teacher = courseBuilder.teacher;
+            this.teacher_id = courseBuilder.teacher_id;
             this.description = courseBuilder.description;
             this.period = courseBuilder.period;
             this.timeRange = courseBuilder.timeRange;
@@ -162,7 +161,7 @@ public class ItemDto {
 
     // === Course 관련 필드를 위한 빌더 ===
     public static class CourseBuilder extends ItemBuilder {
-        private String teacher;
+        private String teacher_id;
         private String description;
         private Period period;
         private TimeRange timeRange;
@@ -171,8 +170,8 @@ public class ItemDto {
         private CourseType courseType;
         private String materialUrl;
 
-        public CourseBuilder teacher(String teacher) {
-            this.teacher = teacher;
+        public CourseBuilder teacherId(String teacher) {
+            this.teacher_id = teacher;
             return this;
         }
 
