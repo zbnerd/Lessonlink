@@ -1,5 +1,7 @@
 package com.lessonlink.domain.item;
 
+import com.lessonlink.domain.item.enums.CourseLevel;
+import com.lessonlink.domain.item.enums.CourseType;
 import com.lessonlink.dto.ItemDto;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.lessonlink.domain.member;
 
-import com.lessonlink.domain.common.Address;
+import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.dto.MemberDto;
 import jakarta.persistence.*;

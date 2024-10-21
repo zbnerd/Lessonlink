@@ -1,9 +1,9 @@
 package com.lessonlink.dto;
 
-import com.lessonlink.domain.item.BookFormat;
-import com.lessonlink.domain.item.BookLanguage;
-import com.lessonlink.domain.item.CourseLevel;
-import com.lessonlink.domain.item.CourseType;
+import com.lessonlink.domain.item.enums.BookFormat;
+import com.lessonlink.domain.item.enums.BookLanguage;
+import com.lessonlink.domain.item.enums.CourseLevel;
+import com.lessonlink.domain.item.enums.CourseType;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

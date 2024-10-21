@@ -1,4 +1,4 @@
-package com.lessonlink.domain.common;
+package com.lessonlink.domain.common.embedded;
 
 import com.lessonlink.dto.AddressDto;
 import jakarta.persistence.*;

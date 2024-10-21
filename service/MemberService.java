@@ -1,6 +1,6 @@
 package com.lessonlink.service;
 
-import com.lessonlink.domain.common.Address;
+import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.dto.AddressDto;
 import com.lessonlink.repository.MemberRepository;

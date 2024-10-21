@@ -1,6 +1,10 @@
 package com.lessonlink.api.item;
 
 import com.lessonlink.domain.item.*;
+import com.lessonlink.domain.item.enums.BookFormat;
+import com.lessonlink.domain.item.enums.BookLanguage;
+import com.lessonlink.domain.item.enums.CourseLevel;
+import com.lessonlink.domain.item.enums.CourseType;
 import com.lessonlink.dto.ItemDto;
 import com.lessonlink.service.ItemService;
 import jakarta.validation.Valid;
