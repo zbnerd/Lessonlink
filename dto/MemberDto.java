@@ -85,7 +85,6 @@ public class MemberDto {
 
         public Builder role(Role role) {
             this.role = role;
-            log.info("MemberDto role = {}", this.role);
             return this;
         }
 
