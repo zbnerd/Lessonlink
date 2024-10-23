@@ -60,4 +60,11 @@ public class ReservationService {
         return reservationRepository.findById(reservationId).orElse(null);
     }
 
+    public void cancelReservation(Long reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId).orElse(null);
+        if (reservation != null) {
+            reservation.cancel();
+        }
+    }
+
 }
