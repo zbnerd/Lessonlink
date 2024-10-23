@@ -28,7 +28,7 @@ public class OrderService {
 
         //엔티티 조회
         Member member = memberRepository.findById(memberIdSecretKey).orElse(null);
-        Item item = itemRepository.findOne(itemId);
+        Item item = itemRepository.findById(itemId).orElse(null);
 //        Address address = addressRepository.findAddressesByMember(member).getFirst();
 //        Address address = addressRepository.findAddressesByMemberIdSecretKey(member.getId()).get();
 

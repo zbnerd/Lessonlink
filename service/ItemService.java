@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,18 +30,24 @@ public class ItemService {
     }
 
     public Item findOne(Long itemId) {
-        return itemRepository.findOne(itemId);
+        return itemRepository.findById(itemId).orElse(null);
     }
 
     @Transactional
     public void updateBook(Long id, ItemDto itemDto) {
-        Book foundItem = (Book) itemRepository.findOne(id);
-        foundItem.setBookInfo(itemDto);
+        Optional<Item> foundItem = itemRepository.findById(id);
+        if (foundItem.isPresent()) {
+            Book book = (Book) foundItem.get();
+            book.setBookInfo(itemDto);
+        }
     }
 
     @Transactional
     public void updateCourse(Long id, ItemDto itemDto) {
-        Course foundItem = (Course) itemRepository.findOne(id);
-        foundItem.setCourseInfo(itemDto);
+        Optional<Item> foundItem = itemRepository.findById(id);
+        if (foundItem.isPresent()) {
+            Course course = (Course) foundItem.get();
+            course.setCourseInfo(itemDto);
+        }
     }
 }
