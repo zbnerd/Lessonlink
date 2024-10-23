@@ -1,5 +1,6 @@
 package com.lessonlink.repository;
 
+import com.lessonlink.domain.item.Item;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.enums.OrderSearch;
 import jakarta.persistence.EntityManager;
@@ -58,6 +59,12 @@ public class OrderRepository {
             query = query.setParameter("name", orderSearch.getMemberName());
         }
         return query.getResultList();
+    }
+
+    public List<Item> findItemIdsByOrderId(Long orderId) {
+        return em.createQuery("select oi.item from Order o join o.orderItems oi where o.id = :orderId", Item.class)
+                .setParameter("orderId", orderId)
+                .getResultList();
     }
 
 }

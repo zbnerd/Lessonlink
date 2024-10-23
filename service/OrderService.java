@@ -60,4 +60,8 @@ public class OrderService {
         order.cancel();
     }
 
+    public Order findOne(Long OrderId) {
+        return orderRepository.findOne(OrderId);
+    }
+
 }
