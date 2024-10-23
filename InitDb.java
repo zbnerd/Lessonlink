@@ -135,8 +135,12 @@ public class InitDb {
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book, book.getPrice(), 10);
             OrderItem orderItem2 = OrderItem.createOrderItem(course, course.getPrice(), 5);
-            Order order = Order.createOrder(student, createDelivery(student), orderItem1, orderItem2);
-            em.persist(order);
+            Order order1 = Order.createOrder(student, createDelivery(student), orderItem1, orderItem2);
+            em.persist(order1);
+
+            OrderItem orderItem3 = OrderItem.createOrderItem(course, course.getPrice(), 2);
+            Order order2 = Order.createOrder(student, createDelivery(student), orderItem3);
+            em.persist(order2);
         }
 
         public void dbInit2() {
