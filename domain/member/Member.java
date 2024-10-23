@@ -85,7 +85,7 @@ public class Member {
         StringBuilder sb = new StringBuilder();
         for (byte b : encoded) {
             // 0부터 255 사이의 값을 양수로 변환한 후, 알파벳 대소문자 중에서 선택
-            sb.append(ALPHABET.charAt(Math.abs(b) % ALPHABET.length()));
+            sb.append(ALPHABET.charAt(Math.abs(RANDOM.nextInt(256)) % ALPHABET.length()));
         }
 
         return sb.toString();
