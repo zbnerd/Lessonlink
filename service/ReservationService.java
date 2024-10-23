@@ -2,6 +2,7 @@ package com.lessonlink.service;
 
 import com.lessonlink.domain.item.Course;
 import com.lessonlink.domain.item.Item;
+import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.ReservationDto;
 import com.lessonlink.repository.MemberRepository;
@@ -23,6 +24,7 @@ public class ReservationService {
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
+    private final MemberService memberService;
 
     @Transactional
     public List<Long> makeReservation(String memberIdSecretKey, Long orderId) {
@@ -45,6 +47,13 @@ public class ReservationService {
 
 
         return reservationIds;
+    }
+
+    public List<Member> findReservedStudentsByCourse(Course course) {
+        List<Reservation> reservations = reservationRepository.findByCourse(course);
+        return reservations.stream()
+                .map((r) -> memberService.findOne(r.getStudentMemberIdSecretKey()))
+                .toList();
     }
 
     public Reservation findOne(Long reservationId) {
