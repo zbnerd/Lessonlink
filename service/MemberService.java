@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,17 +30,17 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
-        List<Member> foundMembers = memberRepository.findByMemberId(member.getMemberId());
-        if (!foundMembers.isEmpty()) {
+        Optional<Member> foundMembers = memberRepository.findByMemberId(member.getMemberId());
+        if (foundMembers.isPresent()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
 
     @Transactional
     public void updatePasswordAndEmail(String memberIdSecretKey, String password, String email) {
-        Member member = memberRepository.findOne(memberIdSecretKey);
-        member.updatePassword(password);
-        member.updateEmail(email);
+        Optional<Member> member = memberRepository.findById(memberIdSecretKey);
+        member.ifPresent(gotMember -> gotMember.updatePassword(password));
+        member.ifPresent(gotMember -> gotMember.updateEmail(email));
     }
 
     /**
@@ -50,7 +51,7 @@ public class MemberService {
     }
 
     public Member findOne(String id) {
-        return memberRepository.findOne(id);
+        return memberRepository.findById(id).orElse(null);
     }
 
     /**
@@ -59,7 +60,8 @@ public class MemberService {
 
     @Transactional
     public void updateAddress(String memberIdSecretKey, AddressDto addressDto) {
-        Member member = memberRepository.findOne(memberIdSecretKey);
-        member.setAddress(new Address(addressDto));
+        Optional<Member> member = memberRepository.findById(memberIdSecretKey);
+        member.ifPresent(gotMember -> gotMember.setAddress(new Address(addressDto)));
+
     }
 }

@@ -27,7 +27,7 @@ public class OrderService {
     public Long order(String memberIdSecretKey, Long itemId, int quantity) {
 
         //엔티티 조회
-        Member member = memberRepository.findOne(memberIdSecretKey);
+        Member member = memberRepository.findById(memberIdSecretKey).orElse(null);
         Item item = itemRepository.findOne(itemId);
 //        Address address = addressRepository.findAddressesByMember(member).getFirst();
 //        Address address = addressRepository.findAddressesByMemberIdSecretKey(member.getId()).get();

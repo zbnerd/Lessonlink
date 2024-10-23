@@ -1,36 +1,15 @@
 package com.lessonlink.repository;
 
 import com.lessonlink.domain.member.Member;
-import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import java.util.Optional;
 
-@Repository
-@RequiredArgsConstructor
-public class MemberRepository {
+public interface MemberRepository extends JpaRepository<Member, String> {
 
-    private final EntityManager em;
-
-    public void save(Member member) {
-        em.persist(member);
-    }
-
-    public Member findOne(String memberIdSecretKey) {
-        return em.find(Member.class, memberIdSecretKey);
-    }
-
-    public List<Member> findAll() {
-        return em.createQuery("select m from Member m", Member.class)
-                .getResultList();
-    }
-
-    public List<Member> findByMemberId(String memberId) {
-        return em.createQuery("select m from Member m where m.memberId = :memberId", Member.class)
-                .setParameter("memberId", memberId)
-                .getResultList();
-    }
-
+    @Query("select m from Member m where m.memberId = :memberId")
+    Optional<Member> findByMemberId(@Param("memberId") String memberId);
 
 }
