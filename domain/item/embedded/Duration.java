@@ -8,10 +8,12 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class Duration {
-    private int durationHour;  // 강의 시간 (예: 총 10시간)
-    private int durationMinute;
+    private final int durationHour;  // 강의 시간 (예: 총 10시간)
+    private final int durationMinute;
 
-    public Duration() {
+    protected Duration() {
+        this.durationHour = 0;
+        this.durationMinute = 0;
     }
 
     public Duration(int hour, int minute) {

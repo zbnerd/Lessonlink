@@ -10,10 +10,12 @@ import java.time.LocalTime;
 @Getter
 @EqualsAndHashCode
 public class TimeRange {
-    private LocalTime startTime;  // 시작 시간
-    private LocalTime endTime;  // 종료 시간
+    private final LocalTime startTime;  // 시작 시간
+    private final LocalTime endTime;  // 종료 시간
 
-    public TimeRange() {
+    protected TimeRange() {
+        this.startTime = LocalTime.now();
+        this.endTime = LocalTime.now().plusHours(1);
     }
 
     public TimeRange(LocalTime startTime, LocalTime endTime) {

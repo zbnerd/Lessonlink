@@ -10,10 +10,12 @@ import java.time.LocalDate;
 @Getter
 @EqualsAndHashCode
 public class Period {
-    private LocalDate startDate;  // 시작일
-    private LocalDate endDate;    // 종료일
+    private final LocalDate startDate;  // 시작일
+    private final LocalDate endDate;    // 종료일
 
-    public Period() {
+    protected Period() {
+        this.startDate = LocalDate.now();
+        this.endDate = LocalDate.now().plusDays(1);
     }
 
     public Period(LocalDate startDate, LocalDate endDate) {
