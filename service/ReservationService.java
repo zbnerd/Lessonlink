@@ -22,7 +22,6 @@ import java.util.List;
 public class ReservationService {
 
     private final OrderRepository orderRepository;
-    private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
     private final MemberService memberService;
 
