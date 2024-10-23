@@ -63,8 +63,6 @@ public class Member {
             this.phoneNumber = memberDto.getPhoneNumber();
             this.email = memberDto.getEmail();
             this.role = memberDto.getRole();
-
-            log.info("domain role = {}", this.role);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
