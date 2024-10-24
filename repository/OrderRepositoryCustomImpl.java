@@ -51,11 +51,4 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
         }
         return query.getResultList();
     }
-
-    public List<Order> findItemIdsByOrderId(Long orderId) {
-        return em.createQuery("select o from Order o join fetch o.orderItems oi where o.id = :orderId", Order.class)
-                .setParameter("orderId", orderId)
-                .getResultList();
-    }
-
 }
