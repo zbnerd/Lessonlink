@@ -33,8 +33,6 @@ public class OrderService {
                 .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다. ID: " + memberIdSecretKey));
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다. ID: " + itemId));
-//        Address address = addressRepository.findAddressesByMember(member).getFirst();
-//        Address address = addressRepository.findAddressesByMemberIdSecretKey(member.getId()).get();
 
         //배송정보 생성
         Delivery delivery = new Delivery();
@@ -59,9 +57,9 @@ public class OrderService {
     @Transactional
     public void cancelOrder(Long orderId) {
         //주문 엔티티 조회
-        Optional<Order> order = orderRepository.findById(orderId);
+        Order order = findOne(orderId);
         //주문 취소
-        order.ifPresent(Order::cancel);
+        order.cancel();
     }
 
     public Order findOne(Long orderId) {

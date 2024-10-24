@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name= "orders")
-@Getter @Setter
+@Getter
 public class Order {
 
     @Id @GeneratedValue
@@ -25,8 +25,10 @@ public class Order {
     @JoinColumn(name = "member_id_secret_key")
     private Member member;
 
+    @Setter
     private LocalDateTime orderDate;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
