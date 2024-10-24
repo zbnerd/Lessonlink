@@ -50,8 +50,9 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    public Member findOne(String id) {
-        return memberRepository.findById(id).orElse(null);
+    public Member findOne(String memberIdSecretKey) {
+        return memberRepository.findById(memberIdSecretKey)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다. ID: " + memberIdSecretKey));
     }
 
     /**

@@ -57,14 +57,13 @@ public class ReservationService {
     }
 
     public Reservation findOne(Long reservationId) {
-        return reservationRepository.findById(reservationId).orElse(null);
+        return reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 예약정보가 존재하지 않습니다. ID: " + reservationId));
     }
 
     public void cancelReservation(Long reservationId) {
-        Reservation reservation = reservationRepository.findById(reservationId).orElse(null);
-        if (reservation != null) {
-            reservation.cancel();
-        }
+        Reservation reservation = findOne(reservationId);
+        reservation.cancel();
     }
 
 }

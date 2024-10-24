@@ -29,8 +29,10 @@ public class OrderService {
     public Long order(String memberIdSecretKey, Long itemId, int quantity) {
 
         //엔티티 조회
-        Member member = memberRepository.findById(memberIdSecretKey).orElse(null);
-        Item item = itemRepository.findById(itemId).orElse(null);
+        Member member = memberRepository.findById(memberIdSecretKey)
+                .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다. ID: " + memberIdSecretKey));
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다. ID: " + itemId));
 //        Address address = addressRepository.findAddressesByMember(member).getFirst();
 //        Address address = addressRepository.findAddressesByMemberIdSecretKey(member.getId()).get();
 
@@ -60,11 +62,11 @@ public class OrderService {
         Optional<Order> order = orderRepository.findById(orderId);
         //주문 취소
         order.ifPresent(Order::cancel);
-
     }
 
-    public Order findOne(Long OrderId) {
-        return orderRepository.findById(OrderId).orElse(null);
+    public Order findOne(Long orderId) {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 주문 정보가 존재하지 않습니다. ID: " + orderId));
     }
 
 }
