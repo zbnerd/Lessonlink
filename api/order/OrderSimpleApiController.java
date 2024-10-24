@@ -4,6 +4,7 @@ import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.enums.OrderSearch;
 import com.lessonlink.domain.order.enums.OrderStatus;
+import com.lessonlink.repository.OrderRepository;
 import com.lessonlink.repository.OrderRepositoryCustomImpl;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderSimpleApiController {
     private final OrderRepositoryCustomImpl orderRepositoryImpl;
+    private final OrderRepository orderRepository;
+
     /**
      * beta-V1. 엔티티 직접 노출
      * - Hibernate5Module 모듈 등록, LAZY=null 처리
@@ -46,6 +49,20 @@ public class OrderSimpleApiController {
                 .toList();
     }
 
+    /**
+     * V3. 엔티티를 조회해서 DTO로 변환(fetch join 사용O)
+     * - fetch join으로 쿼리 1번 호출
+     * 참고: fetch join에 대한 자세한 내용은 JPA 기본편 참고(정말 중요함)
+     */
+    @GetMapping("/api/beta-v3/simple-orders")
+    public List<SimpleOrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+
+        return orders.stream()
+                .map(SimpleOrderDto::new)
+                .toList();
+    }
+
     @Data
     static class SimpleOrderDto {
         private Long orderId;
@@ -62,4 +79,6 @@ public class OrderSimpleApiController {
             address = order.getDelivery().getAddress();
         }
     }
+
+
 }
