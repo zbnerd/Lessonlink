@@ -1,11 +1,11 @@
 package com.lessonlink.service;
 
 import com.lessonlink.domain.item.Course;
-import com.lessonlink.domain.item.Item;
 import com.lessonlink.domain.member.Member;
+import com.lessonlink.domain.order.Order;
+import com.lessonlink.domain.order.OrderItem;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.ReservationDto;
-import com.lessonlink.repository.MemberRepository;
 import com.lessonlink.repository.OrderRepository;
 import com.lessonlink.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +27,13 @@ public class ReservationService {
 
     @Transactional
     public List<Long> makeReservation(String memberIdSecretKey, Long orderId) {
-        List<Item> items = orderRepository.findItemIdsByOrderId(orderId);
+        List<Order> orders = orderRepository.findItemIdsByOrderId(orderId);
         List<Long> reservationIds = new ArrayList<>();
 
-        for (Item item : items) {
-            if (item instanceof Course course) {
-                Reservation reservation = new Reservation();
+        for (Order order : orders) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                if (orderItem.getItem() instanceof Course course) {
+                    Reservation reservation = new Reservation();
                 reservation.setReservationInfo(
                         new ReservationDto.Builder()
                                 .course(course)
@@ -41,9 +42,9 @@ public class ReservationService {
                                 .build()
                 );
                 reservationIds.add(reservationRepository.save(reservation).getId());
+                }
             }
         }
-
 
         return reservationIds;
     }

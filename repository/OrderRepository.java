@@ -61,8 +61,8 @@ public class OrderRepository {
         return query.getResultList();
     }
 
-    public List<Item> findItemIdsByOrderId(Long orderId) {
-        return em.createQuery("select oi.item from Order o join o.orderItems oi where o.id = :orderId", Item.class)
+    public List<Order> findItemIdsByOrderId(Long orderId) {
+        return em.createQuery("select o from Order o join fetch o.orderItems oi where o.id = :orderId", Order.class)
                 .setParameter("orderId", orderId)
                 .getResultList();
     }
