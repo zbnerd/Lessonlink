@@ -49,8 +49,8 @@ public class ReservationService {
         return reservationIds;
     }
 
-    public List<Member> findReservedStudentsByCourse(Course course) {
-        List<Reservation> reservations = reservationRepository.findByCourse(course);
+    public List<Member> findReservedStudentsByCourse(Long courseId) {
+        List<Reservation> reservations = reservationRepository.findByCourseId(courseId);
         return reservations.stream()
                 .map((r) -> memberService.findOne(r.getStudentMemberIdSecretKey()))
                 .toList();

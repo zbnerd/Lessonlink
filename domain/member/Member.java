@@ -1,6 +1,7 @@
 package com.lessonlink.domain.member;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.domain.order.Order;
@@ -21,7 +22,7 @@ import java.util.Random;
 @Entity
 @Getter
 @Slf4j
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id @Column(name = "member_id_secret_key")
     private String id; // secret key 식별코드

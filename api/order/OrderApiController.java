@@ -100,7 +100,7 @@ public class OrderApiController {
         Page<Order> orders = orderRepository.findAllWithMemberDelivery(pageRequest);
         return new Result(orders.stream()
                 .map(OrderResponseDto::new)
-                .collect(toList()));
+                .toList());
     }
 
     /**
@@ -157,7 +157,7 @@ public class OrderApiController {
             orderStatus = order.getStatus();
             address = order.getDelivery().getAddress();
             orderItems = order.getOrderItems().stream()
-                    .map(orderItem -> new OrderItemResponseDto(orderItem))
+                    .map(OrderItemResponseDto::new)
                     .collect(toList());
         }
     }
@@ -171,6 +171,7 @@ public class OrderApiController {
         private String itemName;//상품 명
         private int orderPrice; //주문 가격
         private int count; //주문 수량
+
         public OrderItemResponseDto(OrderItem orderItem) {
             itemName = orderItem.getItem().getName();
             orderPrice = orderItem.getOrderPrice();

@@ -1,5 +1,6 @@
 package com.lessonlink.domain.reservation;
 
+import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.item.Course;
 import com.lessonlink.domain.reservation.enums.ReservationStatus;
 import com.lessonlink.dto.ReservationDto;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
-public class Reservation {
+public class Reservation extends BaseTimeEntity {
 
     @Id @GeneratedValue @Column(name = "reservation_id")
     private Long id;

@@ -1,6 +1,7 @@
 package com.lessonlink.domain.delivery;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.order.Order;
@@ -10,7 +11,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class Delivery {
+public class Delivery extends BaseTimeEntity {
 
     @Id @GeneratedValue
     private Long id;

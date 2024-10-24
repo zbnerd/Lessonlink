@@ -1,5 +1,6 @@
 package com.lessonlink.domain.item;
 
+import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.dto.ItemDto;
 import com.lessonlink.exception.NotEnoughStockException;
 import jakarta.persistence.*;
@@ -10,7 +11,7 @@ import lombok.Getter;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype")
 @Getter
-public abstract class Item {
+public abstract class Item extends BaseTimeEntity {
 
     @Id
     @GeneratedValue

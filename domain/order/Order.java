@@ -1,5 +1,6 @@
 package com.lessonlink.domain.order;
 
+import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.delivery.Delivery;
 import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.member.Member;
@@ -15,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name= "orders")
 @Getter
-public class Order {
+public class Order extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "order_id")

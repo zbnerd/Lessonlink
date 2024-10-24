@@ -1,6 +1,7 @@
 package com.lessonlink.domain.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.item.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
-public class OrderItem {
+public class OrderItem extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "order_item_id")
