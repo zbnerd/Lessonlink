@@ -4,7 +4,7 @@ import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.enums.OrderSearch;
 import com.lessonlink.domain.order.enums.OrderStatus;
-import com.lessonlink.repository.OrderRepository;
+import com.lessonlink.repository.OrderRepositoryCustomImpl;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class OrderSimpleApiController {
-    private final OrderRepository orderRepository;
+    private final OrderRepositoryCustomImpl orderRepositoryImpl;
     /**
      * beta-V1. 엔티티 직접 노출
      * - Hibernate5Module 모듈 등록, LAZY=null 처리
@@ -24,7 +24,7 @@ public class OrderSimpleApiController {
      */
     @GetMapping("/api/beta-v1/simple-orders")
     public List<Order> ordersV1() {
-        List<Order> all = orderRepository.findAllByString(new OrderSearch());
+        List<Order> all = orderRepositoryImpl.findAllByString(new OrderSearch());
         for (Order order : all) {
             order.getMember().getName(); //Lazy 강제 초기화
             order.getDelivery().getAddress(); //Lazy 강제 초기화
@@ -40,7 +40,7 @@ public class OrderSimpleApiController {
 
     @GetMapping("/api/beta-v2/simple-orders")
     public List<SimpleOrderDto> ordersV2() {
-        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+        List<Order> orders = orderRepositoryImpl.findAllByString(new OrderSearch());
         return orders.stream()
                 .map(SimpleOrderDto::new)
                 .toList();

@@ -6,7 +6,7 @@ import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.ReservationDto;
-import com.lessonlink.repository.OrderRepository;
+import com.lessonlink.repository.OrderRepositoryCustomImpl;
 import com.lessonlink.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,13 +21,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReservationService {
 
-    private final OrderRepository orderRepository;
+    private final OrderRepositoryCustomImpl orderRepositoryImpl;
     private final ReservationRepository reservationRepository;
     private final MemberService memberService;
 
     @Transactional
     public List<Long> makeReservation(String memberIdSecretKey, Long orderId) {
-        List<Order> orders = orderRepository.findItemIdsByOrderId(orderId);
+        List<Order> orders = orderRepositoryImpl.findItemIdsByOrderId(orderId);
         List<Long> reservationIds = new ArrayList<>();
 
         for (Order order : orders) {
