@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -86,18 +86,11 @@ public class OrderApiController {
      * - 특정 페이지와 제한된 수의 결과를 반환합니다.
      * - 쿼리 최적화를 위해 fetch join을 사용한 메서드 호출.
      *
-     * @param offset 페이지 오프셋 (기본값: 0)
-     * @param limit 페이지당 결과 수 (기본값: 100)
      * @return 페이징된 주문 정보 목록
      */
     @GetMapping("/api/v1/orders")
-    public Result ordersV3Page(
-            @RequestParam(value = "offset", defaultValue = "0") int offset,
-            @RequestParam(value = "limit", defaultValue = "100") int limit
-
-    ) {
-        PageRequest pageRequest = PageRequest.of(offset, limit);
-        Page<Order> orders = orderRepository.findAllWithMemberDelivery(pageRequest);
+    public Result ordersV3Page(Pageable pageable) {
+        Page<Order> orders = orderRepository.findAllWithMemberDelivery(pageable);
         return new Result(orders.stream()
                 .map(OrderResponseDto::new)
                 .toList());

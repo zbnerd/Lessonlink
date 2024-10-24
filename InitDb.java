@@ -18,6 +18,7 @@ import com.lessonlink.domain.order.OrderItem;
 import com.lessonlink.dto.AddressDto;
 import com.lessonlink.dto.ItemDto;
 import com.lessonlink.dto.MemberDto;
+import com.lessonlink.service.OrderService;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -26,17 +27,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class InitDb {
 
     private final InitService initService;
+    private final OrderService orderService;
 
     @PostConstruct
     public void init() {
         initService.dbInit1();
         initService.dbInit2();
+        initService.dbInit3();
     }
 
     @Component
@@ -230,6 +235,122 @@ public class InitDb {
             OrderItem orderItem2 = OrderItem.createOrderItem(course, course.getPrice(), 5);
             Order order = Order.createOrder(member, createDelivery(member), orderItem1, orderItem2);
             em.persist(order);
+        }
+
+        public void dbInit3() {
+
+            List<Member> members = new ArrayList<>();
+            List<Book> books = new ArrayList<>();
+            List<Course> courses = new ArrayList<>();
+
+            for (int i = 0; i < 50; i++) {
+                Member member1 = createMember(
+                        new MemberDto.Builder()
+                                .memberId("teststudent" + i)
+                                .password("teststudent" + i)
+                                .name("testNames" + i)
+                                .birthDate(LocalDate.of(1995 + (i/10), 10, 14))
+                                .phoneNumber("010-2222-" + (1000+i))
+                                .email("tester"+i+"@gmail.com")
+                                .role(Role.STUDENT)
+                                .build()
+                );
+
+                member1.setAddress(
+                        createAddress(
+                                new AddressDto.Builder()
+                                        .metropolitanCityProvince("부산광역시")
+                                        .cityDistrict("해운대구")
+                                        .village("우동")
+                                        .roadName("센텀중앙로")
+                                        .roadNumber(90+i)
+                                        .zipCode("48058")
+                                        .build()
+                        )
+                );
+
+                em.persist(member1);
+                members.add(member1);
+
+                Member member2 = createMember(
+                        new MemberDto.Builder()
+                                .memberId("testteacher" + i)
+                                .password("testteacher" + i)
+                                .name("testNames" + i)
+                                .birthDate(LocalDate.of(1984 + (i/10), 2, 14))
+                                .phoneNumber("010-2212-" + (1000+i))
+                                .email("testteacher"+i+"@gmail.com")
+                                .role(Role.TEACHER)
+                                .build()
+                );
+
+                member2.setAddress(
+                        createAddress(
+                                new AddressDto.Builder()
+                                        .metropolitanCityProvince("서울특별시")
+                                        .cityDistrict("노원구")
+                                        .village("공릉동")
+                                        .roadName("동일로193길")
+                                        .roadNumber(i)
+                                        .zipCode("11155")
+                                        .build()
+                        )
+                );
+                em.persist(member2);
+                members.add(member2);
+            }
+
+
+            for (int i = 0; i < 10; i++) {
+                Book book = createBook(
+                        new ItemDto.BookBuilder()
+                                .author("Author " + i)
+                                .isbn("978-3-16-148410-" + i)
+                                .publisher("Publisher " + i)
+                                .publishedDate(LocalDate.of(2023, 1, i % 30 + 1))
+                                .pageCount(200 + i * 10) // 200부터 페이지 수 설정
+                                .format(BookFormat.HARDCOVER)
+                                .language(BookLanguage.ENGLISH)
+                                .summary("Summary for Book " + i)
+                                .name("Book Name " + i)
+                                .price(20000 + i * 1000) // 20000부터 가격 설정
+                                .stockQuantity(100 + i)
+                                .build()
+                );
+
+                books.add(book);
+                em.persist(book);
+
+                Course course = createCourse(
+                        new ItemDto.CourseBuilder()
+                                .teacherId("teacher" + i)
+                                .description("Description for Course " + i)
+                                .period(new Period(LocalDate.of(2024, i % 12 + 1, 1),
+                                        LocalDate.of(2024, i % 12 + 1, 28)))
+                                .timeRange(new TimeRange(LocalTime.of(10, 0), LocalTime.of(12, 0)))
+                                .duration(new Duration(2, 0)) // 2시간짜리 강의
+                                .level(CourseLevel.BEGINNER)
+                                .courseType(CourseType.ONLINE)
+                                .materialUrl("https://example.com/course-" + i)
+                                .name("Course Name " + i)
+                                .price(150000 + i * 5000) // 150000부터 가격 설정
+                                .stockQuantity(500 + i)
+                                .build()
+                );
+
+                courses.add(course);
+                em.persist(course);
+            }
+
+            for (int i = 0; i < members.size(); i++) {
+                OrderItem orderItem1 = OrderItem.createOrderItem(books.get(i % 10), books.get(i % 10).getPrice(), (i % 10) + 1);
+                OrderItem orderItem2 = OrderItem.createOrderItem(courses.get(i % 10), courses.get(i % 10).getPrice(), (i % 10) + 1);
+
+                Order order = Order.createOrder(members.get(i), createDelivery(members.get(i)), orderItem1, orderItem2);
+
+                em.persist(order);
+            }
+
         }
 
         private Member createMember(MemberDto memberDto){
