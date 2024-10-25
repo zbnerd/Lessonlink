@@ -6,9 +6,11 @@ import com.lessonlink.domain.item.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
+@ToString
 public class OrderItem extends BaseTimeEntity {
 
     @Id @GeneratedValue
@@ -17,6 +19,7 @@ public class OrderItem extends BaseTimeEntity {
 
     @Setter
     @JsonIgnore
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;

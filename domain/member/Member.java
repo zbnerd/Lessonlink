@@ -9,6 +9,7 @@ import com.lessonlink.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.KeyGenerator;
@@ -22,6 +23,7 @@ import java.util.Random;
 @Entity
 @Getter
 @Slf4j
+@ToString
 public class Member extends BaseTimeEntity {
 
     @Id @Column(name = "member_id_secret_key")
@@ -50,6 +52,7 @@ public class Member extends BaseTimeEntity {
     private Address address;
 
     @OneToMany(mappedBy = "member")
+    @ToString.Exclude
     @JsonIgnore
     private List<Order> orders = new ArrayList<>();
 

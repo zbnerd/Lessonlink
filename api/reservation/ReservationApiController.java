@@ -8,6 +8,7 @@ import com.lessonlink.service.ReservationService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -23,11 +24,12 @@ public class ReservationApiController {
 
     @GetMapping("/api/v1/courses/{courseId}/reservations")
     public Result allReservationsByCourse(
-            @PathVariable Long courseId
+            @PathVariable Long courseId,
+            Pageable pageable
     ) {
 
-        List<Reservation> reservations = reservationRepository.findByCourseId(courseId);
-        List<Member> members = reservationService.findReservedStudentsByCourse(courseId);
+        List<Reservation> reservations = reservationRepository.findByCourseId(courseId, pageable);
+        List<Member> members = reservationService.findReservedStudentsByCourse(courseId, pageable);
 
         return new Result(
                 IntStream.range(0, reservations.size())
@@ -41,7 +43,7 @@ public class ReservationApiController {
     public List<MakeReservationResponseDto> makeReservation(
             @RequestBody MakeReservationRequestDto request
     ) {
-        List<Long> reservationIdList = reservationService.makeReservation(request.memberIdSecretKey, request.orderId);
+        List<Long> reservationIdList = reservationService.makeReservation(request.orderId);
 
         return reservationIdList.stream()
                 .map(MakeReservationResponseDto::new)
@@ -66,7 +68,6 @@ public class ReservationApiController {
 
     @Data
     static class MakeReservationRequestDto {
-        private String memberIdSecretKey;
         private Long orderId;
     }
 

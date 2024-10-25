@@ -8,15 +8,18 @@ import com.lessonlink.domain.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter @Setter
+@ToString
 public class Delivery extends BaseTimeEntity {
 
     @Id @GeneratedValue
     private Long id;
 
     @JsonIgnore
+    @ToString.Exclude
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
     private Order order;
 

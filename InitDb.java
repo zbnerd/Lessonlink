@@ -15,10 +15,12 @@ import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
+import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.AddressDto;
 import com.lessonlink.dto.ItemDto;
 import com.lessonlink.dto.MemberDto;
-import com.lessonlink.service.OrderService;
+import com.lessonlink.repository.MemberRepository;
+import com.lessonlink.service.ReservationService;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -35,13 +37,13 @@ import java.util.List;
 public class InitDb {
 
     private final InitService initService;
-    private final OrderService orderService;
 
     @PostConstruct
     public void init() {
-        initService.dbInit1();
-        initService.dbInit2();
-        initService.dbInit3();
+        initService.basicDbInit1();
+        initService.basicDbInit2();
+        initService.hundredDbInit();
+        initService.reservationTestData();
     }
 
     @Component
@@ -50,8 +52,10 @@ public class InitDb {
     static class InitService {
 
         private final EntityManager em;
+        private final MemberRepository memberRepository;
+        private final ReservationService reservationService;
 
-        public void dbInit1() {
+        public void basicDbInit1() {
             Member student = createMember(
                     new MemberDto.Builder()
                             .memberId("test1")
@@ -144,7 +148,7 @@ public class InitDb {
             em.persist(order1);
         }
 
-        public void dbInit2() {
+        public void basicDbInit2() {
             Member member = createMember(
                     new MemberDto.Builder()
                             .memberId("test2")
@@ -237,9 +241,10 @@ public class InitDb {
             em.persist(order);
         }
 
-        public void dbInit3() {
+        public void hundredDbInit() {
 
             List<Member> members = new ArrayList<>();
+            List<Member> teachers = new ArrayList<>();
             List<Book> books = new ArrayList<>();
             List<Course> courses = new ArrayList<>();
 
@@ -298,6 +303,7 @@ public class InitDb {
                 );
                 em.persist(member2);
                 members.add(member2);
+                teachers.add(member2);
             }
 
 
@@ -323,7 +329,7 @@ public class InitDb {
 
                 Course course = createCourse(
                         new ItemDto.CourseBuilder()
-                                .teacherId("teacher" + i)
+                                .teacherId(teachers.get(i).getId())
                                 .description("Description for Course " + i)
                                 .period(new Period(LocalDate.of(2024, i % 12 + 1, 1),
                                         LocalDate.of(2024, i % 12 + 1, 28)))
@@ -351,6 +357,62 @@ public class InitDb {
                 em.persist(order);
             }
 
+        }
+
+        public void reservationTestData() {
+            List<Member> allMember = memberRepository.findAll(); // 한 강의에 모두 예약할 멤버들
+            Member teacher = createMember(
+                    new MemberDto.Builder()
+                            .memberId("famous_teacher")
+                            .password("teachPass3")
+                            .name("teacherThree")
+                            .birthDate(LocalDate.of(1982, 3, 10))
+                            .phoneNumber("010-1821-8733")
+                            .email("famous_teacher@example.com")
+                            .role(Role.TEACHER)
+                            .build()
+            );
+
+            teacher.setAddress(
+                    createAddress(
+                            new AddressDto.Builder()
+                                    .metropolitanCityProvince("대구광역시")
+                                    .cityDistrict("수성구")
+                                    .village("범어동")
+                                    .roadName("동대구로")
+                                    .roadNumber(123)
+                                    .zipCode("42180")
+                                    .build()
+                    )
+            );
+
+            em.persist(teacher);
+
+            Course course = createCourse(
+                    new ItemDto.CourseBuilder()
+                            .teacherId(teacher.getId())
+                            .description("스프링 프레임워크의 고급 기능을 깊이 있게 다루는 강의로, AOP, 트랜잭션 관리, 스프링 시큐리티 등을 포함합니다.")
+                            .period(new Period(LocalDate.of(2024, 12, 1), LocalDate.of(2025, 2, 28)))
+                            .timeRange(new TimeRange(LocalTime.of(14, 0), LocalTime.of(17, 0)))
+                            .duration(new Duration(3, 0))
+                            .level(CourseLevel.ADVANCED)
+                            .courseType(CourseType.OFFLINE)
+                            .materialUrl("https://example.com/advanced-spring-course")
+                            .name("Advanced Spring Framework")
+                            .price(250000)
+                            .stockQuantity(500)
+                            .build()
+            );
+
+            em.persist(course);
+
+            for (Member member : allMember) {
+                OrderItem orderItem1 = OrderItem.createOrderItem(course, course.getPrice(), 1);
+                Order order = Order.createOrder(member, createDelivery(member), orderItem1);
+                em.persist(order);
+
+                reservationService.makeReservation(order.getId());
+            }
         }
 
         private Member createMember(MemberDto memberDto){

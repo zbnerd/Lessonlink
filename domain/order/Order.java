@@ -8,6 +8,7 @@ import com.lessonlink.domain.order.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 @Entity
 @Table(name= "orders")
 @Getter
+@ToString
 public class Order extends BaseTimeEntity {
 
     @Id @GeneratedValue
