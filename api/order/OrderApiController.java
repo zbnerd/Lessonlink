@@ -97,6 +97,15 @@ public class OrderApiController {
                 .toList());
     }
 
+    /**
+     * 주문 검색 API
+     * - 회원 이름과 주문 상태를 기준으로 주문 정보를 검색합니다.
+     * - 페이징 기능을 지원하여 요청된 페이지와 크기에 맞춰 결과를 반환합니다.
+     *
+     * @param request 주문 검색 요청 데이터 (회원 이름, 주문 상태)
+     * @param pageable 페이지 정보 (페이지 번호, 페이지 크기)
+     * @return 주문 정보 목록을 담은 Result 객체 (OrderResponseDto 리스트 형태로 반환)
+     */
     @GetMapping("/api/v1/ordersearch")
     public Result orderSearch(
             @RequestBody @Valid ReadOrderRequsetDto request,
