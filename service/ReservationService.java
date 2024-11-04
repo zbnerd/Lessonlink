@@ -69,7 +69,7 @@ public class ReservationService {
 
     public Reservation findOne(Long reservationId) {
         return reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 예약정보가 존재하지 않습니다. ID: " + reservationId));
+                .orElseThrow(() -> new IllegalStateException("해당 예약정보가 존재하지 않습니다. ID: " + reservationId));
     }
 
     @Transactional

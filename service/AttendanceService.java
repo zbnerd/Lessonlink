@@ -42,7 +42,7 @@ public class AttendanceService {
 
     public Attendance findOne(Long attendanceId) {
         return attendanceRepository.findById(attendanceId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 출석정보가 존재하지 않습니다. ID: " + attendanceId));
+                .orElseThrow(() -> new IllegalStateException("해당 출석정보가 존재하지 않습니다. ID: " + attendanceId));
     }
 
     @Transactional

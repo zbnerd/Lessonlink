@@ -34,9 +34,9 @@ public class OrderService {
 
         //엔티티 조회
         Member member = memberRepository.findById(memberIdSecretKey)
-                .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다. ID: " + memberIdSecretKey));
+                .orElseThrow(() -> new IllegalStateException("회원이 존재하지 않습니다. ID: " + memberIdSecretKey));
         Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다. ID: " + itemId));
+                .orElseThrow(() -> new IllegalStateException("상품이 존재하지 않습니다. ID: " + itemId));
 
         //배송정보 생성
         Delivery delivery = new Delivery();
@@ -76,7 +76,7 @@ public class OrderService {
 
     public Order findOne(Long orderId) {
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 주문 정보가 존재하지 않습니다. ID: " + orderId));
+                .orElseThrow(() -> new IllegalStateException("해당 주문 정보가 존재하지 않습니다. ID: " + orderId));
     }
 
     /** 주문 조회 **/

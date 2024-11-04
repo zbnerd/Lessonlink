@@ -31,7 +31,7 @@ public class ItemService {
 
     public Item findOne(Long itemId) {
         return itemRepository.findById(itemId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 아이템이 존재하지 않습니다. ID: " + itemId));
+                .orElseThrow(() -> new IllegalStateException("해당 아이템이 존재하지 않습니다. ID: " + itemId));
     }
 
     @Transactional

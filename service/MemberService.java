@@ -76,7 +76,7 @@ public class MemberService {
 
     public boolean login(String memberId, String password) {
         Member member = memberRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다. ID: " + memberId));
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다. ID: " + memberId));
 
         return passwordEncoder.matches(password, member.getPassword());
     }
