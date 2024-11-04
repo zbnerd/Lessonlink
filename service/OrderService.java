@@ -6,14 +6,17 @@ import com.lessonlink.domain.item.Item;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
+import com.lessonlink.domain.order.condition.OrderSearch;
 import com.lessonlink.repository.ItemRepository;
 import com.lessonlink.repository.MemberRepository;
 import com.lessonlink.repository.OrderRepository;
+import com.lessonlink.repository.OrderRepositoryCustomImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,6 +24,7 @@ import java.util.Optional;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final OrderRepositoryCustomImpl orderRepositoryCustomImpl;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
@@ -53,7 +57,7 @@ public class OrderService {
         return order.getId();
     }
 
-    /** 주문 취소 */
+    /** 주문 취소 **/
     @Transactional
     public void cancelOrder(Long orderId) {
         //주문 엔티티 조회
@@ -65,6 +69,11 @@ public class OrderService {
     public Order findOne(Long orderId) {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 주문 정보가 존재하지 않습니다. ID: " + orderId));
+    }
+
+    /** 주문 조회 **/
+    public Page<Order> findAll(OrderSearch orderSearch, Pageable pageable) {
+        return orderRepositoryCustomImpl.findAll(orderSearch, pageable);
     }
 
 }

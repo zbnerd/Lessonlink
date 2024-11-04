@@ -3,7 +3,7 @@ package com.lessonlink.api.order;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
-import com.lessonlink.domain.order.enums.OrderSearch;
+import com.lessonlink.domain.order.condition.OrderSearch;
 import com.lessonlink.domain.order.enums.OrderStatus;
 import com.lessonlink.repository.OrderRepository;
 import com.lessonlink.repository.OrderRepositoryCustomImpl;
@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,8 +41,8 @@ public class OrderApiController {
      */
 
     @GetMapping("/api/beta-v1/orders")
-    public List<Order> ordersV1() {
-        List<Order> all = orderRepositoryCustomImpl.findAllByString(new OrderSearch());
+    public Page<Order> ordersV1() {
+        Page<Order> all = orderRepositoryCustomImpl.findAll(new OrderSearch(), PageRequest.of(0, 20));
         for (Order order : all) {
             order.getMember().getName(); //Lazy 강제 초기화
             order.getDelivery().getAddress(); //Lazy 강제 초기환
@@ -60,7 +61,7 @@ public class OrderApiController {
      */
     @GetMapping("/api/beta-v2/orders")
     public List<OrderResponseDto> ordersV2() {
-        List<Order> orders = orderRepositoryCustomImpl.findAllByString(new OrderSearch());
+        Page<Order> orders = orderRepositoryCustomImpl.findAll(new OrderSearch(), PageRequest.of(0, 20));
         return orders.stream()
                 .map(OrderResponseDto::new)
                 .collect(toList());
@@ -96,6 +97,20 @@ public class OrderApiController {
                 .toList());
     }
 
+    @GetMapping("/api/v1/ordersearch")
+    public Result orderSearch(
+            @RequestBody @Valid ReadOrderRequsetDto request,
+            Pageable pageable
+    ) {
+        OrderSearch orderSearch = new OrderSearch(
+                request.getMemberName(),
+                request.getOrderStatus()
+        );
+        Page<Order> orders = orderRepositoryCustomImpl.findAll(orderSearch, pageable);
+        return new Result(orders.stream()
+                .map(OrderResponseDto::new)
+                .toList());
+    }
     /**
      * 새로운 주문 생성
      * - 주문 요청 정보를 받아서 주문을 생성하고, 생성된 주문의 ID를 반환합니다.
@@ -206,6 +221,12 @@ public class OrderApiController {
             this.orderId = orderId;
             this.orderStatus = orderService.findOne(orderId).getStatus();
         }
+    }
+
+    @Data
+    static class ReadOrderRequsetDto {
+        private String memberName;
+        private OrderStatus orderStatus;
     }
 
     /**

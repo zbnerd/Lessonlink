@@ -2,12 +2,14 @@ package com.lessonlink.api.order;
 
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.order.Order;
-import com.lessonlink.domain.order.enums.OrderSearch;
+import com.lessonlink.domain.order.condition.OrderSearch;
 import com.lessonlink.domain.order.enums.OrderStatus;
 import com.lessonlink.repository.OrderRepository;
 import com.lessonlink.repository.OrderRepositoryCustomImpl;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +28,8 @@ public class OrderSimpleApiController {
      * - 양방향 관계 문제 발생 -> @JsonIgnore
      */
     @GetMapping("/api/beta-v1/simple-orders")
-    public List<Order> ordersV1() {
-        List<Order> all = orderRepositoryImpl.findAllByString(new OrderSearch());
+    public Page<Order> ordersV1() {
+        Page<Order> all = orderRepositoryImpl.findAll(new OrderSearch(), PageRequest.of(0, 20));
         for (Order order : all) {
             order.getMember().getName(); //Lazy 강제 초기화
             order.getDelivery().getAddress(); //Lazy 강제 초기화
@@ -43,7 +45,7 @@ public class OrderSimpleApiController {
 
     @GetMapping("/api/beta-v2/simple-orders")
     public List<SimpleOrderDto> ordersV2() {
-        List<Order> orders = orderRepositoryImpl.findAllByString(new OrderSearch());
+        Page<Order> orders = orderRepositoryImpl.findAll(new OrderSearch(), PageRequest.of(0, 20));
         return orders.stream()
                 .map(SimpleOrderDto::new)
                 .toList();
