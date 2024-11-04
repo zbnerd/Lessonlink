@@ -1,5 +1,6 @@
 package com.lessonlink.api.order;
 
+import com.lessonlink.api.Result;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
@@ -236,18 +237,5 @@ public class OrderApiController {
     static class ReadOrderRequsetDto {
         private String memberName;
         private OrderStatus orderStatus;
-    }
-
-    /**
-     * 결과 응답 래퍼 클래스
-     * - 데이터를 래핑하여 클라이언트에 응답합니다.
-     * - 제네릭을 사용하여 다양한 타입의 데이터를 반환할 수 있습니다.
-     *
-     * @param <T> 반환할 데이터 타입
-     */
-    @Data
-    @AllArgsConstructor
-    static class Result<T> {
-        private T data;
     }
 }

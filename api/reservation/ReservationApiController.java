@@ -1,5 +1,6 @@
 package com.lessonlink.api.reservation;
 
+import com.lessonlink.api.Result;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.domain.reservation.enums.ReservationStatus;
@@ -80,11 +81,5 @@ public class ReservationApiController {
             this.reservationId = reservationId;
             this.reservationStatus = reservationService.findOne(reservationId).getReservationStatus();
         }
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class Result<T> {
-        private T data;
     }
 }

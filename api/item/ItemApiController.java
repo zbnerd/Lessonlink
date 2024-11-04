@@ -1,5 +1,6 @@
 package com.lessonlink.api.item;
 
+import com.lessonlink.api.Result;
 import com.lessonlink.domain.item.*;
 import com.lessonlink.domain.item.embedded.Duration;
 import com.lessonlink.domain.item.embedded.Period;
@@ -290,12 +291,6 @@ public class ItemApiController {
     static class ItemResponse {
 
         private Long id;
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class Result<T> {
-        private T data;
     }
 
     @Data

@@ -1,5 +1,6 @@
 package com.lessonlink.api.member;
 
+import com.lessonlink.api.Result;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.dto.MemberDto;
@@ -150,12 +151,6 @@ public class MemberApiController {
         private String id;
         private String password;
         private String email;
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class Result<T> {
-        private T data;
     }
 
     @Data
