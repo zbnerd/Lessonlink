@@ -48,16 +48,25 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
-    private static MemberDto buildMemberInfo(CreateMemberRequest request) {
-        return new MemberDto.Builder()
-                .memberId(request.getMemberId())
-                .password(request.getPassword())
-                .name(request.getName())
-                .birthDate(request.getBirthDate())
-                .phoneNumber(request.getPhoneNumber())
-                .email(request.getEmail())
-                .role(request.getRole())
-                .build();
+    @PostMapping("/api/v1/members/login")
+    public Result loginMember(
+            @RequestBody @Valid MemberLoginRequest request
+    ) {
+        boolean login = memberService.login(request.getMemberId(), request.getPassword());
+
+        if(!login) {
+            throw new IllegalStateException("패스워드가 일치하지 않습니다.");
+        }
+
+        Member member = memberService.findOneByMemberId(request.getMemberId());
+        return new Result(new MemberInfo(
+                member.getMemberId(),
+                member.getName(),
+                member.getBirthDate(),
+                member.getPhoneNumber(),
+                member.getEmail(),
+                member.getRole()
+        ));
     }
 
     /**
@@ -154,6 +163,12 @@ public class MemberApiController {
     }
 
     @Data
+    static class MemberLoginRequest {
+        private String memberId;
+        private String password;
+    }
+
+    @Data
     @AllArgsConstructor
     static class MemberInfo {
         private String memberId; // 실제 사용되는 멤버 id
@@ -162,6 +177,19 @@ public class MemberApiController {
         private String phoneNumber; // 휴대폰 번호
         private String email; // 이메일
         private Role role; // ADMIN : 관리자, TEACHER : 선생님, STUDENT : 학생
+    }
+
+    private MemberDto buildMemberInfo(CreateMemberRequest request) {
+
+        return new MemberDto.Builder()
+                .memberId(request.getMemberId())
+                .password(request.getPassword())
+                .name(request.getName())
+                .birthDate(request.getBirthDate())
+                .phoneNumber(request.getPhoneNumber())
+                .email(request.getEmail())
+                .role(request.getRole())
+                .build();
     }
 
 }

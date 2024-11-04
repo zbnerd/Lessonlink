@@ -24,6 +24,7 @@ import com.lessonlink.service.ReservationService;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,12 +55,13 @@ public class InitDb {
         private final EntityManager em;
         private final MemberRepository memberRepository;
         private final ReservationService reservationService;
+        private final PasswordEncoder passwordEncoder;
 
         public void basicDbInit1() {
             Member student = createMember(
                     new MemberDto.Builder()
                             .memberId("test1")
-                            .password("test1")
+                            .password(passwordEncoder.encode("test1"))
                             .name("testName")
                             .birthDate(LocalDate.of(2000, 10, 14))
                             .phoneNumber("010-2222-0000")
@@ -84,7 +86,7 @@ public class InitDb {
             Member teacher = createMember(
                     new MemberDto.Builder()
                             .memberId("teacher1")
-                            .password("teachPass1")
+                            .password(passwordEncoder.encode("teachPass1"))
                             .name("teacherName")
                             .birthDate(LocalDate.of(1985, 5, 20))
                             .phoneNumber("010-3333-1111")
@@ -152,7 +154,7 @@ public class InitDb {
             Member member = createMember(
                     new MemberDto.Builder()
                             .memberId("test2")
-                            .password("test2")
+                            .password(passwordEncoder.encode("test2"))
                             .name("testName2")
                             .birthDate(LocalDate.of(2001, 10, 14))
                             .phoneNumber("010-2222-0001")
@@ -177,7 +179,7 @@ public class InitDb {
             Member teacher = createMember(
                     new MemberDto.Builder()
                             .memberId("teacher3")
-                            .password("teachPass3")
+                            .password(passwordEncoder.encode("teachPass3"))
                             .name("teacherThree")
                             .birthDate(LocalDate.of(1982, 3, 10))
                             .phoneNumber("010-5555-3333")
@@ -252,7 +254,7 @@ public class InitDb {
                 Member member1 = createMember(
                         new MemberDto.Builder()
                                 .memberId("teststudent" + i)
-                                .password("teststudent" + i)
+                                .password(passwordEncoder.encode("teststudent" + i))
                                 .name("ImStudent" + i)
                                 .birthDate(LocalDate.of(1995 + (i/10), 10, 14))
                                 .phoneNumber("010-2222-" + (1000+i))
@@ -280,7 +282,7 @@ public class InitDb {
                 Member member2 = createMember(
                         new MemberDto.Builder()
                                 .memberId("testteacher" + i)
-                                .password("testteacher" + i)
+                                .password(passwordEncoder.encode("testteacher" + i))
                                 .name("ImTeacher" + i)
                                 .birthDate(LocalDate.of(1984 + (i/10), 2, 14))
                                 .phoneNumber("010-2212-" + (1000+i))
@@ -364,7 +366,7 @@ public class InitDb {
             Member teacher = createMember(
                     new MemberDto.Builder()
                             .memberId("famous_teacher")
-                            .password("teachPass3")
+                            .password(passwordEncoder.encode("teachPass3"))
                             .name("teacherThree")
                             .birthDate(LocalDate.of(1982, 3, 10))
                             .phoneNumber("010-1821-8733")
