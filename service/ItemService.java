@@ -4,6 +4,7 @@ import com.lessonlink.domain.item.Book;
 import com.lessonlink.domain.item.Course;
 import com.lessonlink.domain.item.Item;
 import com.lessonlink.dto.ItemDto;
+import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class ItemService {
 
     public Item findOne(Long itemId) {
         return itemRepository.findById(itemId)
-                .orElseThrow(() -> new IllegalStateException("해당 아이템이 존재하지 않습니다. ID: " + itemId));
+                .orElseThrow(() -> new NotFoundException("해당 아이템이 존재하지 않습니다. ID: " + itemId));
     }
 
     @Transactional

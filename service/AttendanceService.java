@@ -4,6 +4,7 @@ import com.lessonlink.domain.attendance.Attendance;
 import com.lessonlink.domain.attendance.enums.AttendanceStatus;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.AttendanceDto;
+import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.AttendanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,7 @@ public class AttendanceService {
 
     public Attendance findOne(Long attendanceId) {
         return attendanceRepository.findById(attendanceId)
-                .orElseThrow(() -> new IllegalStateException("해당 출석정보가 존재하지 않습니다. ID: " + attendanceId));
+                .orElseThrow(() -> new NotFoundException("해당 출석정보가 존재하지 않습니다. ID: " + attendanceId));
     }
 
     @Transactional

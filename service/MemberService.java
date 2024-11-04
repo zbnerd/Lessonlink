@@ -3,6 +3,7 @@ package com.lessonlink.service;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.dto.AddressDto;
+import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,12 +56,12 @@ public class MemberService {
 
     public Member findOne(String memberIdSecretKey) {
         return memberRepository.findById(memberIdSecretKey)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다. ID: " + memberIdSecretKey));
+                .orElseThrow(() -> new NotFoundException("해당 회원이 존재하지 않습니다. ID: " + memberIdSecretKey));
     }
 
     public Member findOneByMemberId(String memberId) {
         return memberRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다. ID: " + memberId));
+                .orElseThrow(() -> new NotFoundException("해당 회원이 존재하지 않습니다. ID: " + memberId));
     }
 
     /**
@@ -76,7 +77,7 @@ public class MemberService {
 
     public boolean login(String memberId, String password) {
         Member member = memberRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다. ID: " + memberId));
+                .orElseThrow(() -> new NotFoundException("해당 회원이 존재하지 않습니다. ID: " + memberId));
 
         return passwordEncoder.matches(password, member.getPassword());
     }

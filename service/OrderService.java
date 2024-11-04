@@ -7,6 +7,7 @@ import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
 import com.lessonlink.domain.order.condition.OrderSearch;
+import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.ItemRepository;
 import com.lessonlink.repository.MemberRepository;
 import com.lessonlink.repository.OrderRepository;
@@ -34,9 +35,9 @@ public class OrderService {
 
         //엔티티 조회
         Member member = memberRepository.findById(memberIdSecretKey)
-                .orElseThrow(() -> new IllegalStateException("회원이 존재하지 않습니다. ID: " + memberIdSecretKey));
+                .orElseThrow(() -> new NotFoundException("회원이 존재하지 않습니다. ID: " + memberIdSecretKey));
         Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new IllegalStateException("상품이 존재하지 않습니다. ID: " + itemId));
+                .orElseThrow(() -> new NotFoundException("상품이 존재하지 않습니다. ID: " + itemId));
 
         //배송정보 생성
         Delivery delivery = new Delivery();
@@ -76,7 +77,7 @@ public class OrderService {
 
     public Order findOne(Long orderId) {
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalStateException("해당 주문 정보가 존재하지 않습니다. ID: " + orderId));
+                .orElseThrow(() -> new NotFoundException("해당 주문 정보가 존재하지 않습니다. ID: " + orderId));
     }
 
     /** 주문 조회 **/

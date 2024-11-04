@@ -7,6 +7,7 @@ import com.lessonlink.domain.order.OrderItem;
 import com.lessonlink.domain.order.enums.OrderStatus;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.ReservationDto;
+import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.OrderRepository;
 import com.lessonlink.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
@@ -69,7 +70,7 @@ public class ReservationService {
 
     public Reservation findOne(Long reservationId) {
         return reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new IllegalStateException("해당 예약정보가 존재하지 않습니다. ID: " + reservationId));
+                .orElseThrow(() -> new NotFoundException("해당 예약정보가 존재하지 않습니다. ID: " + reservationId));
     }
 
     @Transactional
