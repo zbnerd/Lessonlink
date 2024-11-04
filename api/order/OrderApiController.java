@@ -2,6 +2,7 @@ package com.lessonlink.api.order;
 
 import com.lessonlink.api.Result;
 import com.lessonlink.domain.common.embedded.Address;
+import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
 import com.lessonlink.domain.order.condition.OrderSearch;
@@ -148,12 +149,20 @@ public class OrderApiController {
      * @param orderId 취소할 주문의 ID
      * @return 취소된 주문의 ID와 상태를 담은 응답 객체
      */
-    @PostMapping("/api/v1/orders/{orderId}/cancel")
+    @PatchMapping("/api/v1/orders/{orderId}/cancel")
     public CancelOrderResponseDto cancelOrder(
             @PathVariable @Valid Long orderId
     ) {
         orderService.cancelOrder(orderId);
         return new CancelOrderResponseDto(orderId);
+    }
+
+    @PatchMapping("/api/v1/orders/{orderId}/delivery-comp")
+    public StartOrderDeliveryCompResponseDto startOrderDeliveryComp(
+            @PathVariable @Valid Long orderId
+    ) {
+        orderService.startComp(orderId);
+        return new StartOrderDeliveryCompResponseDto(orderId);
     }
 
     /**
@@ -230,6 +239,17 @@ public class OrderApiController {
         public CancelOrderResponseDto(Long orderId) {
             this.orderId = orderId;
             this.orderStatus = orderService.findOne(orderId).getStatus();
+        }
+    }
+
+    @Data
+    class StartOrderDeliveryCompResponseDto {
+        private Long orderId;
+        private DeliveryStatus deliveryStatus;
+
+        public StartOrderDeliveryCompResponseDto(Long orderId) {
+            this.orderId = orderId;
+            this.deliveryStatus = orderService.findOne(orderId).getDelivery().getStatus();
         }
     }
 

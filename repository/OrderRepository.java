@@ -15,9 +15,6 @@ public interface OrderRepository extends JpaRepository<Order, Long>, OrderReposi
             " where o.id = :orderId")
     List<Order> findOrdersByOrderId(Long orderId);
 
-    @Query("select o from Order o join fetch o.member m join fetch o.delivery d")
-    List<Order> findAllWithMemberDelivery();
-
     @Query("select distinct o from Order o" +
             " join fetch o.member m" +
             " join fetch o.delivery d" +

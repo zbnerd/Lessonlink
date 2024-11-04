@@ -66,6 +66,14 @@ public class OrderService {
         order.cancel();
     }
 
+    /** 배송시작시 배송중으로 전환 **/
+    @Transactional
+    public void startComp(Long orderId) {
+        Order order = orderRepositoryCustomImpl.findOrderDeliveryByOrderId(orderId);
+        Delivery delivery = order.getDelivery();
+        delivery.setComp();
+    }
+
     public Order findOne(Long orderId) {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 주문 정보가 존재하지 않습니다. ID: " + orderId));

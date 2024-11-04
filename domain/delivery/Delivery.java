@@ -27,10 +27,16 @@ public class Delivery extends BaseTimeEntity {
     private Address address;
 
     @Enumerated(EnumType.STRING)
+    @Setter
     private DeliveryStatus status;
 
     public void setDeliveryInfo(Address address, DeliveryStatus status) {
         this.address = address;
         this.status = status;
+    }
+
+    /** 배송중으로 전환 **/
+    public void setComp() {
+        this.setStatus(DeliveryStatus.COMP);
     }
 }

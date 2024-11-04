@@ -16,7 +16,8 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-import static com.lessonlink.domain.member.QMember.member;
+import static com.lessonlink.domain.delivery.QDelivery.*;
+import static com.lessonlink.domain.member.QMember.*;
 import static com.lessonlink.domain.order.QOrder.*;
 
 
@@ -32,8 +33,6 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
     }
 
     public Page<Order> findAll(OrderSearch orderSearch, Pageable pageable) {
-        QOrder order = QOrder.order;
-        QMember member = QMember.member;
 
         List<Order> orders = query
                 .selectFrom(order)
@@ -56,6 +55,21 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
     private BooleanExpression nameLike(String nameLike) {
         if (!StringUtils.hasText(nameLike)) return null;
         return member.name.like("%" + nameLike + "%");
+    }
+
+    public List<Order> findAllWithMemberDelivery() {
+        return query
+                .selectFrom(order)
+                .join(order.delivery, delivery).fetchJoin()
+                .fetch();
+    }
+
+    public Order findOrderDeliveryByOrderId(Long orderId) {
+        return query
+                .selectFrom(order)
+                .join(order.delivery, delivery).fetchJoin()
+                .where(order.id.eq(orderId))
+                .fetchOne();
     }
 
 }
