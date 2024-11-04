@@ -67,9 +67,9 @@ public class OrderService {
         order.cancel();
     }
 
-    /** 배송시작시 배송중으로 전환 **/
+    /** 배송완료 **/
     @Transactional
-    public void startComp(Long orderId) {
+    public void deliveryCompleted(Long orderId) {
         Order order = orderRepositoryCustomImpl.findOrderDeliveryByOrderId(orderId);
         Delivery delivery = order.getDelivery();
         delivery.setComp();

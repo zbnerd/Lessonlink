@@ -8,6 +8,7 @@ import com.lessonlink.domain.order.enums.OrderStatus;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.ReservationDto;
 import com.lessonlink.exception.NotFoundException;
+import com.lessonlink.exception.ReservationNotAllowedException;
 import com.lessonlink.repository.OrderRepository;
 import com.lessonlink.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class ReservationService {
         for (Order order : orders) {
 
             if (order.getStatus() == OrderStatus.CANCEL) {
-                throw new IllegalStateException("취소된 주문상품은 예약할 수 없습니다.");
+                throw new ReservationNotAllowedException("취소된 주문상품은 예약할 수 없습니다.");
             }
 
             for (OrderItem orderItem : order.getOrderItems()) {

@@ -5,6 +5,7 @@ import com.lessonlink.domain.delivery.Delivery;
 import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.order.enums.OrderStatus;
+import com.lessonlink.exception.DeliveryCompletedException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -75,7 +76,7 @@ public class Order extends BaseTimeEntity {
     /** 주문 취소 */
     public void cancel() {
         if (delivery.getStatus() == DeliveryStatus.COMP) {
-            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+            throw new DeliveryCompletedException("이미 배송완료된 상품은 취소가 불가능합니다.");
         }
         this.setStatus(OrderStatus.CANCEL);
         for (OrderItem orderItem : orderItems) {

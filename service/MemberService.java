@@ -3,6 +3,7 @@ package com.lessonlink.service;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.dto.AddressDto;
+import com.lessonlink.exception.DuplicateMemberException;
 import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,7 @@ public class MemberService {
     private void validateDuplicateMember(Member member) {
         Optional<Member> foundMembers = memberRepository.findByMemberId(member.getMemberId());
         if (foundMembers.isPresent()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+            throw new DuplicateMemberException("이미 존재하는 회원입니다.");
         }
     }
 

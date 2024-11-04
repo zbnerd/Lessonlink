@@ -4,6 +4,7 @@ import com.lessonlink.api.Result;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.dto.MemberDto;
+import com.lessonlink.exception.AuthenticationFailedException;
 import com.lessonlink.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -55,7 +56,7 @@ public class MemberApiController {
         boolean login = memberService.login(request.getMemberId(), request.getPassword());
 
         if(!login) {
-            throw new IllegalStateException("패스워드가 일치하지 않습니다.");
+            throw new AuthenticationFailedException("패스워드가 일치하지 않습니다.");
         }
 
         Member member = memberService.findOneByMemberId(request.getMemberId());

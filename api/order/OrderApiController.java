@@ -161,7 +161,7 @@ public class OrderApiController {
     public StartOrderDeliveryCompResponseDto startOrderDeliveryComp(
             @PathVariable @Valid Long orderId
     ) {
-        orderService.startComp(orderId);
+        orderService.deliveryCompleted(orderId);
         return new StartOrderDeliveryCompResponseDto(orderId);
     }
 
