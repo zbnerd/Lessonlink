@@ -1,5 +1,6 @@
 package com.lessonlink.service;
 
+import com.lessonlink.domain.attendance.Attendance;
 import com.lessonlink.domain.item.Book;
 import com.lessonlink.domain.item.Course;
 import com.lessonlink.domain.item.Item;
@@ -56,5 +57,11 @@ public class ItemService {
             throw new IllegalInstanceTypeException("해당 메서드는 Course 타입만 사용 가능합니다.");
         }
 
+    }
+
+    @Transactional
+    public void deleteItem(Long itemId) {
+        Item foundItem = findOne(itemId);
+        itemRepository.delete(foundItem);
     }
 }

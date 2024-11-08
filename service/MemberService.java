@@ -82,4 +82,16 @@ public class MemberService {
 
         return passwordEncoder.matches(password, member.getPassword());
     }
+
+    @Transactional
+    public void deleteByMemberId(String memberId) {
+        Member member = findOneByMemberId(memberId);
+        memberRepository.delete(member);
+    }
+
+    @Transactional
+    public void deleteByMemberIdSecretKey(String memberIdSecretKey) {
+        Member member = findOne(memberIdSecretKey);
+        memberRepository.delete(member);
+    }
 }

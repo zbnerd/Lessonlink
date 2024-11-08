@@ -74,10 +74,19 @@ public class ReservationService {
                 .orElseThrow(() -> new NotFoundException("해당 예약정보가 존재하지 않습니다. ID: " + reservationId));
     }
 
+    /** 예약 취소 **/
+
     @Transactional
     public void cancelReservation(Long reservationId) {
         Reservation reservation = findOne(reservationId);
         reservation.cancel();
+    }
+
+    /** 예약 삭제 */
+    @Transactional
+    public void deleteReservation(Long reservationId) {
+        Reservation reservation = findOne(reservationId);
+        reservationRepository.delete(reservation);
     }
 
 }

@@ -69,4 +69,10 @@ public class PostService {
         post.updatePost(postDto);
     }
 
+    /** 게시글 삭제 **/
+    public void deletePost(Long postId) {
+        Post post = findOne(postId);
+        postRepository.delete(post);
+    }
+
 }

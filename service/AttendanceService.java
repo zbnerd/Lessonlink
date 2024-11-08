@@ -47,39 +47,32 @@ public class AttendanceService {
     }
 
     @Transactional
-    public void updateAttendanceStatusToPresent(Long id) {
-        Optional<Attendance> foundAttendance = attendanceRepository.findById(id);
-        if (foundAttendance.isPresent()) {
-            Attendance attendance = foundAttendance.get();
-            attendance.checkPresent();
-        }
+    public void updateAttendanceStatusToPresent(Long attendanceId) {
+        Attendance foundAttendance = findOne(attendanceId);
+        foundAttendance.checkPresent();
     }
 
     @Transactional
-    public void updateAttendanceStatusToLate(Long id) {
-        Optional<Attendance> foundAttendance = attendanceRepository.findById(id);
-        if (foundAttendance.isPresent()) {
-            Attendance attendance = foundAttendance.get();
-            attendance.checkLate();
-        }
+    public void updateAttendanceStatusToLate(Long attendanceId) {
+        Attendance foundAttendance = findOne(attendanceId);
+        foundAttendance.checkLate();
     }
 
     @Transactional
-    public void updateAttendanceStatusToAbsent(Long id) {
-        Optional<Attendance> foundAttendance = attendanceRepository.findById(id);
-        if (foundAttendance.isPresent()) {
-            Attendance attendance = foundAttendance.get();
-            attendance.checkAbsent();
-        }
+    public void updateAttendanceStatusToAbsent(Long attendanceId) {
+        Attendance foundAttendance = findOne(attendanceId);
+        foundAttendance.checkAbsent();
     }
 
     @Transactional
     public void checkOut(Long attendanceId) {
-        Optional<Attendance> foundAttendance = attendanceRepository.findById(attendanceId);
-        if (foundAttendance.isPresent()) {
-            Attendance attendance = foundAttendance.get();
-            attendance.checkOut();
-        }
+        Attendance foundAttendance = findOne(attendanceId);
+        foundAttendance.checkOut();
     }
 
+    @Transactional
+    public void deleteAttendance(Long attendanceId) {
+        Attendance foundAttendance = findOne(attendanceId);
+        attendanceRepository.delete(foundAttendance);
+    }
 }

@@ -85,4 +85,11 @@ public class OrderService {
         return orderRepositoryCustomImpl.findAll(orderSearch, pageable);
     }
 
+    /** 주문 삭제 **/
+    @Transactional
+    public void deleteOrder(Long orderId) {
+        Order order = findOne(orderId);
+        orderRepository.delete(order);
+    }
+
 }
