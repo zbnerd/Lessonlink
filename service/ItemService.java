@@ -4,6 +4,7 @@ import com.lessonlink.domain.item.Book;
 import com.lessonlink.domain.item.Course;
 import com.lessonlink.domain.item.Item;
 import com.lessonlink.dto.ItemDto;
+import com.lessonlink.exception.IllegalInstanceTypeException;
 import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,20 +37,24 @@ public class ItemService {
     }
 
     @Transactional
-    public void updateBook(Long id, ItemDto itemDto) {
-        Optional<Item> foundItem = itemRepository.findById(id);
-        if (foundItem.isPresent()) {
-            Book book = (Book) foundItem.get();
+    public void updateBook(Long itemId, ItemDto itemDto) {
+        Item foundItem = findOne(itemId);
+        if (foundItem instanceof Book book) {
             book.setBookInfo(itemDto);
+        } else {
+            throw new IllegalInstanceTypeException("해당 메서드는 Book 타입만 사용 가능합니다.");
         }
+
     }
 
     @Transactional
-    public void updateCourse(Long id, ItemDto itemDto) {
-        Optional<Item> foundItem = itemRepository.findById(id);
-        if (foundItem.isPresent()) {
-            Course course = (Course) foundItem.get();
+    public void updateCourse(Long itemId, ItemDto itemDto) {
+        Item foundItem = findOne(itemId);
+        if (foundItem instanceof Course course) {
             course.setCourseInfo(itemDto);
+        } else {
+            throw new IllegalInstanceTypeException("해당 메서드는 Course 타입만 사용 가능합니다.");
         }
+
     }
 }
