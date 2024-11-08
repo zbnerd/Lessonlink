@@ -5,6 +5,7 @@ import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.domain.order.Order;
+import com.lessonlink.domain.post.Post;
 import com.lessonlink.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -55,6 +56,11 @@ public class Member extends BaseTimeEntity {
     @ToString.Exclude
     @JsonIgnore
     private List<Order> orders = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    @ToString.Exclude
+    @JsonIgnore
+    private List<Post> posts = new ArrayList<>();
 
     public void setMemberInfo(MemberDto memberDto) {
 

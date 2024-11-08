@@ -1,9 +1,14 @@
 package com.lessonlink.domain.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lessonlink.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,11 +21,17 @@ public class Comment extends BaseTimeEntity {
 
     private String contents;
 
+    @Setter
     @JoinColumn(name = "post_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
-    @JoinColumn(name = "sub_comment_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Comment subComment;
+    @JoinColumn(name = "sub_comment_id")
+    private Comment parentComment;
+
+    @JsonIgnore
+    @ToString.Exclude
+    @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> subComments = new ArrayList<>();
 }

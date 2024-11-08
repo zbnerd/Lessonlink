@@ -2,12 +2,12 @@ package com.lessonlink.domain.post;
 
 
 import com.lessonlink.domain.common.BaseTimeEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.lessonlink.domain.order.OrderItem;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,5 +19,13 @@ public class Tag extends BaseTimeEntity {
     private Long id;
     private String tag;
 
+    @OneToMany(mappedBy = "tag")
+    private List<PostTag> postTags;
+
+    //== 연관관계 메서드 ==//
+    public void addPostTag(PostTag postTag) {
+        postTags.add(postTag);
+        postTag.setTag(this);
+    }
 
 }
