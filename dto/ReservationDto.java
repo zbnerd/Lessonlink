@@ -1,6 +1,5 @@
 package com.lessonlink.dto;
 
-import com.lessonlink.domain.item.Course;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,13 +15,11 @@ import java.time.LocalDate;
 @Getter
 @Slf4j
 public class ReservationDto {
-    private Course course;
     private String studentMemberIdSecretKey;
     private LocalDate reservationDate;
 
     // `Builder` 클래스에서 전달된 값을 통해 `ReservationDto` 객체를 생성하는 생성자
     private ReservationDto(Builder builder) {
-        this.course = builder.course;
         this.studentMemberIdSecretKey = builder.studentMemberIdSecretKey;
         this.reservationDate = builder.reservationDate;
     }
@@ -33,14 +30,8 @@ public class ReservationDto {
      * `ReservationDto` 객체를 생성합니다.
      */
     public static class Builder {
-        private Course course;
         private String studentMemberIdSecretKey;
         private LocalDate reservationDate;
-
-        public Builder course(Course course) {
-            this.course = course;
-            return this;
-        }
 
         public Builder studentMemberIdSecretKey(String studentMemberIdSecretKey) {
             this.studentMemberIdSecretKey = studentMemberIdSecretKey;

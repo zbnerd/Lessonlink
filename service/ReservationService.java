@@ -46,14 +46,14 @@ public class ReservationService {
             for (OrderItem orderItem : order.getOrderItems()) {
 
                 if (orderItem.getItem() instanceof Course course) {
-                    Reservation reservation = new Reservation();
-                    reservation.setReservationInfo(
-                        new ReservationDto.Builder()
-                                .course(course)
-                                .studentMemberIdSecretKey(order.getMember().getId())
-                                .reservationDate(LocalDate.now())
-                                .build()
-                );
+
+                    ReservationDto reservationDto = new ReservationDto.Builder()
+                            .studentMemberIdSecretKey(order.getMember().getId())
+                            .reservationDate(LocalDate.now())
+                            .build();
+
+                    Reservation reservation = Reservation.createReservation(order.getMember(), course, reservationDto);
+
                 reservationIds.add(reservationRepository.save(reservation).getId());
                 }
             }

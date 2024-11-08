@@ -1,17 +1,24 @@
 package com.lessonlink.domain.item;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lessonlink.domain.item.embedded.Duration;
 import com.lessonlink.domain.item.embedded.Period;
 import com.lessonlink.domain.item.embedded.TimeRange;
 import com.lessonlink.domain.item.enums.CourseLevel;
 import com.lessonlink.domain.item.enums.CourseType;
+import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.ItemDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Getter
+@ToString
 public class Course extends Item {
 
     private String teacher_member_id;  // 강의자, 추후에 서브쿼리로 선생님 정보 조회하게하기.
@@ -33,6 +40,11 @@ public class Course extends Item {
     @Enumerated(EnumType.STRING)
     private CourseType courseType;  // 강의 유형 (ONLINE, OFFLINE, HYBRID)
     private String materialUrl;  // 강의 자료 URL
+
+    @JsonIgnore
+    @ToString.Exclude
+    @OneToMany(mappedBy = "course")
+    private List<Reservation> reservations = new ArrayList<>();
 
     public void setCourseInfo(ItemDto itemDto) {
 
