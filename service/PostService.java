@@ -56,6 +56,12 @@ public class PostService {
         postRepository.incrementViews(post.getId());
     }
 
+    /** 좋아요 */
+    @Transactional
+    public void incrementLikess(Post post) {
+        postRepository.incrementLikes(post.getId());
+    }
+
     /** 게시글 수정 */
     @Transactional
     public void updatePost(Long postId, PostDto postDto) {

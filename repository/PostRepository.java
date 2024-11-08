@@ -9,4 +9,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Modifying(clearAutomatically = true)
     @Query("update Post p set p.views = p.views +1 where p.id = :postId")
     void incrementViews(Long postId);
+
+    @Modifying(clearAutomatically = true)
+    @Query("update Post p set p.likes = p.likes +1 where p.id = :postId")
+    void incrementLikes(Long postId);
 }

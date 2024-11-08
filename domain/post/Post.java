@@ -33,6 +33,7 @@ public class Post extends BaseTimeEntity {
     private LocalDateTime createdAt;
 
     private int views;
+    private int likes;
 
     @JoinColumn(name = "post_category_id")
     @ManyToOne(fetch = FetchType.LAZY)
