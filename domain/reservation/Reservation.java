@@ -1,5 +1,7 @@
 package com.lessonlink.domain.reservation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lessonlink.domain.attendance.Attendance;
 import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.item.Course;
 import com.lessonlink.domain.member.Member;
@@ -8,8 +10,11 @@ import com.lessonlink.dto.ReservationDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,6 +34,11 @@ public class Reservation extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Setter
     private ReservationStatus reservationStatus;
+
+    @JsonIgnore
+    @ToString.Exclude
+    @OneToMany(mappedBy = "reservation")
+    private List<Attendance> attendances = new ArrayList<>();
 
     public void setReservationInfo(ReservationDto reservationDto) {
         this.studentMemberIdSecretKey = reservationDto.getStudentMemberIdSecretKey();

@@ -1,8 +1,6 @@
 package com.lessonlink.repository;
 
-import com.lessonlink.domain.member.QMember;
 import com.lessonlink.domain.order.Order;
-import com.lessonlink.domain.order.QOrder;
 import com.lessonlink.domain.order.condition.OrderSearch;
 import com.lessonlink.domain.order.enums.OrderStatus;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -17,8 +15,10 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 import static com.lessonlink.domain.delivery.QDelivery.*;
+import static com.lessonlink.domain.item.QItem.item;
 import static com.lessonlink.domain.member.QMember.*;
 import static com.lessonlink.domain.order.QOrder.*;
+import static com.lessonlink.domain.order.QOrderItem.orderItem;
 
 
 @Repository
@@ -70,6 +70,25 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
                 .join(order.delivery, delivery).fetchJoin()
                 .where(order.id.eq(orderId))
                 .fetchOne();
+    }
+
+    public List<Order> findOrdersByOrderId(Long orderId) {
+        return query
+                .selectFrom(order)
+                .join(order.orderItems, orderItem).fetchJoin()
+                .join(orderItem.item, item).fetchJoin()
+                .where(order.id.eq(orderId))
+                .fetch();
+    }
+
+    public List<Order> findAllWithItem() {
+        return query
+                .selectFrom(order).distinct()
+                .join(order.member, member).fetchJoin()
+                .join(order.delivery, delivery).fetchJoin()
+                .join(order.orderItems, orderItem).fetchJoin()
+                .join(orderItem.item, item).fetchJoin()
+                .fetch();
     }
 
 }

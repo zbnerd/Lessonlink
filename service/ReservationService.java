@@ -10,6 +10,7 @@ import com.lessonlink.dto.ReservationDto;
 import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.exception.ReservationNotAllowedException;
 import com.lessonlink.repository.OrderRepository;
+import com.lessonlink.repository.OrderRepositoryCustomImpl;
 import com.lessonlink.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,13 +28,13 @@ import java.util.List;
 @Slf4j
 public class ReservationService {
 
-    private final OrderRepository orderRepository;
+    private final OrderRepositoryCustomImpl orderRepositoryCustomImpl;
     private final ReservationRepository reservationRepository;
     private final MemberService memberService;
 
     @Transactional
     public List<Long> makeReservation(Long orderId) {
-        List<Order> orders = orderRepository.findOrdersByOrderId(orderId);
+        List<Order> orders = orderRepositoryCustomImpl.findOrdersByOrderId(orderId);
 
         List<Long> reservationIds = new ArrayList<>();
 

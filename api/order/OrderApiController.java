@@ -78,7 +78,7 @@ public class OrderApiController {
      */
     @GetMapping("/api/beta-v3/orders")
     public List<OrderResponseDto> ordersV3() {
-        List<Order> orders = orderRepository.findAllWithItem();
+        List<Order> orders = orderRepositoryCustomImpl.findAllWithItem();
         return orders.stream()
                 .map(OrderResponseDto::new)
                 .collect(toList());
