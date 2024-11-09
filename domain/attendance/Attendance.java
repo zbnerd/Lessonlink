@@ -4,15 +4,19 @@ import com.lessonlink.domain.attendance.embedded.AttendanceDateTime;
 import com.lessonlink.domain.attendance.enums.AttendanceStatus;
 import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.reservation.Reservation;
+import com.lessonlink.domain.reservation.enums.ReservationStatus;
 import com.lessonlink.dto.AttendanceDto;
+import com.lessonlink.exception.AttendanceUpdateNotAllowedException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalTime;
 
 @Entity
 @Getter
+@ToString
 public class Attendance extends BaseTimeEntity {
     @Id @GeneratedValue
     @Column(name = "attendance_id")
@@ -44,17 +48,26 @@ public class Attendance extends BaseTimeEntity {
     //==비즈니스 로직==//
     /** 출석체크 **/
     public void checkPresent() {
+        validateReservationStatus();
         this.setAttendanceStatus(AttendanceStatus.PRESENT);
     }
 
     /** 지각 **/
     public void checkLate() {
+        validateReservationStatus();
         this.setAttendanceStatus(AttendanceStatus.LATE);
     }
 
     /** 결석 **/
     public void checkAbsent() {
+        validateReservationStatus();
         this.setAttendanceStatus(AttendanceStatus.ABSENT);
+    }
+
+    private void validateReservationStatus() {
+        if (reservation.getReservationStatus() == ReservationStatus.CANCELED) {
+            throw new AttendanceUpdateNotAllowedException("예약이 취소된 건에 관한 출결은 변경할 수 없습니다.");
+        }
     }
 
     /** 체크아웃 **/

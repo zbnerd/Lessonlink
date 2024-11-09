@@ -15,14 +15,18 @@ import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
+import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.AddressDto;
 import com.lessonlink.dto.ItemDto;
 import com.lessonlink.dto.MemberDto;
 import com.lessonlink.repository.MemberRepository;
+import com.lessonlink.repository.ReservationRepository;
+import com.lessonlink.service.AttendanceService;
 import com.lessonlink.service.ReservationService;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +48,7 @@ public class InitDb {
         initService.basicDbInit2();
         initService.hundredDbInit();
         initService.reservationTestData();
+        initService.attendanceTestData();
     }
 
     @Component
@@ -55,6 +60,8 @@ public class InitDb {
         private final MemberRepository memberRepository;
         private final ReservationService reservationService;
         private final PasswordEncoder passwordEncoder;
+        private final ReservationRepository reservationRepository;
+        private final AttendanceService attendanceService;
 
         public void basicDbInit1() {
             Member student = createMember(
@@ -413,6 +420,15 @@ public class InitDb {
                 em.persist(order);
 
                 reservationService.makeReservation(order.getId());
+            }
+
+        }
+
+        public void attendanceTestData() {
+            List<Reservation> reservations = reservationRepository.findByCourseId(25L, PageRequest.of(0, 1000));
+
+            for (Reservation reservation : reservations) {
+                attendanceService.checkIn(reservation.getId());
             }
         }
 

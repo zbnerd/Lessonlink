@@ -47,6 +47,11 @@ public class AttendanceApiController {
         return new Result(new UpdateAttendanceStatusResponseDto(attendanceId));
     }
 
+    @GetMapping("/api/v1/courses/{courseId}/attendances")
+    public Result getAttendances(@PathVariable Long courseId) {
+        return new Result(attendanceService.getStudentAttendanceInfo(courseId));
+    }
+
     @Data
     static class MakeAttendanceRequestDto {
         private Long reservationId;

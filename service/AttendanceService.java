@@ -3,16 +3,20 @@ package com.lessonlink.service;
 import com.lessonlink.domain.attendance.Attendance;
 import com.lessonlink.domain.attendance.enums.AttendanceStatus;
 import com.lessonlink.domain.reservation.Reservation;
+import com.lessonlink.domain.reservation.enums.ReservationStatus;
 import com.lessonlink.dto.AttendanceDto;
+import com.lessonlink.dto.StudentAttendanceInfoDto;
+import com.lessonlink.exception.AttendanceCreateNotAllowedException;
 import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.AttendanceRepository;
+import com.lessonlink.repository.AttendanceRepositoryCustomImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,12 +25,15 @@ public class AttendanceService {
 
     private final AttendanceRepository attendanceRepository;
     private final ReservationService reservationService;
+    private final AttendanceRepositoryCustomImpl attendanceRepositoryCustomImpl;
 
 
     @Transactional
     public Long checkIn(Long reservationId) {
 
         Reservation reservation = reservationService.findOne(reservationId);
+
+        validateReservationStatus(reservation);
 
         Attendance attendance = new Attendance();
         attendance.setAttendanceInfo(
@@ -74,5 +81,15 @@ public class AttendanceService {
     public void deleteAttendance(Long attendanceId) {
         Attendance foundAttendance = findOne(attendanceId);
         attendanceRepository.delete(foundAttendance);
+    }
+
+    public List<StudentAttendanceInfoDto> getStudentAttendanceInfo(Long courseId) {
+        return attendanceRepositoryCustomImpl.findStudentAttendanceInfoByCourseId(courseId);
+    }
+
+    private void validateReservationStatus(Reservation reservation) {
+        if (reservation.getReservationStatus() == ReservationStatus.CANCELED) {
+            throw new AttendanceCreateNotAllowedException("예약이 취소된 건은 출결정보에 등록할 수 없습니다.");
+        }
     }
 }
