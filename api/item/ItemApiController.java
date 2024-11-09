@@ -24,7 +24,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-
 @RestController
 @RequiredArgsConstructor
 public class ItemApiController {
@@ -52,7 +51,6 @@ public class ItemApiController {
      *
      * @return `CreateItemResponse` 객체, 생성된 책의 ID를 포함하여 반환
      */
-
     @PostMapping("/api/v1/items/book")
     public ItemResponse createBook(
             @RequestBody @Valid BookRequest request
@@ -88,7 +86,6 @@ public class ItemApiController {
      *
      * @return `CreateItemResponse` 객체로 생성된 강의의 ID를 포함하여 반환
      */
-
     @PostMapping("/api/v1/items/course")
     public ItemResponse createCourse(
             @RequestBody @Valid CourseRequest request
@@ -121,7 +118,6 @@ public class ItemApiController {
      *
      * @return `ItemResponse` 객체로, 수정된 책의 ID를 포함하여 반환
      */
-
     @PutMapping("/api/v1/items/book/{id}")
     public ItemResponse updateBook(
             @PathVariable Long id,
@@ -157,7 +153,6 @@ public class ItemApiController {
      *
      * @return `ItemResponse` 객체로, 수정된 강의의 ID를 포함하여 반환
      */
-
     @PutMapping("/api/v1/items/course/{id}")
     public ItemResponse updateCourse(
             @PathVariable Long id,
@@ -177,7 +172,6 @@ public class ItemApiController {
      *
      * @return `Result` 객체로, 조회된 아이템 리스트(`ItemInfo` 객체 리스트)를 포함하여 반환
      */
-
     @GetMapping("/api/v1/items")
     public Result allItems() {
         List<Item> findItems = itemService.findItems();
@@ -204,6 +198,11 @@ public class ItemApiController {
         return new Result(foundItem);
     }
 
+    /**
+     * BookRequest 객체를 통해 `ItemDto` 객체를 생성하는 메서드입니다.
+     * @param request 책 아이템 생성을 위한 요청 객체
+     * @return ItemDto 객체로 생성된 책 정보를 포함
+     */
     private static ItemDto buildBookInfo(BookRequest request) {
         return new ItemDto.BookBuilder()
                 .author(request.getAuthor())
@@ -220,6 +219,11 @@ public class ItemApiController {
                 .build();
     }
 
+    /**
+     * CourseRequest 객체를 통해 `ItemDto` 객체를 생성하는 메서드입니다.
+     * @param request 강의 아이템 생성을 위한 요청 객체
+     * @return ItemDto 객체로 생성된 강의 정보를 포함
+     */
     private static ItemDto buildCourseInfo(CourseRequest request) {
         return new ItemDto.CourseBuilder()
                 .teacherId(request.getTeacher())
@@ -236,12 +240,12 @@ public class ItemApiController {
                 .build();
     }
 
-
-
+    /**
+     * 아이템 생성 시 공통 필드를 포함하는 요청 데이터를 담는 클래스입니다.
+     */
     @Data
     static class ItemRequest {
 
-        // 공통 필드 (Item에서 상속된 필드)
         @NotBlank(message = "Item name is required")
         private String name;
         @NotNull(message = "Price is required")
@@ -251,12 +255,13 @@ public class ItemApiController {
         @NotNull(message = "Stock quantity is required")
         @Positive(message = "Stock quantity must be greater than 0")
         private int stockQuantity;
-
     }
+
+    /**
+     * 강의(Course) 아이템 생성을 위한 요청 데이터를 담는 클래스입니다.
+     */
     @Data
     static class CourseRequest extends ItemRequest {
-
-        // Course 관련 필드
 
         private String teacher;
         private String description;
@@ -269,12 +274,13 @@ public class ItemApiController {
         private CourseLevel level;
         private CourseType courseType;
         private String materialUrl;
-
     }
+
+    /**
+     * 책(Book) 아이템 생성을 위한 요청 데이터를 담는 클래스입니다.
+     */
     @Data
     static class BookRequest extends ItemRequest {
-
-        // Book 관련 필드
 
         private String author;
         private String isbn;
@@ -286,13 +292,18 @@ public class ItemApiController {
         private String summary;
     }
 
+    /**
+     * 아이템 생성 및 수정 요청의 응답 데이터를 담는 클래스입니다.
+     */
     @Data
     @AllArgsConstructor
     static class ItemResponse {
-
         private Long id;
     }
 
+    /**
+     * 모든 아이템을 조회할 때 반환하는 기본 정보를 담는 클래스입니다.
+     */
     @Data
     @AllArgsConstructor
     static class ItemInfo {
@@ -301,6 +312,9 @@ public class ItemApiController {
         private int stockQuantity;
     }
 
+    /**
+     * 강의 아이템 조회 시 반환하는 세부 정보를 담는 클래스입니다.
+     */
     @Data
     @AllArgsConstructor
     static class CourseInfo {
@@ -322,6 +336,9 @@ public class ItemApiController {
         private String materialUrl;
     }
 
+    /**
+     * 책 아이템 조회 시 반환하는 세부 정보를 담는 클래스입니다.
+     */
     @Data
     @AllArgsConstructor
     static class BookInfo {

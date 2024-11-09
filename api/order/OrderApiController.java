@@ -158,11 +158,11 @@ public class OrderApiController {
     }
 
     @PatchMapping("/api/v1/orders/{orderId}/delivery-comp")
-    public StartOrderDeliveryCompResponseDto startOrderDeliveryComp(
+    public SetOrderDeliveryCompResponseDto startOrderDeliveryComp(
             @PathVariable @Valid Long orderId
     ) {
         orderService.deliveryCompleted(orderId);
-        return new StartOrderDeliveryCompResponseDto(orderId);
+        return new SetOrderDeliveryCompResponseDto(orderId);
     }
 
     /**
@@ -243,11 +243,11 @@ public class OrderApiController {
     }
 
     @Data
-    class StartOrderDeliveryCompResponseDto {
+    class SetOrderDeliveryCompResponseDto {
         private Long orderId;
         private DeliveryStatus deliveryStatus;
 
-        public StartOrderDeliveryCompResponseDto(Long orderId) {
+        public SetOrderDeliveryCompResponseDto(Long orderId) {
             this.orderId = orderId;
             this.deliveryStatus = orderService.findOne(orderId).getDelivery().getStatus();
         }

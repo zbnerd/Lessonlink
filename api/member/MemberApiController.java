@@ -38,7 +38,6 @@ public class MemberApiController {
      *
      * @return 생성된 회원의 고유 ID를 포함하는 `CreateMemberResponse` 객체
      */
-
     @PostMapping("/api/v1/members")
     public CreateMemberResponse signUpMember(
             @RequestBody @Valid CreateMemberRequest request
@@ -49,6 +48,13 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
+    /**
+     * 회원 로그인 요청을 처리합니다. 회원의 ID와 비밀번호를 검증하고,
+     * 로그인에 성공하면 해당 회원의 정보를 응답으로 반환합니다.
+     *
+     * @param request 회원의 로그인 정보를 포함한 `MemberLoginRequest` 객체
+     * @return 로그인 성공 시 회원 정보를 포함한 `Result` 객체
+     */
     @PostMapping("/api/v1/members/login")
     public Result loginMember(
             @RequestBody @Valid MemberLoginRequest request
@@ -133,6 +139,9 @@ public class MemberApiController {
         return new Result(foundMember);
     }
 
+    /**
+     * 새로운 회원 생성을 위한 요청 데이터를 담는 클래스입니다.
+     */
     @Data
     static class CreateMemberRequest {
         private String memberId; // 실제 사용되는 멤버 id
@@ -144,17 +153,27 @@ public class MemberApiController {
         private Role role; // ADMIN : 관리자, TEACHER : 선생님, STUDENT : 학생
     }
 
+    /**
+     * 회원 생성에 대한 응답 데이터를 담는 클래스입니다.
+     */
     @Data
     @AllArgsConstructor
     static class CreateMemberResponse {
         private String id;
     }
 
+    /**
+     * 회원 업데이트 요청 데이터를 담는 클래스입니다.
+     */
     @Data
     static class UpdateMemberRequest {
         private String password;
         private String email;
     }
+
+    /**
+     * 회원 업데이트에 대한 응답 데이터를 담는 클래스입니다.
+     */
     @Data
     @AllArgsConstructor
     static class UpdateMemberResponse {
@@ -163,12 +182,18 @@ public class MemberApiController {
         private String email;
     }
 
+    /**
+     * 회원 로그인 요청 데이터를 담는 클래스입니다.
+     */
     @Data
     static class MemberLoginRequest {
         private String memberId;
         private String password;
     }
 
+    /**
+     * 회원 정보를 담는 클래스입니다.
+     */
     @Data
     @AllArgsConstructor
     static class MemberInfo {
@@ -180,6 +205,12 @@ public class MemberApiController {
         private Role role; // ADMIN : 관리자, TEACHER : 선생님, STUDENT : 학생
     }
 
+    /**
+     * CreateMemberRequest의 데이터를 사용하여 MemberDto 객체를 생성합니다.
+     *
+     * @param request 회원 생성을 위한 요청 데이터를 포함하는 객체
+     * @return MemberDto 객체
+     */
     private MemberDto buildMemberInfo(CreateMemberRequest request) {
 
         return new MemberDto.Builder()
