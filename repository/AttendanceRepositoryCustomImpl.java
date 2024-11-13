@@ -4,6 +4,7 @@ import com.lessonlink.dto.StudentAttendanceInfoDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import static com.lessonlink.domain.attendance.QAttendance.attendance;
 import static com.lessonlink.domain.item.QCourse.course;
 import static com.lessonlink.domain.reservation.QReservation.reservation;
 
+@Repository
 public class AttendanceRepositoryCustomImpl implements AttendanceRepositoryCustom {
 
     private final EntityManager em;
