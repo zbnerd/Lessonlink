@@ -6,13 +6,18 @@ import com.lessonlink.domain.post.PostCategory;
 import com.lessonlink.domain.post.PostTag;
 import com.lessonlink.domain.post.Tag;
 import com.lessonlink.dto.PostDto;
+import com.lessonlink.dto.PostInfoDto;
 import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.MemberRepository;
 import com.lessonlink.repository.PostCategoryRepository;
 import com.lessonlink.repository.PostRepository;
+import com.lessonlink.repository.PostRepositoryCustomImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,12 +26,18 @@ public class PostService {
 
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
+    private final PostRepositoryCustomImpl postRepositoryCustomImpl;
     private final PostCategoryRepository postCategoryRepository;
 
     /** 게시글 조회 */
     public Post findOne(Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("게시글이 존재하지 않습니다. ID: " + postId));
+    }
+
+    /** 게시글 목록 조회 */
+    public List<PostInfoDto> findAllByPostCategoryId(Long postCategoryId, Pageable pageable) {
+        return postRepositoryCustomImpl.findAllByPostCategoryId(postCategoryId, pageable);
     }
 
     /** 게시글 등록 */
