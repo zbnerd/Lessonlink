@@ -9,7 +9,6 @@ import com.lessonlink.domain.post.Tag;
 import com.lessonlink.dto.PostDto;
 import com.lessonlink.dto.PostInfoDto;
 import com.lessonlink.exception.NotFoundException;
-import com.lessonlink.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

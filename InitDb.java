@@ -25,7 +25,6 @@ import com.lessonlink.dto.AddressDto;
 import com.lessonlink.dto.ItemDto;
 import com.lessonlink.dto.MemberDto;
 import com.lessonlink.dto.PostDto;
-import com.lessonlink.repository.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
