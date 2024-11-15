@@ -1,5 +1,6 @@
 package com.lessonlink;
 
+import com.lessonlink.adapter.repository.*;
 import com.lessonlink.aop.annotation.LogExecutionTime;
 import com.lessonlink.application.service.*;
 import com.lessonlink.domain.common.embedded.Address;

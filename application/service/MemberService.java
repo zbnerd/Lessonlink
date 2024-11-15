@@ -5,7 +5,7 @@ import com.lessonlink.domain.member.Member;
 import com.lessonlink.dto.AddressDto;
 import com.lessonlink.exception.DuplicateMemberException;
 import com.lessonlink.exception.NotFoundException;
-import com.lessonlink.repository.MemberRepository;
+import com.lessonlink.adapter.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

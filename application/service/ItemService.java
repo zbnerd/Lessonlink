@@ -1,19 +1,17 @@
 package com.lessonlink.application.service;
 
-import com.lessonlink.domain.attendance.Attendance;
 import com.lessonlink.domain.item.Book;
 import com.lessonlink.domain.item.Course;
 import com.lessonlink.domain.item.Item;
 import com.lessonlink.dto.ItemDto;
 import com.lessonlink.exception.IllegalInstanceTypeException;
 import com.lessonlink.exception.NotFoundException;
-import com.lessonlink.repository.ItemRepository;
+import com.lessonlink.adapter.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)

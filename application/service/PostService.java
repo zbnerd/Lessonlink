@@ -1,5 +1,6 @@
 package com.lessonlink.application.service;
 
+import com.lessonlink.adapter.repository.*;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.post.Post;
 import com.lessonlink.domain.post.PostCategory;
