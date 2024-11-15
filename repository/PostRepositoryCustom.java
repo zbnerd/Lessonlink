@@ -1,4 +1,4 @@
-package com.lessonlink.adapter.repository;
+package com.lessonlink.repository;
 
 public interface PostRepositoryCustom {
 }

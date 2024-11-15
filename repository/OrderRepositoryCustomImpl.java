@@ -1,4 +1,4 @@
-package com.lessonlink.adapter.repository;
+package com.lessonlink.repository;
 
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.condition.OrderSearch;

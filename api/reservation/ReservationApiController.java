@@ -4,7 +4,7 @@ import com.lessonlink.api.Result;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.domain.reservation.enums.ReservationStatus;
-import com.lessonlink.adapter.repository.ReservationRepository;
+import com.lessonlink.repository.ReservationRepository;
 import com.lessonlink.application.service.ReservationService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
