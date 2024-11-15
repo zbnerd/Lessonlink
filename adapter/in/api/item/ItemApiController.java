@@ -1,6 +1,6 @@
-package com.lessonlink.api.item;
+package com.lessonlink.adapter.in.api.item;
 
-import com.lessonlink.api.Result;
+import com.lessonlink.adapter.in.api.Result;
 import com.lessonlink.domain.item.*;
 import com.lessonlink.domain.item.embedded.Duration;
 import com.lessonlink.domain.item.embedded.Period;

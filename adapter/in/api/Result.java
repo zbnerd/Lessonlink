@@ -1,4 +1,4 @@
-package com.lessonlink.api;
+package com.lessonlink.adapter.in.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
