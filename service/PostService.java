@@ -8,10 +8,7 @@ import com.lessonlink.domain.post.Tag;
 import com.lessonlink.dto.PostDto;
 import com.lessonlink.dto.PostInfoDto;
 import com.lessonlink.exception.NotFoundException;
-import com.lessonlink.repository.MemberRepository;
-import com.lessonlink.repository.PostCategoryRepository;
-import com.lessonlink.repository.PostRepository;
-import com.lessonlink.repository.PostRepositoryCustomImpl;
+import com.lessonlink.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,6 +25,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostRepositoryCustomImpl postRepositoryCustomImpl;
     private final PostCategoryRepository postCategoryRepository;
+    private final TagRepository tagRepository;
 
     /** 게시글 조회 */
     public Post findOne(Long postId) {
@@ -40,15 +38,42 @@ public class PostService {
         return postRepositoryCustomImpl.findAllByPostCategoryId(postCategoryId, pageable);
     }
 
-    /** 게시글 등록 */
+    /** 게시글 등록 - memberIdSecretKey */
     @Transactional
-    public Long post(String memberIdSecretKey, Long postCategoryId, PostDto postDto, Tag tag) {
+    public Long postByMemberIdSecretKey(String memberIdSecretKey, Long postCategoryId, PostDto postDto, Long tagId) {
         //엔티티 조회
         Member member = memberRepository.findById(memberIdSecretKey)
                 .orElseThrow(() -> new NotFoundException("회원이 존재하지 않습니다. ID: " + memberIdSecretKey));
 
         PostCategory postCategory = postCategoryRepository.findById(postCategoryId)
                 .orElseThrow(() -> new NotFoundException("카테고리가 존재하지 않습니다. ID: " + postCategoryId));
+
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(() -> new NotFoundException("태그가 존재하지 않습니다. ID: " + tagId));
+
+        //포스트 태그 생성
+        PostTag postTag = PostTag.createPostTag(tag);
+
+        //게시글 생성
+        Post post = Post.createPost(member, postCategory, postDto, postTag);
+
+        //게시글 저장
+        postRepository.save(post);
+        return post.getId();
+    }
+
+    /** 게시글 등록 - memberId */
+    @Transactional
+    public Long postByMemberId(String memberId, Long postCategoryId, PostDto postDto, Long tagId) {
+        //엔티티 조회
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new NotFoundException("회원이 존재하지 않습니다. ID: " + memberId));
+
+        PostCategory postCategory = postCategoryRepository.findById(postCategoryId)
+                .orElseThrow(() -> new NotFoundException("카테고리가 존재하지 않습니다. ID: " + postCategoryId));
+
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(() -> new NotFoundException("태그가 존재하지 않습니다. ID: " + tagId));
 
         //포스트 태그 생성
         PostTag postTag = PostTag.createPostTag(tag);

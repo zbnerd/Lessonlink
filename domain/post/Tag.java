@@ -19,7 +19,7 @@ public class Tag extends BaseTimeEntity {
     private Long id;
     private String tag;
 
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     private List<PostTag> postTags;
 
     //== 연관관계 메서드 ==//
