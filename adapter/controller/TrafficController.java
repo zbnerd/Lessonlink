@@ -1,4 +1,4 @@
-package com.lessonlink.controller;
+package com.lessonlink.adapter.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
