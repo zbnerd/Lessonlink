@@ -1,5 +1,6 @@
 package com.lessonlink;
 
+import com.lessonlink.aop.annotation.LogExecutionTime;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.delivery.Delivery;
 import com.lessonlink.domain.delivery.enums.DeliveryStatus;
@@ -15,14 +16,15 @@ import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
+import com.lessonlink.domain.post.PostCategory;
+import com.lessonlink.domain.post.Tag;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.AddressDto;
 import com.lessonlink.dto.ItemDto;
 import com.lessonlink.dto.MemberDto;
-import com.lessonlink.repository.MemberRepository;
-import com.lessonlink.repository.ReservationRepository;
-import com.lessonlink.service.AttendanceService;
-import com.lessonlink.service.ReservationService;
+import com.lessonlink.dto.PostDto;
+import com.lessonlink.repository.*;
+import com.lessonlink.service.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +44,7 @@ public class InitDb {
 
     private final InitService initService;
 
+
     @PostConstruct
     public void init() {
         initService.basicDbInit1();
@@ -49,6 +52,7 @@ public class InitDb {
         initService.hundredDbInit();
         initService.reservationTestData();
         initService.attendanceTestData();
+        initService.postTestData();
     }
 
     @Component
@@ -58,10 +62,17 @@ public class InitDb {
 
         private final EntityManager em;
         private final MemberRepository memberRepository;
+        private final MemberRepositoryBulk memberRepositoryBulk;
         private final ReservationService reservationService;
         private final PasswordEncoder passwordEncoder;
         private final ReservationRepository reservationRepository;
         private final AttendanceService attendanceService;
+        private final MemberService memberService;
+        private final PostService postService;
+        private final OrderService orderService;
+        private final OrderRepository orderRepository;
+        private final ItemRepository itemRepository;
+
 
         public void basicDbInit1() {
             Member student = createMember(
@@ -249,6 +260,7 @@ public class InitDb {
             em.persist(order);
         }
 
+        @LogExecutionTime
         public void hundredDbInit() {
 
             List<Member> members = new ArrayList<>();
@@ -282,7 +294,7 @@ public class InitDb {
                         )
                 );
 
-                em.persist(member1);
+//                em.persist(member1);
                 members.add(member1);
 
                 Member member2 = createMember(
@@ -309,10 +321,13 @@ public class InitDb {
                                         .build()
                         )
                 );
-                em.persist(member2);
+//                em.persist(member2);
                 members.add(member2);
                 teachers.add(member2);
+
             }
+
+            memberRepositoryBulk.bulkInsertMembers(members);
 
 
             for (int i = 0; i < 10; i++) {
@@ -333,7 +348,8 @@ public class InitDb {
                 );
 
                 books.add(book);
-                em.persist(book);
+//                em.persist(book);
+
 
                 Course course = createCourse(
                         new ItemDto.CourseBuilder()
@@ -353,17 +369,22 @@ public class InitDb {
                 );
 
                 courses.add(course);
-                em.persist(course);
+//                em.persist(course);
             }
+            itemRepository.saveAll(books);
+            itemRepository.saveAll(courses);
 
+            List<Order> orders = new ArrayList<>();
             for (int i = 0; i < members.size(); i++) {
                 OrderItem orderItem1 = OrderItem.createOrderItem(books.get(i % 10), books.get(i % 10).getPrice(), (i % 10) + 1);
                 OrderItem orderItem2 = OrderItem.createOrderItem(courses.get(i % 10), courses.get(i % 10).getPrice(), (i % 10) + 1);
 
                 Order order = Order.createOrder(members.get(i), createDelivery(members.get(i)), orderItem1, orderItem2);
-
-                em.persist(order);
+                orders.add(order);
+//                em.persist(order);
             }
+
+            orderRepository.saveAll(orders);
 
         }
 
@@ -432,6 +453,21 @@ public class InitDb {
             }
         }
 
+        public void postTestData() {
+
+            Member member = memberService.findOneByMemberId("test1");
+
+            PostCategory postCategory1 = createPostCategory("자유게시판");
+            em.persist(postCategory1);
+
+            Tag tag = new Tag();
+            em.persist(tag);
+
+            PostDto postDto = createPostDto("test게시글제목", "test게시글내용", false);
+
+            postService.postByMemberIdSecretKey(member.getId(), postCategory1.getId(), postDto, tag.getId());
+        }
+
         private Member createMember(MemberDto memberDto){
             Member member = new Member();
             member.setMemberInfo(memberDto);
@@ -459,6 +495,18 @@ public class InitDb {
             Delivery delivery = new Delivery();
             delivery.setDeliveryInfo(member.getAddress(), DeliveryStatus.READY);
             return delivery;
+        }
+
+        private PostDto createPostDto(String postTitle, String postContents, boolean isNotices) {
+            return new PostDto.Builder()
+                    .title(postTitle)
+                    .contents(postContents)
+                    .isNotice(isNotices)
+                    .build();
+        }
+
+        private PostCategory createPostCategory(String postCategoryName) {
+            return new PostCategory(postCategoryName);
         }
     }
 }
