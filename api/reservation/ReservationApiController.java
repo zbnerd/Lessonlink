@@ -1,6 +1,6 @@
-package com.lessonlink.adapter.in.api.reservation;
+package com.lessonlink.api.reservation;
 
-import com.lessonlink.adapter.in.api.Result;
+import com.lessonlink.api.Result;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.domain.reservation.enums.ReservationStatus;

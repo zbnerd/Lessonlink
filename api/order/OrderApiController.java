@@ -1,6 +1,6 @@
-package com.lessonlink.adapter.in.api.order;
+package com.lessonlink.api.order;
 
-import com.lessonlink.adapter.in.api.Result;
+import com.lessonlink.api.Result;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.delivery.enums.DeliveryStatus;
 import com.lessonlink.domain.order.Order;

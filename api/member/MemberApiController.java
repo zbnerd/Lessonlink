@@ -1,6 +1,6 @@
-package com.lessonlink.adapter.in.api.member;
+package com.lessonlink.api.member;
 
-import com.lessonlink.adapter.in.api.Result;
+import com.lessonlink.api.Result;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.dto.MemberDto;

@@ -1,4 +1,4 @@
-package com.lessonlink.adapter.in.api.order;
+package com.lessonlink.api.order;
 
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.order.Order;

@@ -1,6 +1,6 @@
-package com.lessonlink.adapter.in.api.post;
+package com.lessonlink.api.post;
 
-import com.lessonlink.adapter.in.api.Result;
+import com.lessonlink.api.Result;
 import com.lessonlink.domain.post.Post;
 import com.lessonlink.dto.PostDto;
 import com.lessonlink.application.service.PostService;
