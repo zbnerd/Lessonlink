@@ -1,4 +1,4 @@
-package com.lessonlink.service;
+package com.lessonlink.application.service;
 
 import com.lessonlink.domain.delivery.Delivery;
 import com.lessonlink.domain.delivery.enums.DeliveryStatus;

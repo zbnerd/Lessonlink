@@ -1,4 +1,4 @@
-package com.lessonlink.service;
+package com.lessonlink.application.service;
 
 import com.lessonlink.domain.attendance.Attendance;
 import com.lessonlink.domain.item.Book;

@@ -1,4 +1,4 @@
-package com.lessonlink.service;
+package com.lessonlink.application.service;
 
 import com.lessonlink.domain.item.Course;
 import com.lessonlink.domain.member.Member;
@@ -9,7 +9,6 @@ import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.dto.ReservationDto;
 import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.exception.ReservationNotAllowedException;
-import com.lessonlink.repository.OrderRepository;
 import com.lessonlink.repository.OrderRepositoryCustomImpl;
 import com.lessonlink.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;

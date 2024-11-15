@@ -1,7 +1,7 @@
 package com.lessonlink.adapter.in.api.attendance;
 
 import com.lessonlink.adapter.in.api.Result;
-import com.lessonlink.service.AttendanceService;
+import com.lessonlink.application.service.AttendanceService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;

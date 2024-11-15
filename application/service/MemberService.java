@@ -1,4 +1,4 @@
-package com.lessonlink.service;
+package com.lessonlink.application.service;
 
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.member.Member;

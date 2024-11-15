@@ -9,7 +9,7 @@ import com.lessonlink.domain.order.condition.OrderSearch;
 import com.lessonlink.domain.order.enums.OrderStatus;
 import com.lessonlink.repository.OrderRepository;
 import com.lessonlink.repository.OrderRepositoryCustomImpl;
-import com.lessonlink.service.OrderService;
+import com.lessonlink.application.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;

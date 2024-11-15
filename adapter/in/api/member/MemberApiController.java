@@ -5,7 +5,7 @@ import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.dto.MemberDto;
 import com.lessonlink.exception.AuthenticationFailedException;
-import com.lessonlink.service.MemberService;
+import com.lessonlink.application.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;

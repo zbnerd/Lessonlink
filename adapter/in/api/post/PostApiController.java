@@ -3,7 +3,7 @@ package com.lessonlink.adapter.in.api.post;
 import com.lessonlink.adapter.in.api.Result;
 import com.lessonlink.domain.post.Post;
 import com.lessonlink.dto.PostDto;
-import com.lessonlink.service.PostService;
+import com.lessonlink.application.service.PostService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,7 @@
 package com.lessonlink;
 
 import com.lessonlink.aop.annotation.LogExecutionTime;
+import com.lessonlink.application.service.*;
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.delivery.Delivery;
 import com.lessonlink.domain.delivery.enums.DeliveryStatus;
@@ -24,7 +25,6 @@ import com.lessonlink.dto.ItemDto;
 import com.lessonlink.dto.MemberDto;
 import com.lessonlink.dto.PostDto;
 import com.lessonlink.repository.*;
-import com.lessonlink.service.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
