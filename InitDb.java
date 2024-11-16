@@ -294,7 +294,7 @@ public class InitDb {
                         )
                 );
 
-//                em.persist(member1);
+                em.persist(member1);
                 members.add(member1);
 
                 Member member2 = createMember(
@@ -321,13 +321,12 @@ public class InitDb {
                                         .build()
                         )
                 );
-//                em.persist(member2);
+                em.persist(member2);
                 members.add(member2);
                 teachers.add(member2);
 
             }
 
-            memberRepositoryBulk.bulkInsertMembers(members);
 
 
             for (int i = 0; i < 10; i++) {
