@@ -1,4 +1,4 @@
-package com.lessonlink.dto;
+package com.lessonlink.dto.info;
 
 import com.lessonlink.domain.attendance.embedded.AttendanceDateTime;
 import com.lessonlink.domain.attendance.enums.AttendanceStatus;

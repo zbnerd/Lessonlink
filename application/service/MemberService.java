@@ -2,7 +2,7 @@ package com.lessonlink.application.service;
 
 import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.member.Member;
-import com.lessonlink.dto.AddressDto;
+import com.lessonlink.dto.builder.AddressDto;
 import com.lessonlink.exception.DuplicateMemberException;
 import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.MemberRepository;

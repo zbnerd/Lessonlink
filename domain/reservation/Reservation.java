@@ -6,7 +6,7 @@ import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.item.Course;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.reservation.enums.ReservationStatus;
-import com.lessonlink.dto.ReservationDto;
+import com.lessonlink.dto.builder.ReservationDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

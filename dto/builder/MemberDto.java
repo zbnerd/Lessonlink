@@ -1,4 +1,4 @@
-package com.lessonlink.dto;
+package com.lessonlink.dto.builder;
 
 import com.lessonlink.domain.member.enums.Role;
 import lombok.Builder;

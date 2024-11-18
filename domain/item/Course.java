@@ -7,7 +7,7 @@ import com.lessonlink.domain.item.embedded.TimeRange;
 import com.lessonlink.domain.item.enums.CourseLevel;
 import com.lessonlink.domain.item.enums.CourseType;
 import com.lessonlink.domain.reservation.Reservation;
-import com.lessonlink.dto.ItemDto;
+import com.lessonlink.dto.builder.ItemDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;

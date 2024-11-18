@@ -1,6 +1,6 @@
 package com.lessonlink.domain.common.embedded;
 
-import com.lessonlink.dto.AddressDto;
+import com.lessonlink.dto.builder.AddressDto;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

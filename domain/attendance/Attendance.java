@@ -5,7 +5,7 @@ import com.lessonlink.domain.attendance.enums.AttendanceStatus;
 import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.reservation.Reservation;
 import com.lessonlink.domain.reservation.enums.ReservationStatus;
-import com.lessonlink.dto.AttendanceDto;
+import com.lessonlink.dto.builder.AttendanceDto;
 import com.lessonlink.exception.AttendanceUpdateNotAllowedException;
 import jakarta.persistence.*;
 import lombok.Getter;

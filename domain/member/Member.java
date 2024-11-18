@@ -6,7 +6,7 @@ import com.lessonlink.domain.common.embedded.Address;
 import com.lessonlink.domain.member.enums.Role;
 import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.post.Post;
-import com.lessonlink.dto.MemberDto;
+import com.lessonlink.dto.builder.MemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

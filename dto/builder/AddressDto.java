@@ -1,4 +1,4 @@
-package com.lessonlink.dto;
+package com.lessonlink.dto.builder;
 
 import lombok.Builder;
 import lombok.Getter;

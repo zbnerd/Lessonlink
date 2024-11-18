@@ -3,7 +3,7 @@ package com.lessonlink.domain.post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lessonlink.domain.common.BaseTimeEntity;
 import com.lessonlink.domain.member.Member;
-import com.lessonlink.dto.PostDto;
+import com.lessonlink.dto.builder.PostDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

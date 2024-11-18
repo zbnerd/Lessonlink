@@ -1,4 +1,4 @@
-package com.lessonlink.dto;
+package com.lessonlink.dto.info;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

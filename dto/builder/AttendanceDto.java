@@ -1,4 +1,4 @@
-package com.lessonlink.dto;
+package com.lessonlink.dto.builder;
 
 import com.lessonlink.domain.attendance.enums.AttendanceStatus;
 import com.lessonlink.domain.reservation.Reservation;

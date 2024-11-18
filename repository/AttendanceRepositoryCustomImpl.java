@@ -1,6 +1,6 @@
 package com.lessonlink.repository;
 
-import com.lessonlink.dto.StudentAttendanceInfoDto;
+import com.lessonlink.dto.info.StudentAttendanceInfoDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

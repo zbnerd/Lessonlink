@@ -2,7 +2,7 @@ package com.lessonlink.domain.item;
 
 import com.lessonlink.domain.item.enums.BookFormat;
 import com.lessonlink.domain.item.enums.BookLanguage;
-import com.lessonlink.dto.ItemDto;
+import com.lessonlink.dto.builder.ItemDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

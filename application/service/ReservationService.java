@@ -6,7 +6,7 @@ import com.lessonlink.domain.order.Order;
 import com.lessonlink.domain.order.OrderItem;
 import com.lessonlink.domain.order.enums.OrderStatus;
 import com.lessonlink.domain.reservation.Reservation;
-import com.lessonlink.dto.ReservationDto;
+import com.lessonlink.dto.builder.ReservationDto;
 import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.exception.ReservationNotAllowedException;
 import com.lessonlink.repository.OrderRepositoryCustomImpl;

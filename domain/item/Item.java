@@ -1,7 +1,7 @@
 package com.lessonlink.domain.item;
 
 import com.lessonlink.domain.common.BaseTimeEntity;
-import com.lessonlink.dto.ItemDto;
+import com.lessonlink.dto.builder.ItemDto;
 import com.lessonlink.exception.NotEnoughStockException;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -9,7 +9,7 @@ import com.lessonlink.domain.item.enums.BookFormat;
 import com.lessonlink.domain.item.enums.BookLanguage;
 import com.lessonlink.domain.item.enums.CourseLevel;
 import com.lessonlink.domain.item.enums.CourseType;
-import com.lessonlink.dto.ItemDto;
+import com.lessonlink.dto.builder.ItemDto;
 import com.lessonlink.application.service.ItemService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
