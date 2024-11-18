@@ -1,9 +1,9 @@
 package com.lessonlink.api.order;
 
-import com.lessonlink.domain.common.embedded.Address;
-import com.lessonlink.domain.order.Order;
-import com.lessonlink.domain.order.condition.OrderSearch;
-import com.lessonlink.domain.order.enums.OrderStatus;
+import com.lessonlink.domain.db.common.embedded.Address;
+import com.lessonlink.domain.db.order.Order;
+import com.lessonlink.domain.db.order.condition.OrderSearch;
+import com.lessonlink.domain.db.order.enums.OrderStatus;
 import com.lessonlink.repository.order.OrderRepository;
 import com.lessonlink.repository.order.OrderRepositoryCustomImpl;
 import lombok.Data;

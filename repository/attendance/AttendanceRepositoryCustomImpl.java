@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.lessonlink.domain.attendance.QAttendance.attendance;
-import static com.lessonlink.domain.item.QCourse.course;
-import static com.lessonlink.domain.reservation.QReservation.reservation;
+import static com.lessonlink.domain.db.attendance.QAttendance.attendance;
+import static com.lessonlink.domain.db.item.QCourse.course;
+import static com.lessonlink.domain.db.reservation.QReservation.reservation;
 
 @Repository
 public class AttendanceRepositoryCustomImpl implements AttendanceRepositoryCustom {

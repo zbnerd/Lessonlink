@@ -1,8 +1,8 @@
 package com.lessonlink.application.service;
 
-import com.lessonlink.domain.item.Book;
-import com.lessonlink.domain.item.Course;
-import com.lessonlink.domain.item.Item;
+import com.lessonlink.domain.db.item.Book;
+import com.lessonlink.domain.db.item.Course;
+import com.lessonlink.domain.db.item.Item;
 import com.lessonlink.dto.builder.ItemDto;
 import com.lessonlink.exception.IllegalInstanceTypeException;
 import com.lessonlink.exception.NotFoundException;

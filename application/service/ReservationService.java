@@ -1,11 +1,11 @@
 package com.lessonlink.application.service;
 
-import com.lessonlink.domain.item.Course;
-import com.lessonlink.domain.member.Member;
-import com.lessonlink.domain.order.Order;
-import com.lessonlink.domain.order.OrderItem;
-import com.lessonlink.domain.order.enums.OrderStatus;
-import com.lessonlink.domain.reservation.Reservation;
+import com.lessonlink.domain.db.item.Course;
+import com.lessonlink.domain.db.member.Member;
+import com.lessonlink.domain.db.order.Order;
+import com.lessonlink.domain.db.order.OrderItem;
+import com.lessonlink.domain.db.order.enums.OrderStatus;
+import com.lessonlink.domain.db.reservation.Reservation;
 import com.lessonlink.dto.builder.ReservationDto;
 import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.exception.ReservationNotAllowedException;

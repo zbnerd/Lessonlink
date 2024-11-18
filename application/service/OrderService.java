@@ -1,12 +1,12 @@
 package com.lessonlink.application.service;
 
-import com.lessonlink.domain.delivery.Delivery;
-import com.lessonlink.domain.delivery.enums.DeliveryStatus;
-import com.lessonlink.domain.item.Item;
-import com.lessonlink.domain.member.Member;
-import com.lessonlink.domain.order.Order;
-import com.lessonlink.domain.order.OrderItem;
-import com.lessonlink.domain.order.condition.OrderSearch;
+import com.lessonlink.domain.db.delivery.Delivery;
+import com.lessonlink.domain.db.delivery.enums.DeliveryStatus;
+import com.lessonlink.domain.db.item.Item;
+import com.lessonlink.domain.db.member.Member;
+import com.lessonlink.domain.db.order.Order;
+import com.lessonlink.domain.db.order.OrderItem;
+import com.lessonlink.domain.db.order.condition.OrderSearch;
 import com.lessonlink.exception.NotFoundException;
 import com.lessonlink.repository.item.ItemRepository;
 import com.lessonlink.repository.member.MemberRepository;

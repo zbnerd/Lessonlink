@@ -1,7 +1,7 @@
 package com.lessonlink.api.post;
 
 import com.lessonlink.api.Result;
-import com.lessonlink.domain.post.Post;
+import com.lessonlink.domain.db.post.Post;
 import com.lessonlink.dto.builder.PostDto;
 import com.lessonlink.application.service.PostService;
 import com.lessonlink.dto.info.PostInfoDto;

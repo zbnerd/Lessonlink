@@ -1,14 +1,16 @@
 package com.lessonlink.api.item;
 
 import com.lessonlink.api.Result;
-import com.lessonlink.domain.item.*;
-import com.lessonlink.domain.item.embedded.Duration;
-import com.lessonlink.domain.item.embedded.Period;
-import com.lessonlink.domain.item.embedded.TimeRange;
-import com.lessonlink.domain.item.enums.BookFormat;
-import com.lessonlink.domain.item.enums.BookLanguage;
-import com.lessonlink.domain.item.enums.CourseLevel;
-import com.lessonlink.domain.item.enums.CourseType;
+import com.lessonlink.domain.db.item.Book;
+import com.lessonlink.domain.db.item.Course;
+import com.lessonlink.domain.db.item.Item;
+import com.lessonlink.domain.db.item.embedded.Duration;
+import com.lessonlink.domain.db.item.embedded.Period;
+import com.lessonlink.domain.db.item.embedded.TimeRange;
+import com.lessonlink.domain.db.item.enums.BookFormat;
+import com.lessonlink.domain.db.item.enums.BookLanguage;
+import com.lessonlink.domain.db.item.enums.CourseLevel;
+import com.lessonlink.domain.db.item.enums.CourseType;
 import com.lessonlink.dto.builder.ItemDto;
 import com.lessonlink.application.service.ItemService;
 import jakarta.validation.Valid;

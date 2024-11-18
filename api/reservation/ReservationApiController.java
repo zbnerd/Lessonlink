@@ -1,9 +1,9 @@
 package com.lessonlink.api.reservation;
 
 import com.lessonlink.api.Result;
-import com.lessonlink.domain.member.Member;
-import com.lessonlink.domain.reservation.Reservation;
-import com.lessonlink.domain.reservation.enums.ReservationStatus;
+import com.lessonlink.domain.db.member.Member;
+import com.lessonlink.domain.db.reservation.Reservation;
+import com.lessonlink.domain.db.reservation.enums.ReservationStatus;
 import com.lessonlink.repository.reservation.ReservationRepository;
 import com.lessonlink.application.service.ReservationService;
 import lombok.Data;

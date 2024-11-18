@@ -1,12 +1,12 @@
 package com.lessonlink.dto.builder;
 
-import com.lessonlink.domain.item.embedded.Duration;
-import com.lessonlink.domain.item.embedded.Period;
-import com.lessonlink.domain.item.embedded.TimeRange;
-import com.lessonlink.domain.item.enums.BookFormat;
-import com.lessonlink.domain.item.enums.BookLanguage;
-import com.lessonlink.domain.item.enums.CourseLevel;
-import com.lessonlink.domain.item.enums.CourseType;
+import com.lessonlink.domain.db.item.embedded.Duration;
+import com.lessonlink.domain.db.item.embedded.Period;
+import com.lessonlink.domain.db.item.embedded.TimeRange;
+import com.lessonlink.domain.db.item.enums.BookFormat;
+import com.lessonlink.domain.db.item.enums.BookLanguage;
+import com.lessonlink.domain.db.item.enums.CourseLevel;
+import com.lessonlink.domain.db.item.enums.CourseType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

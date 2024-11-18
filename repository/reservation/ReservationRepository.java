@@ -1,6 +1,6 @@
 package com.lessonlink.repository.reservation;
 
-import com.lessonlink.domain.reservation.Reservation;
+import com.lessonlink.domain.db.reservation.Reservation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 

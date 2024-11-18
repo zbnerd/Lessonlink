@@ -1,8 +1,8 @@
 package com.lessonlink.api.member;
 
 import com.lessonlink.api.Result;
-import com.lessonlink.domain.member.Member;
-import com.lessonlink.domain.member.enums.Role;
+import com.lessonlink.domain.db.member.Member;
+import com.lessonlink.domain.db.member.enums.Role;
 import com.lessonlink.dto.builder.MemberDto;
 import com.lessonlink.exception.AuthenticationFailedException;
 import com.lessonlink.application.service.MemberService;

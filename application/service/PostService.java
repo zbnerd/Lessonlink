@@ -1,10 +1,10 @@
 package com.lessonlink.application.service;
 
-import com.lessonlink.domain.member.Member;
-import com.lessonlink.domain.post.Post;
-import com.lessonlink.domain.post.PostCategory;
-import com.lessonlink.domain.post.PostTag;
-import com.lessonlink.domain.post.Tag;
+import com.lessonlink.domain.db.member.Member;
+import com.lessonlink.domain.db.post.Post;
+import com.lessonlink.domain.db.post.PostCategory;
+import com.lessonlink.domain.db.post.PostTag;
+import com.lessonlink.domain.db.post.Tag;
 import com.lessonlink.dto.builder.PostDto;
 import com.lessonlink.dto.info.PostInfoDto;
 import com.lessonlink.exception.NotFoundException;

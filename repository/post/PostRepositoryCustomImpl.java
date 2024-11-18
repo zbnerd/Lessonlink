@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.lessonlink.domain.post.QPost.post;
-import static com.lessonlink.domain.post.QPostCategory.postCategory;
+import static com.lessonlink.domain.db.post.QPost.post;
+import static com.lessonlink.domain.db.post.QPostCategory.postCategory;
 
 
 @Repository

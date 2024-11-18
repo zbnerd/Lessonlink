@@ -1,12 +1,12 @@
 package com.lessonlink.api.order;
 
 import com.lessonlink.api.Result;
-import com.lessonlink.domain.common.embedded.Address;
-import com.lessonlink.domain.delivery.enums.DeliveryStatus;
-import com.lessonlink.domain.order.Order;
-import com.lessonlink.domain.order.OrderItem;
-import com.lessonlink.domain.order.condition.OrderSearch;
-import com.lessonlink.domain.order.enums.OrderStatus;
+import com.lessonlink.domain.db.common.embedded.Address;
+import com.lessonlink.domain.db.delivery.enums.DeliveryStatus;
+import com.lessonlink.domain.db.order.Order;
+import com.lessonlink.domain.db.order.OrderItem;
+import com.lessonlink.domain.db.order.condition.OrderSearch;
+import com.lessonlink.domain.db.order.enums.OrderStatus;
 import com.lessonlink.repository.order.OrderRepository;
 import com.lessonlink.repository.order.OrderRepositoryCustomImpl;
 import com.lessonlink.application.service.OrderService;

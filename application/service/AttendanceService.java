@@ -1,9 +1,9 @@
 package com.lessonlink.application.service;
 
-import com.lessonlink.domain.attendance.Attendance;
-import com.lessonlink.domain.attendance.enums.AttendanceStatus;
-import com.lessonlink.domain.reservation.Reservation;
-import com.lessonlink.domain.reservation.enums.ReservationStatus;
+import com.lessonlink.domain.db.attendance.Attendance;
+import com.lessonlink.domain.db.attendance.enums.AttendanceStatus;
+import com.lessonlink.domain.db.reservation.Reservation;
+import com.lessonlink.domain.db.reservation.enums.ReservationStatus;
 import com.lessonlink.dto.builder.AttendanceDto;
 import com.lessonlink.dto.info.StudentAttendanceInfoDto;
 import com.lessonlink.exception.AttendanceCreateNotAllowedException;

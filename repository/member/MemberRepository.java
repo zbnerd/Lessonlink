@@ -1,6 +1,6 @@
 package com.lessonlink.repository.member;
 
-import com.lessonlink.domain.member.Member;
+import com.lessonlink.domain.db.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

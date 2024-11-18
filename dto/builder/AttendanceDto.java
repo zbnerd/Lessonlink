@@ -1,7 +1,7 @@
 package com.lessonlink.dto.builder;
 
-import com.lessonlink.domain.attendance.enums.AttendanceStatus;
-import com.lessonlink.domain.reservation.Reservation;
+import com.lessonlink.domain.db.attendance.enums.AttendanceStatus;
+import com.lessonlink.domain.db.reservation.Reservation;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

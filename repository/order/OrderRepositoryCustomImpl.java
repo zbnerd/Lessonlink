@@ -1,8 +1,8 @@
 package com.lessonlink.repository.order;
 
-import com.lessonlink.domain.order.Order;
-import com.lessonlink.domain.order.condition.OrderSearch;
-import com.lessonlink.domain.order.enums.OrderStatus;
+import com.lessonlink.domain.db.order.Order;
+import com.lessonlink.domain.db.order.condition.OrderSearch;
+import com.lessonlink.domain.db.order.enums.OrderStatus;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -14,11 +14,11 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-import static com.lessonlink.domain.delivery.QDelivery.*;
-import static com.lessonlink.domain.item.QItem.item;
-import static com.lessonlink.domain.member.QMember.*;
-import static com.lessonlink.domain.order.QOrder.*;
-import static com.lessonlink.domain.order.QOrderItem.orderItem;
+import static com.lessonlink.domain.db.delivery.QDelivery.*;
+import static com.lessonlink.domain.db.item.QItem.item;
+import static com.lessonlink.domain.db.member.QMember.*;
+import static com.lessonlink.domain.db.order.QOrder.*;
+import static com.lessonlink.domain.db.order.QOrderItem.orderItem;
 
 
 @Repository
