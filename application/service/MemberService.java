@@ -25,12 +25,21 @@ public class MemberService {
     /**
      * 회원가입
      */
+
     @Transactional
     public String signUp(Member member) {
         validateDuplicateMember(member); // 중복회원 검증
         member.updatePassword(passwordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
         return member.getId();
+    }
+
+    public void signAllUp(List<Member> members) {
+        for (Member member : members) {
+            validateDuplicateMember(member);
+        }
+
+        memberRepository.saveAll(members);
     }
 
     private void validateDuplicateMember(Member member) {
