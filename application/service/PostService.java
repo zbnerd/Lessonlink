@@ -106,6 +106,7 @@ public class PostService {
     }
 
     /** 게시글 삭제 **/
+    @Transactional
     public void deletePost(Long postId) {
         Post post = findOne(postId);
         postRepository.delete(post);

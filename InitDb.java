@@ -54,6 +54,7 @@ public class InitDb {
         initService.reservationTestData();
         initService.attendanceTestData();
         initService.postTestData();
+        initService.postFindTestData();
     }
 
     @Component
@@ -70,7 +71,6 @@ public class InitDb {
         private final AttendanceService attendanceService;
         private final MemberService memberService;
         private final PostService postService;
-        private final OrderService orderService;
         private final OrderRepository orderRepository;
         private final ItemRepository itemRepository;
 
@@ -466,6 +466,40 @@ public class InitDb {
             PostDto postDto = createPostDto("test게시글제목", "test게시글내용", false);
 
             postService.postByMemberIdSecretKey(member.getId(), postCategory1.getId(), postDto, tag.getId());
+        }
+
+        public void postFindTestData() {
+            List<Member> members = new ArrayList<>();
+            List<PostCategory> postCategories = new ArrayList<>();
+            String[] postCategoryNames = {"질문게시판", "자료공유게시판", "리뷰후기게시판", "모임게시판"};
+            List<PostDto> postDtos = new ArrayList<>();
+
+            for (int i = 0; i < 20; i++) {
+                members.add(memberService.findOneByMemberId("teststudent"+new Random().nextInt(50)));
+            }
+
+            for (String postCategoryName : postCategoryNames) {
+                PostCategory postCategory = createPostCategory(postCategoryName);
+                postCategories.add(postCategory);
+                em.persist(postCategory);
+            }
+
+            Tag tag = new Tag();
+            em.persist(tag);
+
+            for (int i = 0; i < 500; i++) {
+                postDtos.add(createPostDto("test게시글제목"+i, "test게시글내용"+i, (i%50)==1));
+            }
+
+            for (PostDto postDto : postDtos) {
+                postService.postByMemberIdSecretKey(
+                        members.get(new Random().nextInt(members.size())).getId(),
+                        postCategories.get(new Random().nextInt(postCategories.size())).getId(),
+                        postDto,
+                        tag.getId()
+                        );
+            }
+
         }
 
         private Member createMember(MemberDto memberDto){
