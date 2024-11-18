@@ -1,4 +1,4 @@
-package com.lessonlink.repository;
+package com.lessonlink.repository.post;
 
 import com.lessonlink.dto.info.PostInfoDto;
 import com.querydsl.core.types.Projections;

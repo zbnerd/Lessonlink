@@ -6,7 +6,7 @@ import com.lessonlink.domain.item.Item;
 import com.lessonlink.dto.builder.ItemDto;
 import com.lessonlink.exception.IllegalInstanceTypeException;
 import com.lessonlink.exception.NotFoundException;
-import com.lessonlink.repository.ItemRepository;
+import com.lessonlink.repository.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.lessonlink.repository;
+package com.lessonlink.repository.member;
 
 public interface MemberRepositoryCustom {
 }

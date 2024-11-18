@@ -1,4 +1,4 @@
-package com.lessonlink.repository;
+package com.lessonlink.repository.attendance;
 
 import com.lessonlink.domain.attendance.Attendance;
 import org.springframework.data.jpa.repository.JpaRepository;

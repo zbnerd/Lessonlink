@@ -1,4 +1,4 @@
-package com.lessonlink.repository;
+package com.lessonlink.repository.attendance;
 
 import com.lessonlink.dto.info.StudentAttendanceInfoDto;
 import com.querydsl.core.types.Projections;

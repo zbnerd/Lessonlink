@@ -1,4 +1,4 @@
-package com.lessonlink.repository;
+package com.lessonlink.repository.reservation;
 
 import com.lessonlink.domain.reservation.Reservation;
 import org.springframework.data.domain.Pageable;

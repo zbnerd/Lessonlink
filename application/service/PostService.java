@@ -1,6 +1,5 @@
 package com.lessonlink.application.service;
 
-import com.lessonlink.repository.*;
 import com.lessonlink.domain.member.Member;
 import com.lessonlink.domain.post.Post;
 import com.lessonlink.domain.post.PostCategory;
@@ -9,6 +8,11 @@ import com.lessonlink.domain.post.Tag;
 import com.lessonlink.dto.builder.PostDto;
 import com.lessonlink.dto.info.PostInfoDto;
 import com.lessonlink.exception.NotFoundException;
+import com.lessonlink.repository.member.MemberRepository;
+import com.lessonlink.repository.post.PostCategoryRepository;
+import com.lessonlink.repository.post.PostRepository;
+import com.lessonlink.repository.post.PostRepositoryCustomImpl;
+import com.lessonlink.repository.post.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

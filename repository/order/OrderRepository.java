@@ -1,4 +1,4 @@
-package com.lessonlink.repository;
+package com.lessonlink.repository.order;
 
 import com.lessonlink.domain.order.Order;
 import org.springframework.data.domain.Page;

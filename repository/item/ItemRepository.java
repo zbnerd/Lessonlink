@@ -1,4 +1,4 @@
-package com.lessonlink.repository;
+package com.lessonlink.repository.item;
 
 import com.lessonlink.domain.item.Item;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.lessonlink.repository;
+package com.lessonlink.repository.post;
 
 import com.lessonlink.domain.post.PostCategory;
 import org.springframework.data.jpa.repository.JpaRepository;

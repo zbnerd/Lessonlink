@@ -1,4 +1,4 @@
-package com.lessonlink.repository;
+package com.lessonlink.repository.member;
 
 import com.lessonlink.domain.member.Member;
 import lombok.RequiredArgsConstructor;

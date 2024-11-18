@@ -1,4 +1,4 @@
-package com.lessonlink.repository;
+package com.lessonlink.repository.attendance;
 
 public interface AttendanceRepositoryCustom {
 }
