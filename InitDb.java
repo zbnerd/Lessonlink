@@ -37,6 +37,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Component
 @RequiredArgsConstructor
@@ -76,7 +77,7 @@ public class InitDb {
 
         public void basicDbInit1() {
             Member student = createMember(
-                    new MemberDto.Builder()
+                    MemberDto.builder()
                             .memberId("test1")
                             .password(passwordEncoder.encode("test1"))
                             .name("testName")
@@ -88,7 +89,7 @@ public class InitDb {
             );
             student.setAddress(
                     createAddress(
-                            new AddressDto.Builder()
+                            AddressDto.builder()
                                     .metropolitanCityProvince("서울특별시")
                                     .cityDistrict("강남구")
                                     .village("삼성동")
@@ -101,7 +102,7 @@ public class InitDb {
             em.persist(student);
 
             Member teacher = createMember(
-                    new MemberDto.Builder()
+                    MemberDto.builder()
                             .memberId("teacher1")
                             .password(passwordEncoder.encode("teachPass1"))
                             .name("teacherName")
@@ -114,7 +115,7 @@ public class InitDb {
 
             teacher.setAddress(
                     createAddress(
-                            new AddressDto.Builder()
+                            AddressDto.builder()
                                     .metropolitanCityProvince("경기도")
                                     .cityDistrict("성남시 분당구")
                                     .village("정자동")
@@ -128,7 +129,7 @@ public class InitDb {
             em.persist(teacher);
 
             Book book = createBook(
-                    new ItemDto.BookBuilder()
+                    ItemDto.builder()
                             .author("Joshua Bloch")
                             .isbn("9780134685991")
                             .publisher("Addison-Wesley")
@@ -145,7 +146,7 @@ public class InitDb {
             em.persist(book);
 
             Course course = createCourse(
-                    new ItemDto.CourseBuilder()
+                    ItemDto.builder()
                             .teacherId(teacher.getId())
                             .description("자바 프로그래밍의 기초를 배울 수 있는 강의로, 변수, 제어문, 객체 지향 개념을 다룹니다.")
                             .period(new Period(LocalDate.of(2024, 11, 1), LocalDate.of(2025, 1, 31)))
@@ -169,7 +170,7 @@ public class InitDb {
 
         public void basicDbInit2() {
             Member member = createMember(
-                    new MemberDto.Builder()
+                    MemberDto.builder()
                             .memberId("test2")
                             .password(passwordEncoder.encode("test2"))
                             .name("testName2")
@@ -182,7 +183,7 @@ public class InitDb {
 
             member.setAddress(
                     createAddress(
-                            new AddressDto.Builder()
+                            AddressDto.builder()
                                     .metropolitanCityProvince("부산광역시")
                                     .cityDistrict("해운대구")
                                     .village("우동")
@@ -194,7 +195,7 @@ public class InitDb {
             );
 
             Member teacher = createMember(
-                    new MemberDto.Builder()
+                    MemberDto.builder()
                             .memberId("teacher3")
                             .password(passwordEncoder.encode("teachPass3"))
                             .name("teacherThree")
@@ -207,7 +208,7 @@ public class InitDb {
 
             teacher.setAddress(
                     createAddress(
-                            new AddressDto.Builder()
+                            AddressDto.builder()
                                     .metropolitanCityProvince("대구광역시")
                                     .cityDistrict("수성구")
                                     .village("범어동")
@@ -221,7 +222,7 @@ public class InitDb {
             em.persist(member);
 
             Book book = createBook(
-                    new ItemDto.BookBuilder()
+                    ItemDto.builder()
                             .author("이펙티브 자바 저자 한국어 번역")
                             .isbn("9788966262281")
                             .publisher("한빛미디어")
@@ -238,7 +239,7 @@ public class InitDb {
             em.persist(book);
 
             Course course = createCourse(
-                    new ItemDto.CourseBuilder()
+                    ItemDto.builder()
                             .teacherId(teacher.getId())
                             .description("스프링 프레임워크의 고급 기능을 깊이 있게 다루는 강의로, AOP, 트랜잭션 관리, 스프링 시큐리티 등을 포함합니다.")
                             .period(new Period(LocalDate.of(2024, 12, 1), LocalDate.of(2025, 2, 28)))
@@ -270,11 +271,11 @@ public class InitDb {
 
             for (int i = 0; i < 50; i++) {
                 Member member1 = createMember(
-                        new MemberDto.Builder()
+                        MemberDto.builder()
                                 .memberId("teststudent" + i)
                                 .password(passwordEncoder.encode("teststudent" + i))
                                 .name("ImStudent" + i)
-                                .birthDate(LocalDate.of(1995 + (i/10), 10, 14))
+                                .birthDate(LocalDate.of(new Random().nextInt(1984,2004), new Random().nextInt(1, 12), new Random().nextInt(5,25)))
                                 .phoneNumber("010-2222-" + (1000+i))
                                 .email("tester"+i+"@gmail.com")
                                 .role(Role.STUDENT)
@@ -283,7 +284,7 @@ public class InitDb {
 
                 member1.setAddress(
                         createAddress(
-                                new AddressDto.Builder()
+                                AddressDto.builder()
                                         .metropolitanCityProvince("부산광역시")
                                         .cityDistrict("해운대구")
                                         .village("우동")
@@ -298,11 +299,11 @@ public class InitDb {
                 members.add(member1);
 
                 Member member2 = createMember(
-                        new MemberDto.Builder()
+                        MemberDto.builder()
                                 .memberId("testteacher" + i)
                                 .password(passwordEncoder.encode("testteacher" + i))
                                 .name("ImTeacher" + i)
-                                .birthDate(LocalDate.of(1984 + (i/10), 2, 14))
+                                .birthDate(LocalDate.of(new Random().nextInt(1984,2004), new Random().nextInt(1, 12), new Random().nextInt(5,25)))
                                 .phoneNumber("010-2212-" + (1000+i))
                                 .email("testteacher"+i+"@gmail.com")
                                 .role(Role.TEACHER)
@@ -311,7 +312,7 @@ public class InitDb {
 
                 member2.setAddress(
                         createAddress(
-                                new AddressDto.Builder()
+                                AddressDto.builder()
                                         .metropolitanCityProvince("서울특별시")
                                         .cityDistrict("노원구")
                                         .village("공릉동")
@@ -331,7 +332,7 @@ public class InitDb {
 
             for (int i = 0; i < 10; i++) {
                 Book book = createBook(
-                        new ItemDto.BookBuilder()
+                        ItemDto.builder()
                                 .author("Author " + i)
                                 .isbn("978-3-16-148410-" + i)
                                 .publisher("Publisher " + i)
@@ -351,7 +352,7 @@ public class InitDb {
 
 
                 Course course = createCourse(
-                        new ItemDto.CourseBuilder()
+                        ItemDto.builder()
                                 .teacherId(teachers.get(i).getId())
                                 .description("Description for Course " + i)
                                 .period(new Period(LocalDate.of(2024, i % 12 + 1, 1),
@@ -390,7 +391,7 @@ public class InitDb {
         public void reservationTestData() {
             List<Member> allMember = memberRepository.findAll(); // 한 강의에 모두 예약할 멤버들
             Member teacher = createMember(
-                    new MemberDto.Builder()
+                    MemberDto.builder()
                             .memberId("famous_teacher")
                             .password(passwordEncoder.encode("teachPass3"))
                             .name("teacherThree")
@@ -403,7 +404,7 @@ public class InitDb {
 
             teacher.setAddress(
                     createAddress(
-                            new AddressDto.Builder()
+                            AddressDto.builder()
                                     .metropolitanCityProvince("대구광역시")
                                     .cityDistrict("수성구")
                                     .village("범어동")
@@ -417,7 +418,7 @@ public class InitDb {
             em.persist(teacher);
 
             Course course = createCourse(
-                    new ItemDto.CourseBuilder()
+                    ItemDto.builder()
                             .teacherId(teacher.getId())
                             .description("스프링 프레임워크의 고급 기능을 깊이 있게 다루는 강의로, AOP, 트랜잭션 관리, 스프링 시큐리티 등을 포함합니다.")
                             .period(new Period(LocalDate.of(2024, 12, 1), LocalDate.of(2025, 2, 28)))
@@ -497,7 +498,7 @@ public class InitDb {
         }
 
         private PostDto createPostDto(String postTitle, String postContents, boolean isNotices) {
-            return new PostDto.Builder()
+            return PostDto.builder()
                     .title(postTitle)
                     .contents(postContents)
                     .isNotice(isNotices)

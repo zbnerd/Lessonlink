@@ -47,7 +47,7 @@ public class ReservationService {
 
                 if (orderItem.getItem() instanceof Course course) {
 
-                    ReservationDto reservationDto = new ReservationDto.Builder()
+                    ReservationDto reservationDto = ReservationDto.builder()
                             .studentMemberIdSecretKey(order.getMember().getId())
                             .reservationDate(LocalDate.now())
                             .build();

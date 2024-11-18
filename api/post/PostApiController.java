@@ -22,7 +22,7 @@ public class PostApiController {
         Long postId = postService.postByMemberId(
                 request.getMemberId(),
                 request.getPostCategoryId(),
-                new PostDto.Builder()
+                PostDto.builder()
                         .title(request.getTitle())
                         .isNotice(request.getIsNotice())
                         .contents(request.getContents())
@@ -56,7 +56,7 @@ public class PostApiController {
 //            @RequestBody UpdatePostRequestDto request
 //    ) {
 //        Post post = postService.findOne(postId);
-//        post.updatePost(new PostDto.Builder()
+//        post.updatePost(new PostDto.builder()
 //                .title(request.getTitle())
 //                .isNotice(request.getIsNotice())
 //                .contents(request.getContents())

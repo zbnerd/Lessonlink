@@ -204,7 +204,7 @@ public class ItemApiController {
      * @return ItemDto 객체로 생성된 책 정보를 포함
      */
     private static ItemDto buildBookInfo(BookRequest request) {
-        return new ItemDto.BookBuilder()
+        return ItemDto.builder()
                 .author(request.getAuthor())
                 .isbn(request.getIsbn())
                 .publisher(request.getPublisher())
@@ -225,7 +225,7 @@ public class ItemApiController {
      * @return ItemDto 객체로 생성된 강의 정보를 포함
      */
     private static ItemDto buildCourseInfo(CourseRequest request) {
-        return new ItemDto.CourseBuilder()
+        return ItemDto.builder()
                 .teacherId(request.getTeacher())
                 .description(request.getDescription())
                 .period(new Period(request.getStartDate(), request.getEndDate()))

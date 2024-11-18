@@ -213,7 +213,7 @@ public class MemberApiController {
      */
     private MemberDto buildMemberInfo(CreateMemberRequest request) {
 
-        return new MemberDto.Builder()
+        return MemberDto.builder()
                 .memberId(request.getMemberId())
                 .password(request.getPassword())
                 .name(request.getName())

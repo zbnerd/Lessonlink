@@ -50,7 +50,7 @@ public class Course extends Item {
 
         super.setItemInfo(itemDto);
 
-        this.teacher_member_id = itemDto.getTeacher_id();
+        this.teacher_member_id = itemDto.getTeacherId();
         this.description = itemDto.getDescription();
         this.period = itemDto.getPeriod();
         this.timeRange = itemDto.getTimeRange();

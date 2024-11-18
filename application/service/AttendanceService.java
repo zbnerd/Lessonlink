@@ -37,7 +37,7 @@ public class AttendanceService {
 
         Attendance attendance = new Attendance();
         attendance.setAttendanceInfo(
-                new AttendanceDto.Builder()
+                AttendanceDto.builder()
                         .reservation(reservation)
                         .attendanceDate(LocalDate.now())
                         .checkInTime(LocalTime.now().withNano(0))
