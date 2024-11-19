@@ -27,7 +27,6 @@ import com.lessonlink.dto.builder.MemberDto;
 import com.lessonlink.dto.builder.PostDto;
 import com.lessonlink.repository.item.ItemRepository;
 import com.lessonlink.repository.member.MemberRepository;
-import com.lessonlink.repository.member.MemberRedisRepository;
 import com.lessonlink.repository.order.OrderRepository;
 import com.lessonlink.repository.reservation.ReservationRepository;
 import jakarta.annotation.PostConstruct;
