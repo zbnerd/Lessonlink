@@ -2,37 +2,22 @@ package com.lessonlink.kafka.producer;
 
 
 import com.lessonlink.kafka.model.MyMessage;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Sinks;
 
-import java.util.function.Supplier;
+import static com.lessonlink.kafka.model.Topic.MY_JSON_TOPIC;
+
 
 @Component
 @Slf4j
-public class MyProducer implements Supplier<Flux<Message<MyMessage>>> {
+@RequiredArgsConstructor
+public class MyProducer {
 
-    public MyProducer() {
-        log.info("MyProducer init!");
-    }
-
-    private final Sinks.Many<Message<MyMessage>> sinks = Sinks.many().unicast().onBackpressureBuffer();
-
+    private final KafkaTemplate<String, MyMessage> kafkaTemplate;
     public void sendMessage(MyMessage myMessage) {
-        Message<MyMessage> message = MessageBuilder
-                .withPayload(myMessage)
-                .setHeader(KafkaHeaders.KEY, String.valueOf(myMessage.getAge()))
-                .build();
-
-        sinks.emitNext(message, Sinks.EmitFailureHandler.FAIL_FAST);
+        kafkaTemplate.send(MY_JSON_TOPIC, String.valueOf(myMessage.getAge()), myMessage);
     }
 
-    @Override
-    public Flux<Message<MyMessage>> get() {
-        return sinks.asFlux();
-    }
 }
